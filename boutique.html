@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Produits</title>
+  <body>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
@@ -1219,7 +1220,7 @@ renderGrid();
                     <!-- CATÉGORIE 5: JUMIA FORCE -->
                     <a href="category.html?cat=force" class="category-card">
                         <video autoplay muted loop playsinline>
-                            <source src="./uploads/model.mp4" type="video/mp4">
+                            <source src=".model.mp4" type="video/mp4">
                         </video>
                         <div class="category-label">Jumia<br>Force</div>
                     </a>
@@ -1335,5 +1336,885 @@ renderGrid();
     <br> 
   </br>
   </section>
+
+  <section>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+ 
+        .sponsored-section {
+            background: #fff;
+            padding: 40px 0;
+            position: relative;
+        }
+ 
+        .sponsored-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+        }
+ 
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            padding-left: 5px;
+        }
+ 
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+ 
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+ 
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+            border: 1px solid #f0f0f0;
+        }
+ 
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+ 
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #f9f9f9;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+ 
+        .product-card:hover .product-image-container img {
+            transform: scale(1.05);
+        }
+ 
+        .discount-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #ff9800 0%, #ff6b6b 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            z-index: 5;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+ 
+        .product-info {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+ 
+        .product-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            min-height: 38px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+ 
+        .product-pricing {
+            margin-top: auto;
+            margin-bottom: 12px;
+        }
+ 
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 4px;
+        }
+ 
+        .product-original-price {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+        }
+ 
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+ 
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+ 
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+        }
+ 
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #2ecc71;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+        }
+ 
+        .carousel-btn:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+        }
+ 
+        .carousel-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+ 
+        .carousel-btn.prev {
+            left: 10px;
+        }
+ 
+        .carousel-btn.next {
+            right: 10px;
+        }
+ 
+        .divider {
+            height: 4px;
+            background: linear-gradient(90deg, #ffc107 0%, #ff9800 100%);
+            margin: 40px 0 40px 0;
+        }
+ 
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 20px;
+            }
+ 
+            .product-card {
+                min-width: 180px;
+            }
+ 
+            .product-image-container {
+                height: 160px;
+            }
+ 
+            .product-name {
+                font-size: 12px;
+                min-height: 35px;
+            }
+ 
+            .product-price {
+                font-size: 14px;
+            }
+ 
+            .carousel-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .sponsored-section {
+                padding: 30px 0;
+            }
+ 
+            .sponsored-container {
+                padding: 0 10px;
+            }
+ 
+            .section-title {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+ 
+            .product-card {
+                min-width: 150px;
+            }
+ 
+            .product-image-container {
+                height: 140px;
+            }
+ 
+            .product-info {
+                padding: 12px;
+            }
+ 
+            .product-name {
+                font-size: 11px;
+                min-height: 32px;
+            }
+ 
+            .product-price {
+                font-size: 13px;
+            }
+ 
+            .add-to-cart-btn {
+                font-size: 11px;
+                padding: 8px;
+            }
+ 
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+ 
+            .carousel-btn.prev {
+                left: 5px;
+            }
+ 
+            .carousel-btn.next {
+                right: 5px;
+            }
+ 
+            .divider {
+                margin: 30px 0 30px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+ 
+    <!-- SPONSORED PRODUCTS SECTION -->
+    <section class="sponsored-section">
+        <div class="sponsored-container">
+            <h2 class="section-title">Produits Sponsorisés</h2>
+ 
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="scrollSponsoredCarousel(-1)">❮</button>
+                
+                <div class="carousel-track" id="sponsoredCarouselTrack">
+                    
+                    <!-- PRODUIT 1 -->
+                    <div class="product-card" onclick="addToCart('Stabilisateur Pour Réflex', 4599)">
+                        <div class="product-image-container">
+                            <img src="https://via.placeholder.com/220x200?text=Stabilisateur" alt="Stabilisateur">
+                            <div class="discount-badge">-36%</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">SA Stabilisateur Pour Réflex Caméra</div>
+                            <div class="product-pricing">
+                                <div class="product-price">4 599 FCFA</div>
+                                <div class="product-original-price">7 200 FCFA</div>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('Stabilisateur', 4599)">
+                                🛒 Ajouter
+                            </button>
+                        </div>
+                    </div>
+ 
+                    <!-- PRODUIT 2 -->
+                    <div class="product-card" onclick="addToCart('Pisiduo Homme Bleu Cot', 4550)">
+                        <div class="product-image-container">
+                            <img src="https://via.placeholder.com/220x200?text=Vetement" alt="Pisiduo">
+                            <div class="discount-badge">-90%</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Pisiduo Homme Bleu Coton T-shirt</div>
+                            <div class="product-pricing">
+                                <div class="product-price">4 550 FCFA</div>
+                                <div class="product-original-price">45 500 FCFA</div>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('Pisiduo Homme', 4550)">
+                                🛒 Ajouter
+                            </button>
+                        </div>
+                    </div>
+ 
+                    <!-- PRODUIT 3 -->
+                    <div class="product-card" onclick="addToCart('Ensemble Vêtements', 4690)">
+                        <div class="product-image-container">
+                            <img src="https://via.placeholder.com/220x200?text=Ensemble" alt="Ensemble">
+                            <div class="discount-badge">-51%</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Ensemble de 2 Vêtements à Manches</div>
+                            <div class="product-pricing">
+                                <div class="product-price">4 690 FCFA</div>
+                                <div class="product-original-price">9 541 FCFA</div>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('Ensemble Vêtements', 4690)">
+                                🛒 Ajouter
+                            </button>
+                        </div>
+                    </div>
+ 
+                    <!-- PRODUIT 4 -->
+                    <div class="product-card" onclick="addToCart('Lot De 4 Sets De Table', 2100)">
+                        <div class="product-image-container">
+                            <img src="https://via.placeholder.com/220x200?text=Sets+Table" alt="Sets Table">
+                            <div class="discount-badge">-48%</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Lot De 4 Sets De Table Floral</div>
+                            <div class="product-pricing">
+                                <div class="product-price">2 100 FCFA</div>
+                                <div class="product-original-price">4 062 FCFA</div>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('Sets Table', 2100)">
+                                🛒 Ajouter
+                            </button>
+                        </div>
+                    </div>
+ 
+                    <!-- PRODUIT 5 -->
+                    <div class="product-card" onclick="addToCart('Papiers Couleur EVA', 7700)">
+                        <div class="product-image-container">
+                            <img src="https://via.placeholder.com/220x200?text=Papiers" alt="Papiers">
+                            <div class="discount-badge">-69%</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Lot De 4 Papiers Couleur EVA Material</div>
+                            <div class="product-pricing">
+                                <div class="product-price">7 700 FCFA</div>
+                                <div class="product-original-price">24 500 FCFA</div>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('Papiers EVA', 7700)">
+                                🛒 Ajouter
+                            </button>
+                        </div>
+                    </div>
+ 
+                    <!-- PRODUIT 6 -->
+                    <div class="product-card" onclick="addToCart('VEOUNDLE Ensemble', 9800)">
+                        <div class="product-image-container">
+                            <img src="https://via.placeholder.com/220x200?text=Ensemble+Mode" alt="VEOUNDLE">
+                            <div class="discount-badge">-36%</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">VEOUNDLE Ensemble Survêtement Luxe</div>
+                            <div class="product-pricing">
+                                <div class="product-price">9 800 FCFA</div>
+                                <div class="product-original-price">15 335 FCFA</div>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('VEOUNDLE', 9800)">
+                                🛒 Ajouter
+                            </button>
+                        </div>
+                    </div>
+ 
+                    <!-- PRODUIT 7 -->
+                    <div class="product-card" onclick="addToCart('Étagère Rangement', 9800)">
+                        <div class="product-image-container">
+                            <img src="https://via.placeholder.com/220x200?text=Etagere" alt="Étagère">
+                            <div class="discount-badge">-36%</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Étagère De Rangement Murale Design</div>
+                            <div class="product-pricing">
+                                <div class="product-price">9 800 FCFA</div>
+                                <div class="product-original-price">15 335 FCFA</div>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('Étagère', 9800)">
+                                🛒 Ajouter
+                            </button>
+                        </div>
+                    </div>
+ 
+                </div>
+ 
+                <button class="carousel-btn next" onclick="scrollSponsoredCarousel(1)">❯</button>
+            </div>
+ 
+            <div class="divider"></div>
+        </div>
+    </section>
+ 
+    <script>
+        const sponsoredCarouselTrack = document.getElementById('sponsoredCarouselTrack');
+ 
+        // Scroll function
+        function scrollSponsoredCarousel(direction) {
+            const scrollAmount = 280;
+            if (direction === 1) {
+                sponsoredCarouselTrack.scrollLeft += scrollAmount;
+            } else {
+                sponsoredCarouselTrack.scrollLeft -= scrollAmount;
+            }
+            updateSponsoredButtonStates();
+        }
+ 
+        // Update button states
+        function updateSponsoredButtonStates() {
+            const prevBtn = document.querySelector('.carousel-wrapper .carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-wrapper .carousel-btn.next');
+ 
+            prevBtn.disabled = sponsoredCarouselTrack.scrollLeft === 0;
+            nextBtn.disabled = 
+                sponsoredCarouselTrack.scrollLeft >= 
+                sponsoredCarouselTrack.scrollWidth - sponsoredCarouselTrack.clientWidth - 10;
+        }
+ 
+        // Initialize button states on load
+        window.addEventListener('load', updateSponsoredButtonStates);
+ 
+        // Update on scroll
+        sponsoredCarouselTrack.addEventListener('scroll', updateSponsoredButtonStates);
+ 
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') scrollSponsoredCarousel(-1);
+            if (e.key === 'ArrowRight') scrollSponsoredCarousel(1);
+        });
+ 
+        // Add to cart function
+        function addToCart(productName, price) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                font-weight: 600;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = `${productName} (${price} FCFA) ajouté au panier! 🛒`;
+            document.body.appendChild(notification);
+ 
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+ 
+            // Ajouter à localStorage pour un vrai panier
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({
+                name: productName,
+                price: price,
+                quantity: 1,
+                timestamp: new Date()
+            });
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+ 
+        // Animations CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    </section>
+
+  <section>
+  
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .categories-section {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .categories-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .category-card {
+            position: relative;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Background images/images */
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover::before {
+            transform: scale(1.05);
+        }
+
+        /* Overlay gradient pour le texte */
+        .category-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+            z-index: 2;
+        }
+
+        .category-label {
+            position: relative;
+            z-index: 3;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            padding-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-label {
+            transform: translateY(-5px);
+        }
+
+        /* Catégories spécifiques avec images de placeholder */
+        /* Palette CCL: Vert (#1e7e34 / #2ecc71) et Or (#D4AF37) */
+
+        .cat-telephones::before {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%231e7e34" width="200" height="200"/><circle cx="100" cy="100" r="40" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-tvs::before {
+            background: linear-gradient(135deg, #2ecc71 0%, #1e7e34 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%232ecc71" width="200" height="200"/><rect x="30" y="30" width="140" height="100" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-electromenager::before {
+            background: linear-gradient(135deg, #27ae60 0%, #1e7e34 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%2327ae60" width="200" height="200"/><rect x="40" y="40" width="120" height="120" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-chaussures::before {
+            background: linear-gradient(135deg, #1e7e34 0%, #2ecc71 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%231e7e34" width="200" height="200"/><ellipse cx="100" cy="100" rx="50" ry="40" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-supermarche::before {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%232ecc71" width="200" height="200"/><path d="M100,50 L130,120 L70,120 Z" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-clim::before {
+            background: linear-gradient(135deg, #27ae60 0%, #1e7e34 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%2327ae60" width="200" height="200"/><circle cx="100" cy="100" r="35" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-bazar::before {
+            background: linear-gradient(135deg, #1e7e34 0%, #2ecc71 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%231e7e34" width="200" height="200"/><rect x="50" y="50" width="50" height="50" fill="%23D4AF37" opacity="0.4"/><rect x="100" y="70" width="50" height="60" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-beaute::before {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%232ecc71" width="200" height="200"/><circle cx="100" cy="100" r="35" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-mode::before {
+            background: linear-gradient(135deg, #27ae60 0%, #1e7e34 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%2327ae60" width="200" height="200"/><path d="M100,40 L120,100 L140,150 L60,150 L80,100 Z" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-vendez::before {
+            background: linear-gradient(135deg, #D4AF37 0%, #2ecc71 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%23D4AF37" width="200" height="200"/><path d="M80,70 L120,70 L130,150 L70,150 Z" fill="%231e7e34" opacity="0.4"/></svg>');
+        }
+
+        .cat-sport::before {
+            background: linear-gradient(135deg, #1e7e34 0%, #2ecc71 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%231e7e34" width="200" height="200"/><circle cx="80" cy="80" r="25" fill="%23D4AF37" opacity="0.4"/><circle cx="120" cy="120" r="25" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        .cat-maison::before {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%232ecc71" width="200" height="200"/><polygon points="100,50 150,100 140,150 60,150 50,100" fill="%23D4AF37" opacity="0.4"/></svg>');
+        }
+
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 18px;
+            }
+
+            .category-card {
+                height: 180px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .categories-section {
+                padding: 40px 0;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .category-card {
+                height: 150px;
+            }
+
+            .category-label {
+                font-size: 12px;
+                padding-bottom: 15px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories-section {
+                padding: 30px 0;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 12px;
+            }
+
+            .category-card {
+                height: 130px;
+            }
+
+            .category-label {
+                font-size: 11px;
+                padding-bottom: 12px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                letter-spacing: 0.5px;
+            }
+
+            .categories-container {
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+
+
+    <!-- CATEGORIES GRID SECTION -->
+    <section class="categories-section">
+        <div class="categories-container">
+            <div class="section-header">
+                <h2 class="section-title">Découvrez les offres de nos catégories</h2>
+            </div>
+
+            <div class="categories-grid">
+                
+                <!-- CATÉGORIE 1: TÉLÉPHONES -->
+                <a href="category.html?cat=telephones" class="category-card cat-telephones">
+                    <div class="category-label">Téléphones</div>
+                </a>
+
+                <!-- CATÉGORIE 2: TVS & AUDIOS -->
+                <a href="category.html?cat=tvs" class="category-card cat-tvs">
+                    <div class="category-label">TVs & Audios</div>
+                </a>
+
+                <!-- CATÉGORIE 3: ÉLECTROMÉLANGER -->
+                <a href="category.html?cat=electromenager" class="category-card cat-electromenager">
+                    <div class="category-label">Électromélanger</div>
+                </a>
+
+                <!-- CATÉGORIE 4: CHAUSSURES HOMMES -->
+                <a href="category.html?cat=chaussures" class="category-card cat-chaussures">
+                    <div class="category-label">Chaussures Hommes</div>
+                </a>
+
+                <!-- CATÉGORIE 5: SUPERMARCHÉ -->
+                <a href="category.html?cat=supermarche" class="category-card cat-supermarche">
+                    <div class="category-label">Supermarché</div>
+                </a>
+
+                <!-- CATÉGORIE 6: CLIM & VENTILO -->
+                <a href="category.html?cat=clim" class="category-card cat-clim">
+                    <div class="category-label">Clim & Ventilo</div>
+                </a>
+
+                <!-- CATÉGORIE 7: LE GRAND BAZAR -->
+                <a href="category.html?cat=bazar" class="category-card cat-bazar">
+                    <div class="category-label">Le Grand Bazar</div>
+                </a>
+
+                <!-- CATÉGORIE 8: BEAUTÉ -->
+                <a href="category.html?cat=beaute" class="category-card cat-beaute">
+                    <div class="category-label">Beauté</div>
+                </a>
+
+                <!-- CATÉGORIE 9: MODE -->
+                <a href="category.html?cat=mode" class="category-card cat-mode">
+                    <div class="category-label">Mode</div>
+                </a>
+
+                <!-- CATÉGORIE 10: VENDEZ SUR JUMIA -->
+                <a href="vendor-signup.html" class="category-card cat-vendez">
+                    <div class="category-label">Vendez Sur Jumia</div>
+                </a>
+
+                <!-- CATÉGORIE 11: SPORT -->
+                <a href="category.html?cat=sport" class="category-card cat-sport">
+                    <div class="category-label">Sport</div>
+                </a>
+
+                <!-- CATÉGORIE 12: MAISON -->
+                <a href="category.html?cat=maison" class="category-card cat-maison">
+                    <div class="category-label">Maison</div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
 </body>
 </html>
