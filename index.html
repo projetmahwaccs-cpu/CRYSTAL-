@@ -976,5 +976,575 @@
   updateCart();
 </script>
 
+
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  .footer-container {
+    background-color: #1a2a3a;
+    color: #e0e0e0;
+    padding: 2.5rem 1.5rem 1.5rem;
+    font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+  }
+  
+  .footer-top {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  
+  .footer-top-left {
+    flex: 1;
+    min-width: 100%;
+  }
+  
+  .footer-top-right {
+    flex: 1;
+    min-width: 100%;
+  }
+  
+  .top-label {
+    color: white;
+    font-size: 11px;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  
+  .footer-apps, .payment-methods, .social-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  
+  .app-badge {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 0.9rem;
+    border-radius: 18px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  
+  .app-badge:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .payment-badge {
+    padding: 0.35rem 0.8rem;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  
+  .payment-badge.orange { background-color: #ff8c42; color: white; }
+  .payment-badge.purple { background-color: #a855f7; color: white; }
+  .payment-badge.green { background-color: #4ade80; color: white; }
+  
+  .payment-badge:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  
+  .social-link {
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b0b0b0;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .social-link:hover {
+    background-color: #4ade80;
+    border-color: #4ade80;
+    color: white;
+  }
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .footer-column h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffd700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    letter-spacing: 0.8px;
+  }
+  
+  .footer-column.brand {
+    grid-column: 1 / -1;
+  }
+  
+  .brand-logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  
+  .brand-desc {
+    font-size: 12px;
+    color: #b0b0b0;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+  
+  .brand-contact {
+    font-size: 12px;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .contact-item:hover {
+    color: #ffd700;
+  }
+  
+  .contact-item i {
+    color: #4ade80;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  
+  .footer-link {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  
+  .footer-link:hover {
+    color: #ffd700;
+    padding-left: 3px;
+  }
+  
+  .footer-link i {
+    font-size: 13px;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+  
+  .footer-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 1.5rem 0;
+  }
+  
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #808080;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .footer-bottom-text {
+    flex: 1;
+  }
+  
+  .footer-bottom-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .footer-bottom-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 11px;
+    transition: color 0.3s;
+  }
+  
+  .footer-bottom-links a:hover {
+    color: #ffd700;
+  }
+  
+  /* TABLET: 640px - 1024px */
+  @media (max-width: 1024px) {
+    .footer-container {
+      padding: 2rem 1.5rem 1.2rem;
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 1.5rem;
+    }
+  }
+  
+  /* TABLET PETIT: 640px - 768px */
+  @media (max-width: 768px) {
+    .footer-container {
+      padding: 1.8rem 1rem 1rem;
+    }
+    
+    .footer-top {
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-top-left, .footer-top-right {
+      min-width: 100%;
+    }
+    
+    .top-label {
+      font-size: 10px;
+      margin-bottom: 0.6rem;
+    }
+    
+    .footer-apps, .payment-methods {
+      gap: 0.6rem;
+    }
+    
+    .app-badge, .payment-badge {
+      font-size: 10px;
+      padding: 0.35rem 0.75rem;
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.2rem;
+    }
+    
+    .footer-column h3 {
+      font-size: 11px;
+      margin-bottom: 0.8rem;
+    }
+    
+    .brand-logo {
+      font-size: 16px;
+    }
+    
+    .brand-desc {
+      font-size: 11px;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-link {
+      font-size: 11px;
+      gap: 0.3rem;
+    }
+    
+    .footer-divider {
+      margin: 1.2rem 0;
+    }
+    
+    .footer-bottom {
+      font-size: 10px;
+      gap: 0.8rem;
+    }
+    
+    .footer-bottom-links {
+      gap: 0.8rem;
+    }
+    
+    .footer-bottom-links a {
+      font-size: 10px;
+    }
+  }
+  
+  /* MOBILE: < 640px */
+  @media (max-width: 640px) {
+    .footer-container {
+      padding: 1.5rem 0.9rem 0.9rem;
+    }
+    
+    .footer-top {
+      display: block;
+      margin-bottom: 1.2rem;
+    }
+    
+    .footer-top-left, .footer-top-right {
+      margin-bottom: 1rem;
+    }
+    
+    .top-label {
+      font-size: 10px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-apps, .payment-methods {
+      gap: 0.5rem;
+      justify-content: flex-start;
+    }
+    
+    .app-badge {
+      font-size: 10px;
+      padding: 0.3rem 0.7rem;
+    }
+    
+    .payment-badge {
+      font-size: 10px;
+      padding: 0.3rem 0.65rem;
+    }
+    
+    .social-links {
+      gap: 0.5rem;
+    }
+    
+    .social-link {
+      width: 26px;
+      height: 26px;
+      font-size: 12px;
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .footer-column.brand {
+      grid-column: 1;
+      order: -1;
+    }
+    
+    .footer-column h3 {
+      font-size: 10px;
+      margin-bottom: 0.7rem;
+    }
+    
+    .brand-logo {
+      font-size: 15px;
+      margin-bottom: 0.4rem;
+    }
+    
+    .brand-desc {
+      font-size: 11px;
+      margin-bottom: 0.8rem;
+    }
+    
+    .contact-item {
+      font-size: 11px;
+      margin-bottom: 0.4rem;
+    }
+    
+    .footer-links {
+      gap: 0.5rem;
+    }
+    
+    .footer-link {
+      font-size: 11px;
+      gap: 0.3rem;
+    }
+    
+    .footer-link i {
+      font-size: 12px;
+    }
+    
+    .footer-divider {
+      margin: 1rem 0;
+    }
+    
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      font-size: 10px;
+      gap: 0.6rem;
+    }
+    
+    .footer-bottom-text {
+      width: 100%;
+    }
+    
+    .footer-bottom-links {
+      width: 100%;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    
+    .footer-bottom-links a {
+      font-size: 10px;
+    }
+  }
+  
+  /* EXTRA PETIT: < 480px */
+  @media (max-width: 480px) {
+    .footer-container {
+      padding: 1.2rem 0.8rem 0.8rem;
+    }
+    
+    .footer-apps, .payment-methods {
+      gap: 0.4rem;
+    }
+    
+    .app-badge {
+      padding: 0.25rem 0.6rem;
+    }
+    
+    .payment-badge {
+      padding: 0.25rem 0.6rem;
+    }
+    
+    .top-label {
+      font-size: 9px;
+    }
+    
+    .footer-column h3 {
+      font-size: 9px;
+    }
+    
+    .brand-logo {
+      font-size: 14px;
+    }
+    
+    .brand-desc, .contact-item, .footer-link {
+      font-size: 10px;
+    }
+  }
+</style>
+
+<div class="footer-container">
+  <div class="footer-top">
+    <div class="footer-top-left">
+      <div class="top-label">📱 Applications</div>
+      <div class="footer-apps">
+        <a class="app-badge" href="#" onclick="alert('App Store')">App Store</a>
+        <a class="app-badge" href="#" onclick="alert('Google Play')">Google Play</a>
+      </div>
+    </div>
+    
+    <div class="footer-top-right">
+      <div class="top-label">💳 Modes de paiement</div>
+      <div class="payment-methods">
+        <a class="payment-badge orange" href="#" onclick="alert('Orange Money')">Orange Money</a>
+        <a class="payment-badge purple" href="#" onclick="alert('Wave')">Wave</a>
+        <a class="payment-badge green" href="#" onclick="alert('Espèces')">Espèces</a>
+      </div>
+    </div>
+  </div>
+  
+  <div style="display: flex; justify-content: flex-end; margin-bottom: 1.5rem;">
+    <div>
+      <div class="top-label">Suivez-nous</div>
+      <div class="social-links">
+        <a class="social-link" href="#" title="Facebook" onclick="alert('Facebook')"><i class="ti ti-brand-facebook"></i></a>
+        <a class="social-link" href="#" title="Instagram" onclick="alert('Instagram')"><i class="ti ti-brand-instagram"></i></a>
+        <a class="social-link" href="#" title="WhatsApp" onclick="alert('WhatsApp')"><i class="ti ti-brand-whatsapp"></i></a>
+        <a class="social-link" href="#" title="YouTube" onclick="alert('YouTube')"><i class="ti ti-brand-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-content">
+    <div class="footer-column brand">
+      <div class="brand-logo">YOUR BRAND</div>
+      <p class="brand-desc">Votre marketplace de confiance. Outillage, électroménager, électronique — livrés directement chez vous.</p>
+      <div class="brand-contact">
+        <div class="contact-item" onclick="alert('Adresse: Dakar, Sénégal')">
+          <i class="ti ti-map-pin"></i>
+          <span>Dakar, Sénégal</span>
+        </div>
+        <div class="contact-item" onclick="alert('Tel: +221 78 386 64 64')">
+          <i class="ti ti-phone"></i>
+          <span>+221 78 386 64 64</span>
+        </div>
+        <div class="contact-item" onclick="alert('contact@yoursite.com')">
+          <i class="ti ti-mail"></i>
+          <span>contact@yoursite.com</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Catégories</h3>
+      <div class="footer-links">
+        <a class="footer-link" href="#" onclick="alert('Électronique')"><i class="ti ti-device-desktop"></i> Électronique</a>
+        <a class="footer-link" href="#" onclick="alert('Électroménager')"><i class="ti ti-washing-machine"></i> Électroménager</a>
+        <a class="footer-link" href="#" onclick="alert('Outillage')"><i class="ti ti-tools"></i> Outillage</a>
+        <a class="footer-link" href="#" onclick="alert('Mode')"><i class="ti ti-shirt"></i> Mode</a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h3>À propos</h3>
+      <div class="footer-links">
+        <a class="footer-link" href="#" onclick="alert('Qui sommes-nous')"><i class="ti ti-info-circle"></i> Qui sommes-nous</a>
+        <a class="footer-link" href="#" onclick="alert('Nos marques')"><i class="ti ti-tag"></i> Nos marques</a>
+        <a class="footer-link" href="#" onclick="alert('Blog')"><i class="ti ti-news"></i> Blog</a>
+        <a class="footer-link" href="#" onclick="alert('Devenir vendeur')"><i class="ti ti-building-store"></i> Devenir vendeur</a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Aide client</h3>
+      <div class="footer-links">
+        <a class="footer-link" href="#" onclick="alert('Comment commander')"><i class="ti ti-shopping-cart"></i> Commander</a>
+        <a class="footer-link" href="#" onclick="alert('FAQ')"><i class="ti ti-help"></i> FAQ</a>
+        <a class="footer-link" href="#" onclick="alert('Garantie')"><i class="ti ti-shield-check"></i> Garantie</a>
+        <a class="footer-link" href="#" onclick="alert('Retours')"><i class="ti ti-arrow-back"></i> Retours</a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Paiement & Livraison</h3>
+      <div class="footer-links">
+        <a class="footer-link" href="#" onclick="alert('Zones')"><i class="ti ti-map"></i> Zones & délais</a>
+        <a class="footer-link" href="#" onclick="alert('Paiement')"><i class="ti ti-credit-card"></i> Modes</a>
+        <a class="footer-link" href="#" onclick="alert('À la livraison')"><i class="ti ti-truck"></i> À la livraison</a>
+        <a class="footer-link" href="#" onclick="alert('Sécurité')"><i class="ti ti-lock"></i> Sécurité</a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Mon compte</h3>
+      <div class="footer-links">
+        <a class="footer-link" href="#" onclick="alert('Tableau de bord')"><i class="ti ti-dashboard"></i> Tableau</a>
+        <a class="footer-link" href="#" onclick="alert('Commandes')"><i class="ti ti-package"></i> Commandes</a>
+        <a class="footer-link" href="#" onclick="alert('Infos')"><i class="ti ti-user"></i> Infos</a>
+        <a class="footer-link" href="#" onclick="alert('Panier')"><i class="ti ti-shopping-bag"></i> Panier</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-divider"></div>
+  
+  <div class="footer-bottom">
+    <div class="footer-bottom-text">&copy; 2026 Your Brand. Tous droits réservés.</div>
+    <div class="footer-bottom-links">
+      <a href="#" onclick="alert('Conditions')">Conditions</a>
+      <a href="#" onclick="alert('Confidentialité')">Confidentialité</a>
+      <a href="#" onclick="alert('Cookies')">Cookies</a>
+    </div>
+  </div>
+</div>
+
+  
 </body>
 </html>
