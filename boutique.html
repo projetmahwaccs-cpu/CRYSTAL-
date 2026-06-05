@@ -972,6 +972,356 @@ renderGrid();
   <section>
 <br> 
   </br>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catégories avec Vidéos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .category-section {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            padding: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            min-width: 180px;
+            height: 150px;
+            position: relative;
+            text-decoration: none;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Vidéo en background */
+        .category-card video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Overlay gradient dark pour le texte */
+        .category-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 2;
+        }
+
+        .category-label {
+            position: relative;
+            z-index: 3;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #fff;
+            text-align: center;
+            padding: 15px 10px 10px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-card:hover video {
+            transform: scale(1.05);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #2ecc71;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-btn:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .carousel-btn.prev {
+            left: 15px;
+        }
+
+        .carousel-btn.next {
+            right: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .category-card {
+                min-width: 150px;
+                height: 130px;
+            }
+
+            .category-label {
+                font-size: 11px;
+                padding: 12px 8px 8px;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-section {
+                padding: 20px 0;
+            }
+
+            .category-card {
+                min-width: 120px;
+                height: 110px;
+            }
+
+            .category-label {
+                font-size: 10px;
+                padding: 10px 6px 6px;
+            }
+
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .carousel-btn.prev {
+                left: 5px;
+            }
+
+            .carousel-btn.next {
+                right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CATEGORY CAROUSEL SECTION WITH VIDEOS -->
+    <section class="category-section">
+        <div class="category-container">
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="scrollCarousel(-1)">❮</button>
+                
+                <div class="carousel-track" id="carouselTrack">
+                    
+                    <!-- CATÉGORIE 1: SUPERMARCHÉ - Maman sénégalaise cuisine -->
+                    <a href="category.html?cat=supermarche" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/Maman_sénégalaise_cuisine_avec_m__202606021303__1_.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Supermarché</div>
+                    </a>
+
+                    <!-- CATÉGORIE 2: TÉLÉPHONES - Woman holding phone CCL -->
+                    <a href="category.html?cat=telephones" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/Woman_holding_phone_CCL_logo_202606021321.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Téléphones</div>
+                    </a>
+
+                    <!-- CATÉGORIE 3: VENTES FLASH - Model -->
+                    <a href="category.html?cat=flash" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/model.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Ventes<br>Flash</div>
+                    </a>
+
+                    <!-- CATÉGORIE 4: ACCESSOIRES ÉLECTRO - Man with smartwatch -->
+                    <a href="category.html?cat=accessoires" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/Man_holding_smartwatch_box_202606021316__2_.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Accessoires<br>Électro</div>
+                    </a>
+
+                    <!-- CATÉGORIE 5: JUMIA FORCE -->
+                    <a href="category.html?cat=force" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/model.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Jumia<br>Force</div>
+                    </a>
+
+                    <!-- CATÉGORIE 6: INFORMATIQUE -->
+                    <a href="category.html?cat=informatique" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/Man_holding_smartwatch_box_202606021316__2_.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Informatique</div>
+                    </a>
+
+                    <!-- CATÉGORIE 7: NOUVEL ARRIVAGE -->
+                    <a href="category.html?cat=nouveau" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/model.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Nouvel<br>Arrivage</div>
+                    </a>
+
+                    <!-- CATÉGORIE 8: DÉSTOCKAGE -->
+                    <a href="category.html?cat=destockage" class="category-card">
+                        <video autoplay muted loop playsinline>
+                            <source src="./uploads/Maman_sénégalaise_cuisine_avec_m__202606021303__1_.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-label">Déstockage</div>
+                    </a>
+
+                </div>
+
+                <button class="carousel-btn next" onclick="scrollCarousel(1)">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION (Votre grille produits va ici) -->
+    <section style="max-width: 1400px; margin: 0 auto; padding: 40px 15px;">
+        <h2 style="margin-bottom: 30px; color: #333;">Produits Sélectionnés</h2>
+        <!-- Votre grille de produits avec vidéos va ici -->
+    </section>
+
+    <script>
+        const carouselTrack = document.getElementById('carouselTrack');
+
+        function scrollCarousel(direction) {
+            const scrollAmount = 350;
+            if (direction === 1) {
+                carouselTrack.scrollLeft += scrollAmount;
+            } else {
+                carouselTrack.scrollLeft -= scrollAmount;
+            }
+            updateButtonStates();
+        }
+
+        function updateButtonStates() {
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+
+            prevBtn.disabled = carouselTrack.scrollLeft === 0;
+            nextBtn.disabled = 
+                carouselTrack.scrollLeft >= 
+                carouselTrack.scrollWidth - carouselTrack.clientWidth - 10;
+        }
+
+        // Initialiser l'état des boutons au chargement
+        window.addEventListener('load', updateButtonStates);
+
+        // Mettre à jour lors du scroll
+        carouselTrack.addEventListener('scroll', updateButtonStates);
+
+        // Navigation au clavier
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') scrollCarousel(-1);
+            if (e.key === 'ArrowRight') scrollCarousel(1);
+        });
+
+        // Pause les vidéos quand la page n'est pas visible
+        document.addEventListener('visibilitychange', () => {
+            const videos = document.querySelectorAll('video');
+            if (document.hidden) {
+                videos.forEach(v => v.pause());
+            } else {
+                videos.forEach(v => v.play());
+            }
+        });
+
+        // Lazy load - joue les vidéos seulement quand elles sont visibles
+        const videos = document.querySelectorAll('video');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play();
+                } else {
+                    entry.target.pause();
+                }
+            });
+        });
+
+        videos.forEach(video => observer.observe(video));
+    </script>
+
+
 
     <br> 
   </br>
