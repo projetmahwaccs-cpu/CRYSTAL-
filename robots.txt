@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Remplace le domaine ci-dessous par ton vrai domaine
+Sitemap: https://crystal-company.sn/sitemap.xml
