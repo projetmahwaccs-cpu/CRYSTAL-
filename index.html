@@ -474,6 +474,22 @@
     .acc-empty { color:#aaa; font-size:14px; padding:14px 0; }
     .header-user { display:flex; align-items:center; gap:6px; cursor:pointer; }
 
+    /* ===== TABLEAU DE BORD VENDEUR ===== */
+    .sp-form { display:flex; flex-direction:column; gap:10px; max-width:520px; }
+    .sp-form input, .sp-form select, .sp-form textarea { width:100%; padding:11px 13px; border:1.5px solid #d1d5db; border-radius:10px; font-size:14px; font-family:inherit; }
+    .sp-form input:focus, .sp-form select:focus, .sp-form textarea:focus { outline:none; border-color:var(--green); }
+    .sp-form textarea { min-height:80px; resize:vertical; }
+    .sp-row { display:flex; gap:10px; } .sp-row > * { flex:1; }
+    .sp-file { display:inline-flex; align-items:center; gap:8px; background:#f0faf6; border:1.5px dashed var(--green); color:var(--green-dark); padding:11px 14px; border-radius:10px; cursor:pointer; font-weight:600; font-size:14px; }
+    .sp-list { display:flex; flex-direction:column; gap:10px; }
+    .sp-item { display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #eee; border-radius:12px; padding:10px 12px; box-shadow:var(--card-shadow); }
+    .sp-item img { width:54px; height:54px; object-fit:cover; border-radius:8px; flex-shrink:0; }
+    .sp-it-info { flex:1; display:flex; flex-direction:column; min-width:0; }
+    .sp-it-info strong { font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .sp-it-info span { font-size:13px; color:var(--muted); }
+    .sp-del { background:#fee2e2; color:#c0392b; border:none; width:38px; height:38px; border-radius:10px; cursor:pointer; flex-shrink:0; }
+    .sp-del:hover { background:#fecaca; }
+
     /* ===== RESPONSIVE ===== */
     @media(max-width:1024px){
       .header, nav, .hero, .cat-band, .section, .trust, .partners { padding-left:24px; padding-right:24px; }
@@ -851,6 +867,15 @@
   <div class="pp-wrap" id="account-content"></div>
 </div>
 
+<!-- TABLEAU DE BORD VENDEUR -->
+<div class="pp-overlay" id="seller-page">
+  <div class="pp-bar">
+    <button class="pp-back" onclick="closeSeller()"><i class="ti ti-arrow-left"></i> Retour</button>
+    <span class="pp-cart" onclick="openCart()"><i class="ti ti-shopping-cart"></i></span>
+  </div>
+  <div class="pp-wrap" id="seller-content"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1156,6 +1181,8 @@
   let currentProductId = null;
   const SIZE_SETS = { mode: ['Unique','S','M','L','XL','XXL'] };
   function longDesc(p){
+    if(p.desc){ return (p.boutique ? `<strong>Vendu par ${p.boutique}.</strong> ` : '') + p.desc
+      + ` <br><br>Livraison partout dans Dakar en 24h. Paiement Wave, Orange Money ou à la livraison.`; }
     return `<strong>${p.name}</strong> est disponible chez Crystal Company Limited, votre marketplace de confiance au Sénégal. `
       + `Article de qualité garantie, vérifié avant l'expédition. Commandez en quelques clics et recevez-le `
       + `<strong>partout dans Dakar en 24h (J+1)</strong>. Paiement par Wave, Orange Money ou `
@@ -1602,6 +1629,7 @@
         if(d.telephone && document.getElementById('ck-phone')) document.getElementById('ck-phone').value=d.telephone;
         if(d.adresse && document.getElementById('ck-addr')) document.getElementById('ck-addr').value=d.adresse;
       }
+      if(ACCOUNT.user) await loadMyProducts();
     } catch(e){ ACCOUNT.profile={ id:ACCOUNT.user.id }; }
   }
   async function loadFavorites(){
@@ -1644,6 +1672,9 @@
       const list = (o.items||[]).map(i=>i.qty+'x '+i.name).join(', ');
       return '<div class="acc-order"><div class="ao-top"><span>'+d+' · '+n+' article(s) · '+(o.methode||'')+'</span><span class="ao-total">'+money(o.total||0)+'</span></div><div style="font-size:13px;color:#444">'+list+'</div></div>';
     }).join('') : '<div class="acc-empty">Aucune commande pour l\'instant.</div>';
+    const sellerHTML = p.is_seller
+      ? '<div class="acc-section"><h3><i class="ti ti-building-store"></i> Espace vendeur</h3><p style="font-size:14px;color:var(--muted);margin-bottom:10px">Boutique : <strong>'+(p.boutique||'')+'</strong></p><button class="btn-auth" style="max-width:280px" onclick="openSeller()"><i class="ti ti-layout-dashboard"></i> Ouvrir mon tableau de bord</button></div>'
+      : '<div class="acc-section"><h3><i class="ti ti-building-store"></i> Devenir vendeur</h3><p style="font-size:14px;color:var(--muted);margin-bottom:10px">Vends tes produits sur Crystal Marketplace — publication immédiate.</p><input id="biz-name" placeholder="Nom de ta boutique" style="width:100%;max-width:440px;padding:10px 12px;border:1.5px solid #d1d5db;border-radius:10px;margin-bottom:10px;font-family:inherit" /><button class="btn-auth" style="max-width:280px" onclick="becomeSeller()"><i class="ti ti-building-store"></i> Créer ma boutique</button></div>';
     c.innerHTML =
       '<h2 class="search-title">Bonjour '+(firstName()||'')+'</h2>'+
       '<div class="acc-section acc-profile"><h3><i class="ti ti-user"></i> Mon profil</h3>'+
@@ -1654,12 +1685,115 @@
       '<div class="acc-section"><h3><i class="ti ti-heart"></i> Mes favoris ('+favs.length+')</h3>'+
         '<div class="product-grid">'+(favs.length ? favs.map(cardHTML).join('') : '<div class="acc-empty">Aucun favori.</div>')+'</div></div>'+
       '<div class="acc-section"><h3><i class="ti ti-package"></i> Mes commandes</h3><div class="acc-orders">'+ordHTML+'</div></div>'+
+      sellerHTML+
       '<button class="btn-checkout" style="max-width:240px;background:#b91c1c" onclick="logout()"><i class="ti ti-logout"></i> Se déconnecter</button>';
+  }
+
+  /* ===== MARKETPLACE VENDEURS ===== */
+  const SYN_OFFSET = 1000000;
+  function catOptions(sel){ return Object.keys(CAT_LABEL).map(k=>'<option value="'+k+'"'+(k===sel?' selected':'')+'>'+CAT_LABEL[k]+'</option>').join(''); }
+  async function loadMarketplaceProducts(){
+    if(!sb) return;
+    try {
+      const r = await sb.from('products').select('*').eq('active', true).order('created_at',{ascending:false});
+      if(r.error) throw r.error;
+      for(let i=products.length-1;i>=0;i--){ if(products[i].id >= SYN_OFFSET) products.splice(i,1); }
+      (r.data||[]).forEach(function(row){
+        products.push({
+          id: SYN_OFFSET + row.id, dbId: row.id, cat: row.category,
+          name: row.name, price: Number(row.price),
+          old: row.old_price ? Number(row.old_price) : undefined,
+          image: row.image_url || FALLBACK_IMG,
+          badge: row.badge || undefined, desc: row.description || '',
+          boutique: row.boutique || '', sellerId: row.seller_id, isMarket: true
+        });
+      });
+      renderAll(); renderRecos();
+    } catch(e){ console.warn('marketplace:', e.message||e); }
+  }
+  async function loadMyProducts(){
+    if(!sb || !ACCOUNT.user) return;
+    try { const r = await sb.from('products').select('*').eq('seller_id',ACCOUNT.user.id).order('created_at',{ascending:false}); ACCOUNT.myProducts = r.data||[]; } catch(e){ ACCOUNT.myProducts=[]; }
+  }
+  async function uploadProductImage(file){
+    const ext = (file.name.split('.').pop()||'jpg').toLowerCase();
+    const path = ACCOUNT.user.id + '/' + Date.now() + '-' + Math.random().toString(36).slice(2,7) + '.' + ext;
+    const up = await sb.storage.from('products').upload(path, file);
+    if(up.error) throw up.error;
+    return sb.storage.from('products').getPublicUrl(path).data.publicUrl;
+  }
+  window.becomeSeller = async function(){
+    const b=(document.getElementById('biz-name')||{}).value.trim();
+    if(!b){ showToast('<i class="ti ti-alert-triangle"></i> Donne un nom à ta boutique'); return; }
+    try { await sb.from('profiles').upsert({ id:ACCOUNT.user.id, is_seller:true, boutique:b }); }
+    catch(e){ showToast('<i class="ti ti-x"></i> '+(e.message||'Erreur')); return; }
+    ACCOUNT.profile = Object.assign({}, ACCOUNT.profile, { is_seller:true, boutique:b });
+    renderAccount(); showToast('<i class="ti ti-confetti"></i> Boutique « '+b+' » créée !'); openSeller();
+  };
+  window.openSeller = function(){ if(!ACCOUNT.user){ openAuth(); return; } renderSeller(); const o=document.getElementById('seller-page'); o.classList.add('open'); document.body.style.overflow='hidden'; o.scrollTop=0; };
+  window.closeSeller = function(){ document.getElementById('seller-page').classList.remove('open'); document.body.style.overflow=''; };
+  window.addProduct = async function(){
+    const g=function(id){ return document.getElementById(id); };
+    const name=g('sp-name').value.trim();
+    const price=parseFloat(g('sp-price').value);
+    const old=parseFloat(g('sp-old').value)||null;
+    const cat=g('sp-cat').value;
+    const desc=g('sp-desc').value.trim();
+    const badge=g('sp-badge').value.trim()||null;
+    const stock=parseInt(g('sp-stock').value)||0;
+    const file=g('sp-img').files[0];
+    const msg=g('sp-msg');
+    if(!name || !price){ msg.textContent='Nom et prix obligatoires.'; msg.className='auth-msg err'; return; }
+    const btn=g('sp-submit'); btn.disabled=true; msg.className='auth-msg'; msg.textContent='Publication en cours...';
+    try {
+      let imageUrl='';
+      if(file) imageUrl = await uploadProductImage(file);
+      const ins = await sb.from('products').insert({ seller_id:ACCOUNT.user.id, boutique:(ACCOUNT.profile&&ACCOUNT.profile.boutique)||'', name:name, price:price, old_price:old, category:cat, description:desc, badge:badge, image_url:imageUrl, stock:stock, active:true });
+      if(ins.error) throw ins.error;
+      msg.textContent='Produit publié !'; msg.className='auth-msg ok';
+      ['sp-name','sp-price','sp-old','sp-desc','sp-badge','sp-stock','sp-img'].forEach(function(id){ g(id).value=''; });
+      await loadMyProducts(); await loadMarketplaceProducts(); renderSellerList();
+      showToast('<i class="ti ti-circle-check"></i> Produit publié');
+    } catch(e){ msg.textContent=e.message||'Erreur de publication.'; msg.className='auth-msg err'; }
+    btn.disabled=false;
+  };
+  window.deleteProduct = async function(dbId){
+    if(!confirm('Supprimer ce produit ?')) return;
+    try { await sb.from('products').delete().eq('id',dbId); } catch(e){}
+    await loadMyProducts(); await loadMarketplaceProducts(); renderSellerList();
+    showToast('<i class="ti ti-trash"></i> Produit supprimé');
+  };
+  function renderSellerList(){
+    const el=document.getElementById('sp-list'); if(!el) return;
+    const mine=ACCOUNT.myProducts||[];
+    el.innerHTML = mine.length ? mine.map(function(p){
+      return '<div class="sp-item"><img src="'+(p.image_url||FALLBACK_IMG)+'" onerror="imgError(this)" /><div class="sp-it-info"><strong>'+p.name+'</strong><span>'+money(p.price)+' · '+(CAT_LABEL[p.category]||p.category)+'</span></div><button class="sp-del" onclick="deleteProduct('+p.id+')"><i class="ti ti-trash"></i></button></div>';
+    }).join('') : '<div class="acc-empty">Aucun produit publié pour l\'instant.</div>';
+  }
+  function renderSeller(){
+    const c=document.getElementById('seller-content');
+    const biz=(ACCOUNT.profile&&ACCOUNT.profile.boutique)||'Ma boutique';
+    c.innerHTML =
+      '<h2 class="search-title"><i class="ti ti-building-store" style="color:var(--green)"></i> '+biz+'</h2>'+
+      '<div class="acc-section"><h3><i class="ti ti-circle-plus"></i> Ajouter un produit</h3>'+
+        '<div class="sp-form">'+
+          '<input id="sp-name" placeholder="Nom du produit" />'+
+          '<div class="sp-row"><input id="sp-price" type="number" placeholder="Prix (FCFA)" /><input id="sp-old" type="number" placeholder="Ancien prix (option)" /></div>'+
+          '<div class="sp-row"><select id="sp-cat">'+catOptions('mode')+'</select><input id="sp-stock" type="number" placeholder="Stock" /></div>'+
+          '<input id="sp-badge" placeholder="Badge (ex: Promo, Nouveau) — option" />'+
+          '<textarea id="sp-desc" placeholder="Description du produit"></textarea>'+
+          '<label class="sp-file"><i class="ti ti-camera"></i> <span>Choisir une photo</span><input id="sp-img" type="file" accept="image/*" hidden onchange="if(this.files[0]){this.parentNode.querySelector(\'span\').textContent=this.files[0].name;}" /></label>'+
+          '<div class="auth-msg" id="sp-msg"></div>'+
+          '<button class="btn-auth" id="sp-submit" onclick="addProduct()"><i class="ti ti-upload"></i> Publier le produit</button>'+
+        '</div></div>'+
+      '<div class="acc-section"><h3><i class="ti ti-package"></i> Mes produits en ligne</h3><div class="sp-list" id="sp-list"></div></div>';
+    renderSellerList();
   }
 
   /* ===== INIT ===== */
   renderRecos();
   if(sb){
+    loadMarketplaceProducts();
     sb.auth.getSession().then(function(res){ if(res.data && res.data.session && res.data.session.user){ onLogin(res.data.session.user); } });
     sb.auth.onAuthStateChange(function(_e, session){ if(session && session.user){ if(!ACCOUNT.user) onLogin(session.user); } else { ACCOUNT.user=null; updateHeader(); } });
   }
