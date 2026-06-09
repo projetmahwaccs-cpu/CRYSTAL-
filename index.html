@@ -762,6 +762,13 @@
       .search-page-box .pp-back { font-size: 0; gap: 0; padding: 0; }
       .search-page-box .pp-back i { font-size: 22px; }
     }
+    /* BANNIÈRE PUB SECTION */
+    .section-ad-banner { display:block; margin: 0 0 18px 0; border-radius: 12px; overflow: hidden; position: relative; background: linear-gradient(90deg, #0a7c56, #1abc9c); min-height: 80px; text-decoration: none; }
+    .section-ad-banner img { width:100%; height:90px; object-fit:cover; display:block; border-radius:12px; }
+    .section-ad-banner.placeholder { display:flex; align-items:center; justify-content:space-between; padding: 18px 24px; min-height: 80px; }
+    .section-ad-banner.placeholder .ad-placeholder-txt { color:rgba(255,255,255,0.7); font-size:13px; font-style:italic; }
+    .section-ad-banner.placeholder .ad-placeholder-label { background:rgba(255,255,255,0.15); color:white; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; border:1px solid rgba(255,255,255,0.3); letter-spacing:0.5px; }
+
     @media(max-width:480px){
       .product-grid { gap: 8px; }
       .img-wrap { height: auto; }
@@ -916,6 +923,11 @@
       <h2><i class="ti ti-armchair hicon"></i> Nos <span>Nouveaux Produits</span></h2>
       <span style="font-size:13px; color: var(--muted);" id="count-main"></span>
     </div>
+    <!-- ✏️ BANNIÈRE PUB — Nouveaux Produits : remplace href et src -->
+    <a href="https://example.com/pub-nouveautes" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+      <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Nouveaux Produits (800×90px recommandé)</span>
+      <span class="ad-placeholder-label">PUBLICITÉ</span>
+    </a>
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterProducts(this)">Tous</button>
       <button class="filter-btn" onclick="filterProducts(this)">Chaises Pliantes</button>
@@ -955,18 +967,33 @@
 <!-- MODE -->
 <section class="section alt" id="sec-mode">
   <div class="section-header"><h2><i class="ti ti-shirt hicon"></i> Mode &amp; <span>Style</span></h2></div>
+  <!-- ✏️ BANNIÈRE PUB — Mode & Style : remplace href et src -->
+  <a href="https://example.com/pub-mode" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Mode &amp; Style (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-mode"></div>
 </section>
 
 <!-- BEAUTE / PARFUMS -->
 <section class="section" id="sec-beaute">
   <div class="section-header"><h2><i class="ti ti-spray hicon"></i> Parfums &amp; <span>Beauté</span></h2><a class="partner-btn gold" href="ssr.html"><i class="ti ti-crown"></i> Boutique Sen Senteurs Royal <i class="ti ti-arrow-right"></i></a></div>
+  <!-- ✏️ BANNIÈRE PUB — Parfums & Beauté : remplace href et src -->
+  <a href="https://example.com/pub-beaute" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Parfums &amp; Beauté (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-beaute"></div>
 </section>
 
 <!-- ALIMENTATION -->
 <section class="section alt" id="sec-alim">
   <div class="section-header"><h2><i class="ti ti-shopping-cart hicon"></i> Alimentation &amp; <span>Épicerie</span></h2><a class="partner-btn" href="best-foods.html"><i class="ti ti-building-store"></i> Boutique Best Foods <i class="ti ti-arrow-right"></i></a></div>
+  <!-- ✏️ BANNIÈRE PUB — Alimentation : remplace href et src -->
+  <a href="https://example.com/pub-alimentation" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Alimentation &amp; Épicerie (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-alim"></div>
 </section>
 
@@ -976,6 +1003,11 @@
     <h2><i class="ti ti-building-store"></i> Supermarché | Meilleures offres</h2>
     <a class="super-voir" href="#sec-super">Voir plus <i class="ti ti-chevron-right"></i></a>
   </div>
+  <!-- ✏️ BANNIÈRE PUB — Supermarché : remplace href et src -->
+  <a href="https://example.com/pub-supermarche" class="section-ad-banner placeholder" style="margin:0 0 12px;" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Supermarché (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="super-body">
     <div class="row-scroll" id="grid-super"></div>
   </div>
@@ -984,12 +1016,22 @@
 <!-- RAYON BÉBÉ -->
 <section class="section" id="sec-bebe">
   <div class="section-header"><h2><i class="ti ti-baby-carriage hicon"></i> Rayon <span>Bébé</span></h2></div>
+  <!-- ✏️ BANNIÈRE PUB — Rayon Bébé : remplace href et src -->
+  <a href="https://example.com/pub-bebe" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Rayon Bébé (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-bebe"></div>
 </section>
 
 <!-- PAPETERIE CAPITAL -->
 <section class="section" id="sec-papier">
   <div class="section-header"><h2><i class="ti ti-file-stack hicon"></i> Papeterie <span>Capital</span></h2><a class="partner-btn" href="capital.html"><i class="ti ti-building-store"></i> Boutique Capital <i class="ti ti-arrow-right"></i></a></div>
+  <!-- ✏️ BANNIÈRE PUB — Papeterie Capital : remplace href et src -->
+  <a href="https://example.com/pub-papier" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Papeterie Capital (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="distrib-badge">
     <img src="double-a-logo.jpg" alt="Double A" />
     <div class="db-txt">
@@ -1003,24 +1045,44 @@
 <!-- MAISON & DECO -->
 <section class="section" id="sec-maison">
   <div class="section-header"><h2><i class="ti ti-home hicon"></i> Maison &amp; <span>Déco</span></h2></div>
+  <!-- ✏️ BANNIÈRE PUB — Maison & Déco : remplace href et src -->
+  <a href="https://example.com/pub-maison" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Maison &amp; Déco (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-maisondeco"></div>
 </section>
 
 <!-- HIGH-TECH (placeholders à remplacer) -->
 <section class="section alt" id="sec-tech">
   <div class="section-header"><h2><i class="ti ti-device-mobile hicon"></i> Téléphones &amp; <span>High-Tech</span></h2></div>
+  <!-- ✏️ BANNIÈRE PUB — High-Tech : remplace href et src -->
+  <a href="https://example.com/pub-tech" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Téléphones &amp; High-Tech (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-tech"></div>
 </section>
 
 <!-- SPORT (placeholders à remplacer) -->
 <section class="section" id="sec-sport">
   <div class="section-header"><h2><i class="ti ti-barbell hicon"></i> Sport &amp; <span>Loisirs</span></h2></div>
+  <!-- ✏️ BANNIÈRE PUB — Sport & Loisirs : remplace href et src -->
+  <a href="https://example.com/pub-sport" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Sport &amp; Loisirs (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-sport"></div>
 </section>
 
 <!-- AUTOMOBILES -->
 <section class="section alt" id="sec-auto">
   <div class="section-header"><h2><i class="ti ti-car hicon"></i> <span>Automobiles</span></h2></div>
+  <!-- ✏️ BANNIÈRE PUB — Automobiles : remplace href et src -->
+  <a href="https://example.com/pub-auto" class="section-ad-banner placeholder" target="_blank" rel="noopener">
+    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Automobiles (800×90px recommandé)</span>
+    <span class="ad-placeholder-label">PUBLICITÉ</span>
+  </a>
   <div class="row-scroll" id="grid-auto"></div>
 </section>
 
