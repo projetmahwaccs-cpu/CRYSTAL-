@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Best Foods – La Qualité Au Bon Prix</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>i.ti{vertical-align:-.125em;line-height:1}</style>
 <style>
 :root {
   --green: #1a6b35;
@@ -47,13 +49,12 @@ body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--tex
   flex-shrink: 0;
 }
 .nav-logo-badge {
-  width: 40px; height: 40px;
-  background: var(--orange);
+  width: 46px; height: 46px;
+  background: #fff;
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-weight: 900; font-size: 15px; color: white;
-  border: 2px solid var(--orange-light);
+  object-fit: contain;
+  padding: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.20);
 }
 .nav-logo-text strong {
   display: block; font-size: 15px; font-weight: 800;
@@ -348,6 +349,20 @@ body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--tex
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+.product-img-wrap .product-logo-stamp {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  width: 44px; height: 44px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.88);
+  border-radius: 50%;
+  padding: 3px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.20);
+  z-index: 2;
+  pointer-events: none;
+  transform: none;
 }
 .product-img-wrap img {
   width: 100%;
@@ -355,7 +370,7 @@ body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--tex
   object-fit: cover;
   transition: transform 0.35s;
 }
-.product-card:hover .product-img-wrap img { transform: scale(1.05); }
+.product-card:hover .product-img-wrap img:not(.product-logo-stamp) { transform: scale(1.05); }
 
 .product-info {
   padding: 10px 12px 12px;
@@ -749,7 +764,7 @@ footer .fwa:hover { background: #1da851; }
 <!-- TOP NAV -->
 <nav class="topnav">
   <a class="nav-logo" href="#" onclick="closePage()">
-    <div class="nav-logo-badge">BF</div>
+    <img class="nav-logo-badge" src="uploads/logo-best-foods.png" alt="Best Foods">
     <div class="nav-logo-text">
       <strong>BEST FOODS</strong>
       <span>La Qualité Au Bon Prix</span>
@@ -757,14 +772,14 @@ footer .fwa:hover { background: #1da851; }
   </a>
   <div class="nav-search">
     <input type="text" placeholder="Rechercher un produit, une origine..." id="searchInput" oninput="doSearch()">
-    <button>🔍</button>
+    <button><i class="ti ti-search"></i></button>
   </div>
   <div class="nav-actions">
     <a class="nav-wa" href="https://wa.me/221774976364" target="_blank">
-      📱 <span class="wa-label">77 497 63 64</span>
+      <i class="ti ti-brand-whatsapp"></i> <span class="wa-label">77 497 63 64</span>
     </a>
     <button class="cart-btn" onclick="toggleCart()">
-      🛒
+      <i class="ti ti-shopping-cart"></i>
       <span class="cart-count" id="cartCount">0</span>
     </button>
   </div>
@@ -777,7 +792,7 @@ footer .fwa:hover { background: #1da851; }
     <p>Import direct · Qualité certifiée · Dakar, Sénégal</p>
   </div>
   <a class="hero-cta" href="https://wa.me/221774976364" target="_blank">
-    📦 Commander en gros →
+    <i class="ti ti-package"></i> Commander en gros <i class="ti ti-arrow-right"></i>
   </a>
 </div>
 
@@ -786,7 +801,7 @@ footer .fwa:hover { background: #1da851; }
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sidebar-header">☰ &nbsp;Toutes les catégories</div>
+    <div class="sidebar-header"><i class="ti ti-menu-2"></i> &nbsp;Toutes les catégories</div>
     <div class="sidebar-cats" id="sidebarCats"></div>
   </aside>
 
@@ -810,7 +825,7 @@ footer .fwa:hover { background: #1da851; }
   <div class="fl">BEST <span>FOODS</span></div>
   <p>La Qualité Au Bon Prix — Importation & Distribution, Dakar Sénégal</p>
   <a class="fwa" href="https://wa.me/221774976364" target="_blank">
-    📱 Commander via WhatsApp : 77 497 63 64
+    <i class="ti ti-brand-whatsapp"></i> Commander via WhatsApp : 77 497 63 64
   </a>
   <div class="footer-bottom">© 2025 Best Foods Sénégal. Tous droits réservés.</div>
 </footer>
@@ -819,11 +834,11 @@ footer .fwa:hover { background: #1da851; }
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-head">
-    <h3>🛒 Mon Panier</h3>
-    <button class="cart-close-btn" onclick="toggleCart()">✕</button>
+    <h3><i class="ti ti-shopping-cart"></i> Mon Panier</h3>
+    <button class="cart-close-btn" onclick="toggleCart()"><i class="ti ti-x"></i></button>
   </div>
   <div class="cart-items" id="cartItems">
-    <div class="cart-empty-msg"><div class="ei">🛒</div><p>Votre panier est vide</p></div>
+    <div class="cart-empty-msg"><div class="ei"><i class="ti ti-shopping-cart"></i></div><p>Votre panier est vide</p></div>
   </div>
   <div class="cart-foot" id="cartFoot" style="display:none">
     <div class="total-row">
@@ -833,10 +848,10 @@ footer .fwa:hover { background: #1da851; }
     <p class="pay-title">Mode de paiement</p>
     <div class="pay-grid">
       <button class="pay-btn pw" onclick="openPay('wave')">
-        <span class="pi">🌊</span><span class="pn">WAVE</span>
+        <span class="pi"><i class="ti ti-wallet"></i></span><span class="pn">WAVE</span>
       </button>
       <button class="pay-btn po" onclick="openPay('orange')">
-        <span class="pi">🟠</span><span class="pn">ORANGE MONEY</span>
+        <span class="pi"><i class="ti ti-device-mobile"></i></span><span class="pn">ORANGE MONEY</span>
       </button>
     </div>
   </div>
@@ -845,7 +860,7 @@ footer .fwa:hover { background: #1da851; }
 <!-- DETAIL PAGE -->
 <div class="page-overlay" id="detailPage">
   <div class="detail-topbar">
-    <button class="back-btn" onclick="closePage()">←</button>
+    <button class="back-btn" onclick="closePage()"><i class="ti ti-arrow-left"></i></button>
     <span class="detail-topbar-title" id="detailTitle">Détail produit</span>
   </div>
   <div class="detail-wrap" id="detailContent"></div>
@@ -855,8 +870,8 @@ footer .fwa:hover { background: #1da851; }
 <div class="modal-overlay" id="waveModal">
   <div class="modal">
     <div class="mhead mwave-head">
-      <span class="mhead-title">💙 Paiement Wave</span>
-      <button class="mclose" onclick="closeModal('waveModal')">✕</button>
+      <span class="mhead-title"><i class="ti ti-wallet"></i> Paiement Wave</span>
+      <button class="mclose" onclick="closeModal('waveModal')"><i class="ti ti-x"></i></button>
     </div>
     <div class="mbody">
       <div class="amount-box">
@@ -866,8 +881,8 @@ footer .fwa:hover { background: #1da851; }
       <div class="minput-grp"><label>Numéro Wave</label><input class="minput" type="tel" placeholder="77 XXX XX XX" id="wavePhone"></div>
       <div class="minput-grp"><label>Nom complet</label><input class="minput" type="text" placeholder="Prénom Nom" id="waveName"></div>
       <div class="minput-grp"><label>Adresse de livraison</label><input class="minput" type="text" placeholder="Quartier, Ville" id="waveAddr"></div>
-      <button class="msubmit-wave" onclick="submitOrder('wave')">✓ Confirmer commande Wave</button>
-      <div class="mnotice">🔒 Un lien Wave sera envoyé sur votre numéro. Notre équipe confirme la livraison sous 24h.</div>
+      <button class="msubmit-wave" onclick="submitOrder('wave')"><i class="ti ti-check"></i> Confirmer commande Wave</button>
+      <div class="mnotice"><i class="ti ti-lock"></i> Un lien Wave sera envoyé sur votre numéro. Notre équipe confirme la livraison sous 24h.</div>
     </div>
   </div>
 </div>
@@ -876,8 +891,8 @@ footer .fwa:hover { background: #1da851; }
 <div class="modal-overlay" id="orangeModal">
   <div class="modal">
     <div class="mhead morange-head">
-      <span class="mhead-title">🟠 Orange Money</span>
-      <button class="mclose" onclick="closeModal('orangeModal')">✕</button>
+      <span class="mhead-title"><i class="ti ti-device-mobile"></i> Orange Money</span>
+      <button class="mclose" onclick="closeModal('orangeModal')"><i class="ti ti-x"></i></button>
     </div>
     <div class="mbody">
       <div class="amount-box">
@@ -887,8 +902,8 @@ footer .fwa:hover { background: #1da851; }
       <div class="minput-grp"><label>Numéro Orange Money</label><input class="minput" type="tel" placeholder="77 XXX XX XX" id="orangePhone"></div>
       <div class="minput-grp"><label>Nom complet</label><input class="minput" type="text" placeholder="Prénom Nom" id="orangeName"></div>
       <div class="minput-grp"><label>Adresse de livraison</label><input class="minput" type="text" placeholder="Quartier, Ville" id="orangeAddr"></div>
-      <button class="msubmit-orange" onclick="submitOrder('orange')">✓ Confirmer commande Orange Money</button>
-      <div class="mnotice">🔒 Composez *144# pour valider votre paiement. Notre équipe confirme la livraison sous 24h.</div>
+      <button class="msubmit-orange" onclick="submitOrder('orange')"><i class="ti ti-check"></i> Confirmer commande Orange Money</button>
+      <div class="mnotice"><i class="ti ti-lock"></i> Composez *144# pour valider votre paiement. Notre équipe confirme la livraison sous 24h.</div>
     </div>
   </div>
 </div>
@@ -899,12 +914,12 @@ footer .fwa:hover { background: #1da851; }
 <script>
 // ===== DATA =====
 const cats = [
-  { id:'all',   label:'Tous les produits', icon:'🏪' },
-  { id:'epices', label:'Épices',           icon:'🌶️' },
-  { id:'legumes',label:'Légumineuses',     icon:'🟢' },
-  { id:'cafe',   label:'Café',             icon:'☕' },
-  { id:'fruits', label:'Fruits Secs',      icon:'🍃' },
-  { id:'epicerie',label:'Épicerie',         icon:'🍬' },
+  { id:'all',   label:'Tous les produits', icon:'ti-building-store' },
+  { id:'epices', label:'Épices',           icon:'ti-pepper' },
+  { id:'legumes',label:'Légumineuses',     icon:'ti-plant-2' },
+  { id:'cafe',   label:'Café',             icon:'ti-coffee' },
+  { id:'fruits', label:'Fruits Secs',      icon:'ti-cherry' },
+  { id:'epicerie',label:'Épicerie',         icon:'ti-basket' },
 ];
 
 const products = [
@@ -914,7 +929,7 @@ const products = [
     price:18500, unit:'sac 20kg',
     origine:'Argentine', poids:'20 kg',
     prod:'Octobre 2025', exp:'Octobre 2027',
-    img:'petits-pois.jpg',
+    img:'uploads/petits-pois.jpg',
     desc:'Nos petits pois sélectionnés d\'Argentine sont cultivés dans les meilleures terres agricoles sud-américaines. D\'une qualité exceptionnelle, idéaux pour la cuisine africaine et internationale. Riches en protéines végétales, fibres et vitamines.',
     extra:'Produit naturellement séché et conditionné selon les normes internationales. Exempt de colorants et conservateurs artificiels.',
   },
@@ -924,7 +939,7 @@ const products = [
     price:12000, unit:'boîte 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Février 2026', exp:'Février 2028',
-    img:'tamarin.jpg',
+    img:'uploads/tamarin.jpg',
     desc:'Le tamarin Best Foods provient directement des meilleures plantations de l\'Inde. Sélectionné à la main pour sa maturité et qualité, parfait pour vos sauces, jus et préparations culinaires.',
     extra:'Tamarin naturel sans additifs. Conditionnement hygiénique en carton renforcé.',
   },
@@ -934,7 +949,7 @@ const products = [
     price:65000, unit:'sac 50kg',
     origine:'Kenya', poids:'50 kg',
     prod:'Juillet 2026', exp:'Juillet 2028',
-    img:'cafe-kenya.jpg',
+    img:'uploads/cafe-kenya.jpg',
     desc:'Sélection premium des hauts plateaux kényans. Torréfié artisanalement pour préserver ses arômes complexes de fruits rouges et chocolat noir. L\'un des cafés les plus prisés au monde.',
     extra:'Café 100% arabica, origine contrôlée. Conditionné en sac de jute naturel pour préserver les arômes.',
   },
@@ -944,7 +959,7 @@ const products = [
     price:9500, unit:'sac 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Septembre 2025', exp:'Septembre 2027',
-    img:'piment-rouge.jpg',
+    img:'uploads/piment-rouge.jpg',
     desc:'Piment fort de niveau 7/7, directement importé d\'Inde. Séché et trié manuellement, il conserve toute sa puissance aromatique et sa couleur rouge intense. Indispensable en cuisine africaine, asiatique et créole.',
     extra:'Niveau de chaleur : 7/7 (très fort). Sans colorants ni conservateurs. Conditionné en sac PP tissé hygiénique.',
   },
@@ -954,7 +969,7 @@ const products = [
     price:22000, unit:'sac 25kg',
     origine:'Brésil', poids:'25 kg',
     prod:'Octobre 2025', exp:'Octobre 2027',
-    img:'poivre-noir.jpg',
+    img:'uploads/poivre-noir.jpg',
     desc:'Soigneusement sélectionné dans les plantations du Brésil, reconnu pour produire l\'un des meilleurs poivres au monde. Grains ronds, denses et parfumés pour une intensité aromatique incomparable.',
     extra:'Poivre noir entier, non moulu. 100% naturel sans additifs. Humidité contrôlée, stockage optimal.',
   },
@@ -964,7 +979,7 @@ const products = [
     price:5500, unit:'sachet vrac',
     origine:'Blend International', poids:'Variable',
     prod:'2025', exp:'2027',
-    img:'best-foods-spices.jpg',
+    img:'uploads/best-foods-spices.jpg',
     desc:'Mélange d\'épices signature Best Foods — un blend exclusif créé pour offrir une saveur équilibrée et authentique. Conditionnement transparent permettant de voir la qualité du produit.',
     extra:'Mélange d\'épices naturelles. Sachet transparent cordon. Produit phare de la gamme Best Foods Spices.',
   },
@@ -974,7 +989,7 @@ const products = [
     price:9500, unit:'carton 10kg',
     origine:'Iran', poids:'10 kg',
     prod:'Janvier 2026', exp:'Janvier 2028',
-    img:'raisins-secs.jpg',
+    img:'uploads/raisins-secs.jpg',
     desc:'Raisins secs sélectionnés, naturellement séchés au soleil. Texture moelleuse et goût sucré équilibré, parfaits pour la pâtisserie, la cuisine et le grignotage.',
     extra:'100% naturel, sans sucre ajouté ni conservateurs. Conditionnement hygiénique en carton renforcé.',
   },
@@ -984,7 +999,7 @@ const products = [
     price:18000, unit:'sac 10kg',
     origine:'Madagascar', poids:'10 kg',
     prod:'Novembre 2025', exp:'Novembre 2027',
-    img:'clous-de-girofle.jpg',
+    img:'uploads/clous-de-girofle.jpg',
     desc:'Clous de girofle entiers de Madagascar, réputés pour leur arôme puissant et leur richesse en huiles essentielles. Triés et séchés selon les normes export.',
     extra:'Girofle entier non moulu, 100% naturel. Humidité contrôlée pour préserver l\'arôme. Sac PP tissé hygiénique.',
   },
@@ -994,7 +1009,7 @@ const products = [
     price:16000, unit:'sac 25kg',
     origine:'Canada', poids:'25 kg',
     prod:'Septembre 2025', exp:'Septembre 2027',
-    img:'lentilles.jpg',
+    img:'uploads/lentilles.jpg',
     desc:'Lentilles de qualité supérieure, calibrées et triées. Cuisson rapide et tenue régulière, idéales pour la restauration et la distribution.',
     extra:'Sans colorants ni conservateurs. Conditionnées selon les normes internationales en sac de 25 kg.',
   },
@@ -1004,7 +1019,7 @@ const products = [
     price:28000, unit:'sac 50kg',
     origine:'Brésil', poids:'50 kg',
     prod:'2026', exp:'2028',
-    img:'sucre-placeholder.svg',
+    img:'uploads/sucre-placeholder.svg',
     desc:'Sucre blanc cristallisé de qualité alimentaire, importé en gros. Pureté élevée et grain régulier, adapté à un usage domestique, industriel et CHR.',
     extra:'Sucre raffiné, conditionné en sac de 50 kg. Stockage au sec recommandé.',
   },
@@ -1014,7 +1029,7 @@ const products = [
     price:12000, unit:'sac 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Mars 2026', exp:'Mars 2027',
-    img:'gingembre.jpg',
+    img:'uploads/gingembre.jpg',
     desc:'Gingembre séché de première qualité, à l\'arôme puissant et piquant. Idéal pour les jus, infusions, marinades et préparations culinaires africaines et asiatiques.',
     extra:'Racine triée et séchée naturellement. 100% naturel, sans additifs.',
   },
@@ -1024,7 +1039,7 @@ const products = [
     price:14000, unit:'sac 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Février 2026', exp:'Février 2028',
-    img:'curcuma.jpg',
+    img:'uploads/curcuma.jpg',
     desc:'Curcuma de qualité supérieure à la couleur jaune-orangée intense. Riche en curcumine, parfait pour colorer et parfumer riz, sauces et plats mijotés.',
     extra:'Rhizome trié et séché selon les normes export. Sans colorants ni conservateurs.',
   },
@@ -1034,7 +1049,7 @@ const products = [
     price:8000, unit:'carton 5kg',
     origine:'Méditerranée', poids:'5 kg',
     prod:'Janvier 2026', exp:'Janvier 2028',
-    img:'feuilles-de-laurier.jpg',
+    img:'uploads/feuilles-de-laurier.jpg',
     desc:'Feuilles de laurier entières séchées, à l\'arôme fin et persistant. Indispensables pour parfumer bouillons, sauces, ragoûts et marinades.',
     extra:'Feuilles entières triées à la main. Séchage naturel, conditionnement hygiénique.',
   },
@@ -1044,7 +1059,7 @@ const products = [
     price:25000, unit:'sac 10kg',
     origine:'Indonésie', poids:'10 kg',
     prod:'Décembre 2025', exp:'Décembre 2027',
-    img:'noix-de-muscade.jpg',
+    img:'uploads/noix-de-muscade.jpg',
     desc:'Noix de muscade entières, à l\'arôme chaud et boisé. Sélectionnées pour leur densité et leur richesse aromatique, à râper selon les besoins.',
     extra:'Muscade entière non moulue. 100% naturelle, humidité contrôlée.',
   },
@@ -1054,7 +1069,7 @@ const products = [
     price:15000, unit:'carton 10kg',
     origine:'Algérie', poids:'10 kg',
     prod:'Mars 2026', exp:'Mars 2027',
-    img:'dattes.jpg',
+    img:'uploads/dattes.jpg',
     desc:'Dattes séchées moelleuses et naturellement sucrées, sélectionnées pour leur calibre et leur fraîcheur. Parfaites pour la rupture du jeûne, le grignotage et la pâtisserie.',
     extra:'Dattes naturelles sans sucre ajouté. Conditionnement hygiénique en carton.',
   },
@@ -1075,7 +1090,7 @@ function renderSidebar(){
   el.innerHTML = cats.map(c => {
     const count = c.id === 'all' ? products.length : products.filter(p=>p.cat===c.id).length;
     return `<button class="sidebar-cat ${currentCat===c.id?'active':''}" onclick="setCat('${c.id}')">
-      <span class="cat-icon">${c.icon}</span>
+      <i class="ti ${c.icon} cat-icon"></i>
       ${c.label}
       <span class="cat-count">${count}</span>
     </button>`;
@@ -1120,14 +1135,15 @@ function renderProducts(){
       <span class="product-badge">${p.badge}</span>
       <div class="product-img-wrap">
         <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <img class="product-logo-stamp" src="uploads/logo-best-foods.png" alt="Best Foods">
       </div>
       <div class="product-info">
         <div class="product-cat-label">${cats.find(c=>c.id===p.cat)?.label||p.cat}</div>
         <h3>${p.name}</h3>
-        <div class="product-origin-line">🌍 ${p.origine} · ${p.poids}</div>
+        <div class="product-origin-line"><i class="ti ti-world"></i> ${p.origine} · ${p.poids}</div>
         <div class="product-price">${fmt(p.price)} <small>/ ${p.unit}</small></div>
         <button class="add-btn" onclick="event.stopPropagation();addToCart(${p.id})">
-          🛒 Ajouter
+          <i class="ti ti-shopping-cart"></i> Ajouter
         </button>
       </div>
     </div>
@@ -1141,7 +1157,7 @@ function addToCart(id){
   if(ex) ex.qty++;
   else cart.push({...p, qty:1});
   updateCart();
-  showToast('✓ ' + p.name + ' ajouté au panier');
+  showToast(p.name + ' ajouté au panier');
   const cnt = document.getElementById('cartCount');
   cnt.classList.remove('bump');
   void cnt.offsetWidth;
@@ -1164,7 +1180,7 @@ function updateCart(){
   const itemsEl = document.getElementById('cartItems');
   const footEl = document.getElementById('cartFoot');
   if(!cart.length){
-    itemsEl.innerHTML = `<div class="cart-empty-msg"><div class="ei">🛒</div><p>Votre panier est vide</p></div>`;
+    itemsEl.innerHTML = `<div class="cart-empty-msg"><div class="ei"><i class="ti ti-shopping-cart"></i></div><p>Votre panier est vide</p></div>`;
     footEl.style.display = 'none';
     return;
   }
@@ -1180,7 +1196,7 @@ function updateCart(){
           <button class="qbtn" onclick="changeQty(${it.id},-1)">−</button>
           <span class="qnum">${it.qty}</span>
           <button class="qbtn" onclick="changeQty(${it.id},1)">+</button>
-          <button class="ci-del" onclick="removeFromCart(${it.id})">🗑</button>
+          <button class="ci-del" onclick="removeFromCart(${it.id})"><i class="ti ti-trash"></i></button>
         </div>
       </div>
     </div>
@@ -1207,37 +1223,37 @@ function openProduct(id){
         <h1>${p.name}</h1>
         <div class="detail-big-price">${fmt(p.price)} <small>/ ${p.unit}</small></div>
         <div class="specs-box">
-          <div class="spec-row"><span class="sl">Origine</span><span class="sv">🌍 ${p.origine}</span></div>
-          <div class="spec-row"><span class="sl">Poids Net</span><span class="sv">📦 ${p.poids}</span></div>
-          <div class="spec-row"><span class="sl">Production</span><span class="sv">📅 ${p.prod}</span></div>
-          <div class="spec-row"><span class="sl">Expiration</span><span class="sv">⏰ ${p.exp}</span></div>
+          <div class="spec-row"><span class="sl">Origine</span><span class="sv"><i class="ti ti-world"></i> ${p.origine}</span></div>
+          <div class="spec-row"><span class="sl">Poids Net</span><span class="sv"><i class="ti ti-package"></i> ${p.poids}</span></div>
+          <div class="spec-row"><span class="sl">Production</span><span class="sv"><i class="ti ti-calendar"></i> ${p.prod}</span></div>
+          <div class="spec-row"><span class="sl">Expiration</span><span class="sv"><i class="ti ti-clock"></i> ${p.exp}</span></div>
         </div>
-        <button class="detail-add-btn" onclick="addToCart(${p.id}); showToast('✓ Ajouté au panier')">
-          🛒 Ajouter au panier — ${fmt(p.price)}
+        <button class="detail-add-btn" onclick="addToCart(${p.id}); showToast('Ajouté au panier')">
+          <i class="ti ti-shopping-cart"></i> Ajouter au panier — ${fmt(p.price)}
         </button>
-        <a class="detail-wa-btn" href="${wa}" target="_blank">📱 Commander via WhatsApp</a>
+        <a class="detail-wa-btn" href="${wa}" target="_blank"><i class="ti ti-brand-whatsapp"></i> Commander via WhatsApp</a>
       </div>
     </div>
 
     <div class="info-section">
-      <h2>📦 Livraison & Expédition</h2>
+      <h2><i class="ti ti-truck-delivery"></i> Livraison / Expédition</h2>
       <div class="shipping-grid">
-        <div class="ship-card"><div class="ship-icon">🏙️</div><h4>Dakar</h4><p>24–48h ouvrables<br>Livraison à domicile</p></div>
-        <div class="ship-card"><div class="ship-icon">🗺️</div><h4>Régions Sénégal</h4><p>2–5 jours ouvrables<br>Via transporteurs partenaires</p></div>
-        <div class="ship-card"><div class="ship-icon">🌍</div><h4>Export International</h4><p>7–21 jours<br>FOB Dakar disponible</p></div>
-        <div class="ship-card"><div class="ship-icon">📞</div><h4>Service Client</h4><p>WhatsApp: 77 497 63 64<br>Lun–Sam 8h–20h</p></div>
+        <div class="ship-card"><div class="ship-icon"><i class="ti ti-building"></i></div><h4>Dakar</h4><p>24–48h ouvrables<br>Livraison à domicile</p></div>
+        <div class="ship-card"><div class="ship-icon"><i class="ti ti-map-2"></i></div><h4>Régions Sénégal</h4><p>2–5 jours ouvrables<br>Via transporteurs partenaires</p></div>
+        <div class="ship-card"><div class="ship-icon"><i class="ti ti-world"></i></div><h4>Export International</h4><p>7–21 jours<br>FOB Dakar disponible</p></div>
+        <div class="ship-card"><div class="ship-icon"><i class="ti ti-headset"></i></div><h4>Service Client</h4><p>WhatsApp: 77 497 63 64<br>Lun–Sam 8h–20h</p></div>
       </div>
       <div style="background:var(--gray);border-radius:10px;padding:0.9rem;margin-top:1rem;font-size:12px;color:var(--text-muted)">
-        <strong style="color:var(--green-dark)">📋 Conditions :</strong> Commandes confirmées après réception du paiement. Bon de livraison fourni. Pour commandes en gros (>100kg), contactez-nous pour un devis personnalisé.
+        <strong style="color:var(--green-dark)"><i class="ti ti-clipboard-list"></i> Conditions :</strong> Commandes confirmées après réception du paiement. Bon de livraison fourni. Pour commandes en gros (>100kg), contactez-nous pour un devis personnalisé.
       </div>
     </div>
 
     <div class="info-section">
-      <h2>📝 Description du Produit</h2>
+      <h2><i class="ti ti-file-text"></i> Description du Produit</h2>
       <p class="desc-text">${p.desc}</p>
       <p class="desc-text"><strong style="color:var(--green-dark)">Informations complémentaires :</strong> ${p.extra}</p>
       <div style="background:rgba(26,107,53,0.06);border-left:4px solid var(--green);padding:0.9rem;border-radius:0 8px 8px 0;margin-top:0.8rem">
-        <strong style="color:var(--green-dark);font-size:12px">✅ Garantie Best Foods :</strong>
+        <strong style="color:var(--green-dark);font-size:12px"><i class="ti ti-shield-check"></i> Garantie Best Foods :</strong>
         <p class="desc-text" style="margin-top:4px;margin-bottom:0">Tous nos produits sont importés directement et contrôlés à la source. En cas de non-conformité, remplacement ou remboursement intégral garanti.</p>
       </div>
     </div>
@@ -1271,13 +1287,13 @@ function submitOrder(type){
   const phone = document.getElementById(type+'Phone').value;
   const name  = document.getElementById(type+'Name').value;
   const addr  = document.getElementById(type+'Addr').value;
-  if(!phone||!name||!addr){ showToast('⚠️ Remplissez tous les champs'); return; }
+  if(!phone||!name||!addr){ showToast('Remplissez tous les champs'); return; }
   const items = cart.map(i=>`${i.name} x${i.qty}`).join(', ');
   const total = fmt(getTotal());
   const method = type==='wave'?'Wave':'Orange Money';
-  const wa = `https://wa.me/221774976364?text=🛒 *Commande Best Foods*%0AMode: ${method}%0ANom: ${name}%0ATel: ${phone}%0AAdresse: ${addr}%0AProduits: ${items}%0A*Total: ${total}*`;
+  const wa = `https://wa.me/221774976364?text=*Commande Best Foods*%0AMode: ${method}%0ANom: ${name}%0ATel: ${phone}%0AAdresse: ${addr}%0AProduits: ${items}%0A*Total: ${total}*`;
   closeModal(type==='wave'?'waveModal':'orangeModal');
-  showToast('✓ Commande confirmée ! Redirection WhatsApp...');
+  showToast('Commande confirmée ! Redirection WhatsApp...');
   setTimeout(()=>{ window.open(wa,'_blank'); cart=[]; updateCart(); }, 1500);
 }
 
