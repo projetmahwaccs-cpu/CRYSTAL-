@@ -63,7 +63,11 @@ body::before {
   object-fit: contain;
   padding: 12px;
   box-shadow: 0 0 0 6px rgba(255,255,255,0.12), 0 0 60px rgba(245,151,48,0.45);
-  animation: logo-pop 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: logo-pop 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) both, logo-float 4s ease-in-out 1.3s infinite;
+}
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.03); }
 }
 @keyframes logo-pop {
   0% { transform: scale(0.2); opacity: 0; }
@@ -104,7 +108,11 @@ body::before {
   color: var(--orange-light);
   letter-spacing: 2px;
   margin-top: 1.2rem;
-  animation: tagline-glow 0.8s ease 2.4s both;
+  animation: tagline-glow 0.8s ease 2.4s both, tagline-pulse 2.6s ease-in-out 3.4s infinite;
+}
+@keyframes tagline-pulse {
+  0%, 100% { text-shadow: 0 0 12px rgba(245,151,48,0.4); opacity: 1; }
+  50% { text-shadow: 0 0 28px rgba(245,151,48,0.85); opacity: 0.88; }
 }
 @keyframes tagline-glow {
   0% { opacity: 0; transform: scale(0.85); }
@@ -554,6 +562,17 @@ body::before {
   object-fit: cover;
   transition: transform 0.35s;
 }
+.pimg-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease !important;
+  z-index: 1;
+  background: #f8f8f8;
+}
+@media(hover: hover) and (pointer: fine) {
+  .product-card:hover .pimg-hover { opacity: 1; }
+}
 .product-card:hover .product-img-wrap img:not(.product-logo-stamp) { transform: scale(1.05); }
 
 .product-info {
@@ -758,7 +777,24 @@ body::before {
   aspect-ratio: 3/4;
   box-shadow: var(--shadow-lg);
 }
-.detail-img img { width: 100%; height: 100%; object-fit: cover; }
+.detail-img img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.25s; }
+
+.detail-thumbs {
+  display: flex; gap: 8px; margin-top: 10px;
+}
+.dthumb {
+  width: 64px; height: 64px;
+  border-radius: 10px; overflow: hidden;
+  border: 2.5px solid transparent;
+  cursor: pointer; padding: 0;
+  background: white;
+  box-shadow: var(--shadow);
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.dthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dthumb:hover { transform: translateY(-2px); }
+.dthumb.active { border-color: var(--green); box-shadow: 0 2px 10px rgba(26,107,53,0.35); }
 
 .detail-info-side { display: flex; flex-direction: column; justify-content: center; }
 
@@ -1377,7 +1413,7 @@ const products = [
     price:12000, unit:'boîte 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Février 2026', exp:'Février 2028',
-    img:'tamarin.jpg',
+    img:'tamarin.jpg', img2:'tamarin-sac.jpg',
     desc:'Le tamarin Best Foods provient directement des meilleures plantations de l\'Inde. Sélectionné à la main pour sa maturité et qualité, parfait pour vos sauces, jus et préparations culinaires.',
     extra:'Tamarin naturel sans additifs. Conditionnement hygiénique en carton renforcé.',
   },
@@ -1387,7 +1423,7 @@ const products = [
     price:65000, unit:'sac 50kg',
     origine:'Kenya', poids:'50 kg',
     prod:'Juillet 2026', exp:'Juillet 2028',
-    img:'cafe-kenya.jpg',
+    img:'cafe-kenya.jpg', img2:'cafe-kenya-sac.jpg',
     desc:'Sélection premium des hauts plateaux kényans. Torréfié artisanalement pour préserver ses arômes complexes de fruits rouges et chocolat noir. L\'un des cafés les plus prisés au monde.',
     extra:'Café 100% arabica, origine contrôlée. Conditionné en sac de jute naturel pour préserver les arômes.',
   },
@@ -1397,7 +1433,7 @@ const products = [
     price:9500, unit:'sac 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Septembre 2025', exp:'Septembre 2027',
-    img:'piment-rouge.jpg',
+    img:'piment-rouge.jpg', img2:'piment-rouge-sac.jpg',
     desc:'Piment fort de niveau 7/7, directement importé d\'Inde. Séché et trié manuellement, il conserve toute sa puissance aromatique et sa couleur rouge intense. Indispensable en cuisine africaine, asiatique et créole.',
     extra:'Niveau de chaleur : 7/7 (très fort). Sans colorants ni conservateurs. Conditionné en sac PP tissé hygiénique.',
   },
@@ -1407,7 +1443,7 @@ const products = [
     price:22000, unit:'sac 25kg',
     origine:'Brésil', poids:'25 kg',
     prod:'Octobre 2025', exp:'Octobre 2027',
-    img:'poivre-noir.jpg',
+    img:'poivre-noir.jpg', img2:'poivre-noir-sac.jpg', img3:'poivre-noir-sac-2.jpg',
     desc:'Soigneusement sélectionné dans les plantations du Brésil, reconnu pour produire l\'un des meilleurs poivres au monde. Grains ronds, denses et parfumés pour une intensité aromatique incomparable.',
     extra:'Poivre noir entier, non moulu. 100% naturel sans additifs. Humidité contrôlée, stockage optimal.',
   },
@@ -1437,7 +1473,7 @@ const products = [
     price:18000, unit:'sac 10kg',
     origine:'Madagascar', poids:'10 kg',
     prod:'Novembre 2025', exp:'Novembre 2027',
-    img:'clous-de-girofle.jpg',
+    img:'clous-de-girofle.jpg', img2:'clous-de-girofle-sac.jpg',
     desc:'Clous de girofle entiers de Madagascar, réputés pour leur arôme puissant et leur richesse en huiles essentielles. Triés et séchés selon les normes export.',
     extra:'Girofle entier non moulu, 100% naturel. Humidité contrôlée pour préserver l\'arôme. Sac PP tissé hygiénique.',
   },
@@ -1497,7 +1533,7 @@ const products = [
     price:25000, unit:'sac 10kg',
     origine:'Indonésie', poids:'10 kg',
     prod:'Décembre 2025', exp:'Décembre 2027',
-    img:'noix-de-muscade.jpg',
+    img:'noix-de-muscade.jpg', img2:'noix-de-muscade-sac.jpg',
     desc:'Noix de muscade entières, à l\'arôme chaud et boisé. Sélectionnées pour leur densité et leur richesse aromatique, à râper selon les besoins.',
     extra:'Muscade entière non moulue. 100% naturelle, humidité contrôlée.',
   },
@@ -1573,6 +1609,7 @@ function renderProducts(){
       <span class="product-badge">${p.badge}</span>
       <div class="product-img-wrap">
         <img src="${p.img}" alt="${p.name}" loading="lazy">
+        ${p.img2?`<img class="pimg-hover" src="${p.img2}" alt="${p.name} emballage" loading="lazy">`:''}
         <img class="product-logo-stamp" src="logo-best-foods.png" alt="Best Foods">
       </div>
       <div class="product-info">
@@ -1649,12 +1686,19 @@ function toggleCart(){
 // ===== PRODUCT DETAIL =====
 function openProduct(id){
   const p = products.find(x=>x.id===id);
+  const imgs = [p.img, p.img2, p.img3].filter(Boolean);
   document.getElementById('detailTitle').textContent = p.name;
   const wa = `https://wa.me/221776990000?text=Bonjour%20Best%20Foods,%20je%20suis%20intéressé(e)%20par%20${encodeURIComponent(p.name)}%20-%20${fmt(p.price)}`;
   document.getElementById('detailContent').innerHTML = `
     <div class="detail-grid">
-      <div class="detail-img">
-        <img src="${p.img}" alt="${p.name}">
+      <div>
+        <div class="detail-img">
+          <img id="detailMainImg" src="${imgs[0]}" alt="${p.name}">
+        </div>
+        ${imgs.length>1?`
+        <div class="detail-thumbs">
+          ${imgs.map((im,i)=>`<button class="dthumb ${i===0?'active':''}" onclick="swapDetailImg('${im}',this)"><img src="${im}" alt="${p.name} vue ${i+1}"></button>`).join('')}
+        </div>`:''}
       </div>
       <div class="detail-info-side">
         <span class="detail-tag-label">${cats.find(c=>c.id===p.cat)?.label||p.cat}</span>
@@ -1703,6 +1747,12 @@ function openProduct(id){
 function closePage(){
   document.getElementById('detailPage').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+function swapDetailImg(src, btn){
+  document.getElementById('detailMainImg').src = src;
+  document.querySelectorAll('.dthumb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
 // ===== PAYMENT =====
