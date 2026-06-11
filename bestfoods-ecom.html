@@ -1403,7 +1403,7 @@ const products = [
     price:18500, unit:'sac 20kg',
     origine:'Argentine', poids:'20 kg',
     prod:'Octobre 2025', exp:'Octobre 2027',
-    img:'petits-pois.jpg',
+    img:'petits-pois.jpg', img2:'petits-pois-sac.jpg',
     desc:'Nos petits pois sélectionnés d\'Argentine sont cultivés dans les meilleures terres agricoles sud-américaines. D\'une qualité exceptionnelle, idéaux pour la cuisine africaine et internationale. Riches en protéines végétales, fibres et vitamines.',
     extra:'Produit naturellement séché et conditionné selon les normes internationales. Exempt de colorants et conservateurs artificiels.',
   },
@@ -1433,7 +1433,7 @@ const products = [
     price:9500, unit:'sac 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Septembre 2025', exp:'Septembre 2027',
-    img:'piment-rouge.jpg', img2:'piment-rouge-sac.jpg',
+    img:'piment-rouge.jpg', img2:'piment-rouge-sac.jpg', img3:'piment-rouge-sacs-25kg.jpg',
     desc:'Piment fort de niveau 7/7, directement importé d\'Inde. Séché et trié manuellement, il conserve toute sa puissance aromatique et sa couleur rouge intense. Indispensable en cuisine africaine, asiatique et créole.',
     extra:'Niveau de chaleur : 7/7 (très fort). Sans colorants ni conservateurs. Conditionné en sac PP tissé hygiénique.',
   },
@@ -1536,6 +1536,16 @@ const products = [
     img:'noix-de-muscade.jpg', img2:'noix-de-muscade-sac.jpg',
     desc:'Noix de muscade entières, à l\'arôme chaud et boisé. Sélectionnées pour leur densité et leur richesse aromatique, à râper selon les besoins.',
     extra:'Muscade entière non moulue. 100% naturelle, humidité contrôlée.',
+  },
+  {
+    id:16, name:'Yoghurt King — Lait en Poudre', cat:'epicerie',
+    badge:'Nouveau',
+    price:30000, unit:'sac 25kg',
+    origine:'Irlande', poids:'25 kg',
+    prod:'2026', exp:'2028',
+    img:'yoghurt-king.jpg',
+    desc:'Poudre instantanée enrichie en matières grasses Yoghurt King, produite en Irlande. Idéale pour la fabrication de yaourts, boissons lactées et préparations laitières. Solubilité rapide et goût riche.',
+    extra:'Poudre instantanée (Instant Fat Filled Powder). Conditionnée en sac de 25 kg. Stockage au sec recommandé.',
   },
   {
     id:15, name:'Dattes', cat:'fruits',
@@ -1858,7 +1868,7 @@ function closeIntro(){
     document.getElementById('intro').classList.add('hide');
   } else {
     try { sessionStorage.setItem('bf_intro','1'); } catch(e) {}
-    setTimeout(closeIntro, 30000);
+    setTimeout(closeIntro, 60000);
   }
 })();
 
