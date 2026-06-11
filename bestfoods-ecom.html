@@ -872,6 +872,68 @@ body::before {
 
 .desc-text { color: var(--text-muted); line-height: 1.8; font-size: 13px; margin-bottom: 0.8rem; }
 
+/* ===== SUGGESTIONS ===== */
+.suggest-sub { font-size: 12px; color: var(--text-muted); margin: -0.8rem 0 1.1rem; }
+.suggest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.8rem;
+}
+.suggest-card {
+  background: var(--cream);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.suggest-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(26,107,53,0.25);
+}
+.sc-img {
+  height: 120px;
+  position: relative;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+.sc-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.suggest-card:hover .sc-img img { transform: scale(1.07); }
+.sc-badge {
+  position: absolute; top: 7px; left: 7px;
+  background: var(--green); color: white;
+  font-size: 8px; font-weight: 800;
+  padding: 2px 7px; border-radius: 12px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.sc-info { padding: 8px 10px 10px; }
+.sc-name { font-size: 12px; font-weight: 800; color: var(--text); line-height: 1.25; }
+.sc-meta { font-size: 9px; color: var(--text-muted); margin: 2px 0 4px; }
+.sc-price { font-size: 0.95rem; font-weight: 900; color: var(--orange); margin-bottom: 6px; }
+.sc-add {
+  width: 100%;
+  background: var(--green); color: white;
+  border: none; padding: 6px;
+  border-radius: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px; font-weight: 800;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  transition: background 0.18s;
+}
+.sc-add:hover { background: var(--green-dark); }
+.sc-add:active { transform: scale(0.97); }
+
+@media(max-width: 768px) {
+  .suggest-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .sc-img { height: 105px; }
+}
+
 /* ===== MODALS ===== */
 .modal-overlay {
   position: fixed; inset: 0;
@@ -1508,13 +1570,13 @@ const products = [
     extra:'Racine triée et séchée naturellement. 100% naturel, sans additifs.',
   },
   {
-    id:12, name:'Tamarin', cat:'epices',
+    id:12, name:'Curcuma', cat:'epices',
     badge:'Naturel',
     price:14000, unit:'sac 10kg',
     origine:'Inde', poids:'10 kg',
     prod:'Février 2026', exp:'Février 2028',
     img:'curcuma.jpg',
-    desc:'Tamarin de qualité supérieure à la couleur jaune-orangée intense. Riche en curcumine, parfait pour colorer et parfumer riz, sauces et plats mijotés.',
+    desc:'Curcuma de qualité supérieure à la couleur jaune-orangée intense. Riche en curcumine, parfait pour colorer et parfumer riz, sauces et plats mijotés.',
     extra:'Rhizome trié et séché selon les normes export. Sans colorants ni conservateurs.',
   },
   {
@@ -1749,9 +1811,40 @@ function openProduct(id){
         <p class="desc-text" style="margin-top:4px;margin-bottom:0">Tous nos produits sont importés directement et contrôlés à la source. En cas de non-conformité, remplacement ou remboursement intégral garanti.</p>
       </div>
     </div>
+
+    <div class="info-section suggest-section">
+      <h2><i class="ti ti-sparkles"></i> Vous Aimerez Aussi</h2>
+      <p class="suggest-sub">Complétez votre commande — nos clients achètent souvent ces produits ensemble</p>
+      <div class="suggest-grid">
+        ${getSuggestions(p).map(s=>`
+          <div class="suggest-card" onclick="openProduct(${s.id})">
+            <div class="sc-img">
+              <img src="${s.img}" alt="${s.name}" loading="lazy">
+              <span class="sc-badge">${s.badge}</span>
+            </div>
+            <div class="sc-info">
+              <div class="sc-name">${s.name}</div>
+              <div class="sc-meta">${s.origine} · ${s.poids}</div>
+              <div class="sc-price">${fmt(s.price)}</div>
+              <button class="sc-add" onclick="event.stopPropagation();addToCart(${s.id})">
+                <i class="ti ti-shopping-cart"></i> Ajouter
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
   `;
   document.getElementById('detailPage').classList.add('open');
+  document.getElementById('detailPage').scrollTop = 0;
   document.body.style.overflow = 'hidden';
+}
+
+// ===== SUGGESTIONS =====
+function getSuggestions(p){
+  const sameCat = products.filter(x=>x.id!==p.id && x.cat===p.cat);
+  const others  = products.filter(x=>x.id!==p.id && x.cat!==p.cat);
+  return [...sameCat, ...others];
 }
 
 function closePage(){
