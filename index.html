@@ -882,6 +882,47 @@
     @media (prefers-reduced-motion: reduce) {
       .wc-topbadge, .wc-topbadge i, .wc-fanion, .wc-marquee-track, .wc-ball { animation: none; }
     }
+
+    /* --- POP-UP BEST FOODS MONDIAL : pétales aux couleurs du Sénégal --- */
+    .ccl-popup.wc-bf { cursor: pointer; border-color: var(--wc-yellow); }
+    .ccl-popup.wc-bf .ccl-popup-head { background: linear-gradient(90deg, #042814, var(--wc-green)); position: relative; z-index: 1; }
+    .ccl-popup.wc-bf .ccl-popup-media, .ccl-popup.wc-bf .ccl-popup-body { position: relative; z-index: 1; }
+    .ccl-popup.wc-bf .ccl-popup-body { background: transparent; }
+    .ccl-popup.wc-bf .ccl-popup-cta { background: linear-gradient(90deg, var(--wc-green), var(--wc-red)); }
+    .ccl-popup.wc-bf .ccl-popup-cta:hover { box-shadow: 0 0 22px rgba(206,17,38,.55); }
+
+    .wc-petals { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; background: linear-gradient(180deg, #fffdf5, #fef9e7); }
+    .wc-petal {
+      position: absolute; top: -30px;
+      width: 14px; height: 18px;
+      border-radius: 80% 0 80% 0;
+      opacity: .85;
+      animation: wcPetalFall linear infinite;
+    }
+    .wc-petal:nth-child(4n+1) { background: var(--wc-green); }
+    .wc-petal:nth-child(4n+2) { background: var(--wc-yellow); }
+    .wc-petal:nth-child(4n+3) { background: var(--wc-red); }
+    .wc-petal:nth-child(4n)   { background: var(--wc-green); width: 10px; height: 13px; }
+    .wc-petal:nth-child(1)  { left: 4%;  animation-duration: 6.5s; animation-delay: 0s; }
+    .wc-petal:nth-child(2)  { left: 14%; animation-duration: 8s;   animation-delay: 1.2s; }
+    .wc-petal:nth-child(3)  { left: 24%; animation-duration: 7s;   animation-delay: 2.4s; }
+    .wc-petal:nth-child(4)  { left: 34%; animation-duration: 9s;   animation-delay: .6s; }
+    .wc-petal:nth-child(5)  { left: 44%; animation-duration: 6s;   animation-delay: 3s; }
+    .wc-petal:nth-child(6)  { left: 54%; animation-duration: 8.5s; animation-delay: 1.8s; }
+    .wc-petal:nth-child(7)  { left: 64%; animation-duration: 7.5s; animation-delay: .3s; }
+    .wc-petal:nth-child(8)  { left: 74%; animation-duration: 6.8s; animation-delay: 2.1s; }
+    .wc-petal:nth-child(9)  { left: 84%; animation-duration: 9.5s; animation-delay: 1s; }
+    .wc-petal:nth-child(10) { left: 92%; animation-duration: 7.2s; animation-delay: 2.8s; }
+    .wc-petal:nth-child(11) { left: 9%;  animation-duration: 8.8s; animation-delay: 4s; }
+    .wc-petal:nth-child(12) { left: 49%; animation-duration: 7.8s; animation-delay: 4.6s; }
+    .wc-petal:nth-child(13) { left: 69%; animation-duration: 6.3s; animation-delay: 5.2s; }
+    .wc-petal:nth-child(14) { left: 29%; animation-duration: 9.2s; animation-delay: 3.6s; }
+    @keyframes wcPetalFall {
+      0%   { transform: translateY(-30px) rotate(0deg); opacity: 0; }
+      8%   { opacity: .85; }
+      100% { transform: translateY(620px) rotate(340deg); opacity: .5; }
+    }
+    @media (prefers-reduced-motion: reduce) { .wc-petal { animation: none; opacity: .35; top: auto; bottom: 10%; } }
   </style>
 </head>
 <body>
@@ -2611,12 +2652,14 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
     closeCclPopup(n);
     if(n===1){ const s=document.getElementById('reels-sec')||document.getElementById('sec-maison'); if(s) s.scrollIntoView({behavior:'smooth'}); }
     if(n===2){ const s=document.getElementById('sec-beaute'); if(s) s.scrollIntoView({behavior:'smooth'}); }
+    if(n===3){ window.location.href='bestfoods-ecom.html'; }
   }
   // fermer en cliquant en dehors de la carte
   document.querySelectorAll('.ccl-popup-overlay').forEach(ov=>{
     ov.addEventListener('click', e=>{ if(e.target===ov){ const n=ov.id.split('-').pop(); closeCclPopup(n); } });
   });
   setTimeout(()=>openCclPopup(1), 60000);    // 1 minute
+  setTimeout(()=>openCclPopup(3), 300000);   // 5 minutes — Best Foods Mondial
   setTimeout(()=>openCclPopup(2), 900000);   // 15 minutes
 
   updateCart();
@@ -3086,6 +3129,25 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
     <div class="ccl-popup-body">
       <p>Parfums de luxe, coffrets et bien plus — livrés partout à Dakar.</p>
       <button class="ccl-popup-cta" onclick="cclPopupAction(2)">Découvrir les parfums <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- POP-UP 3 : Best Foods — Spécial Mondial 2026 (pétales Sénégal, clic = boutique) -->
+<div class="ccl-popup-overlay" id="ccl-popup-3">
+  <div class="ccl-popup wc-bf" onclick="cclPopupAction(3)" role="link" aria-label="Voir la boutique Best Foods">
+    <div class="wc-petals" aria-hidden="true">
+      <span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span>
+      <span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span>
+      <span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span>
+      <span class="wc-petal"></span><span class="wc-petal"></span>
+    </div>
+    <button class="ccl-popup-close" onclick="event.stopPropagation(); closeCclPopup(3)" aria-label="Fermer">&times;</button>
+    <div class="ccl-popup-head"><i class="ti ti-ball-football"></i> Best Foods — Spécial Mondial 2026</div>
+    <div class="ccl-popup-media"><video src="WORLDCUTBESTFOODSPUB.mp4" muted loop playsinline preload="metadata"></video></div>
+    <div class="ccl-popup-body">
+      <p><strong>Bénéficiez de réductions sur les articles achetés chez Best Foods</strong> pendant toute la Coupe du Monde ! Épices, café, légumineuses et plus encore.</p>
+      <button class="ccl-popup-cta">Voir la boutique Best Foods <i class="ti ti-arrow-right"></i></button>
     </div>
   </div>
 </div>
