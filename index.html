@@ -786,6 +786,102 @@
       .cart-drawer { width: 100vw; }
       .pp-actions .btn-primary, .pp-actions .btn-whatsapp { min-width: 100%; }
     }
+    /* ============================================================
+       HABILLAGE SPÉCIAL — COUPE DU MONDE 2026 (Mondial)
+       Couleurs drapeau Sénégal : vert / jaune / rouge + étoile
+       Aucune info modifiée — pur habillage visuel additif
+       ============================================================ */
+    :root {
+      --wc-red: #CE1126;
+      --wc-yellow: #FCD116;
+      --wc-green: #00853F;
+    }
+
+    /* --- Liseré tricolore tout en haut de la page --- */
+    .wc-tricolore {
+      height: 5px;
+      background: linear-gradient(90deg,
+        var(--wc-green) 0 33.3%,
+        var(--wc-yellow) 33.3% 66.6%,
+        var(--wc-red) 66.6% 100%);
+    }
+
+    /* --- Badge MONDIAL dans la top-bar --- */
+    .wc-topbadge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--wc-red); color: #fff;
+      font-weight: 800; font-size: 11px; letter-spacing: .6px;
+      padding: 3px 10px; border-radius: 20px; margin-right: 10px;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.25);
+      animation: wcPulse 2.4s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    .wc-topbadge i { color: #fff !important; font-size: 14px; animation: wcSpin 6s linear infinite; }
+    @keyframes wcPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+    @keyframes wcSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* --- Guirlande de fanions (signature du thème) --- */
+    .wc-fanions {
+      display: flex; justify-content: center; gap: 14px;
+      padding: 0 10px 4px; overflow: hidden;
+      background: linear-gradient(180deg, rgba(4,40,20,.06), transparent);
+      border-bottom: 1px solid rgba(0,0,0,.05);
+    }
+    .wc-fanion {
+      width: 26px; height: 32px; flex: 0 0 auto;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      animation: wcSway 3.6s ease-in-out infinite;
+    }
+    .wc-fanion:nth-child(3n+1) { background: var(--wc-green); animation-delay: 0s; }
+    .wc-fanion:nth-child(3n+2) { background: var(--wc-yellow); animation-delay: .4s; }
+    .wc-fanion:nth-child(3n)   { background: var(--wc-red); animation-delay: .8s; }
+    @keyframes wcSway { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+
+    /* --- Bandeau défilant Mondial sous la nav --- */
+    .wc-marquee {
+      position: relative; overflow: hidden;
+      background: linear-gradient(90deg, #042814, var(--green-dark), #042814);
+      border-top: 2px solid var(--wc-yellow);
+      border-bottom: 2px solid var(--wc-red);
+      padding: 8px 0;
+    }
+    .wc-marquee-track {
+      display: flex; gap: 48px; width: max-content;
+      animation: wcScroll 28s linear infinite;
+      white-space: nowrap;
+    }
+    .wc-marquee-track span {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .4px;
+    }
+    .wc-marquee-track span i { color: var(--wc-yellow); font-size: 16px; }
+    .wc-marquee-track span strong { color: var(--wc-yellow); }
+    @keyframes wcScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .wc-marquee:hover .wc-marquee-track { animation-play-state: paused; }
+
+    /* --- Étoile verte (drapeau) sur le badge hero --- */
+    .hero-badge.wc { background: rgba(206,17,38,.28); border-color: rgba(252,209,22,.55); color: #fff; }
+    .hero-badge.wc i { color: var(--wc-yellow); }
+
+    /* --- Pill supporters dans le hero --- */
+    .hero-pill.wc { border: 1px solid var(--wc-yellow); }
+    .hero-pill.wc i { color: var(--wc-red); }
+
+    /* --- Ballon flottant discret dans le hero --- */
+    .wc-ball {
+      position: absolute; right: 36px; top: 26px; z-index: 2;
+      font-size: 40px; color: rgba(255,255,255,.85);
+      animation: wcBounce 3s ease-in-out infinite;
+      text-shadow: 0 6px 18px rgba(0,0,0,.35);
+    }
+    @keyframes wcBounce { 0%,100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-14px) rotate(8deg); } }
+    @media (max-width: 768px) { .wc-ball { display: none; } .wc-fanion { width: 20px; height: 26px; } }
+
+    /* --- Accessibilité : réduire le mouvement si demandé --- */
+    @media (prefers-reduced-motion: reduce) {
+      .wc-topbadge, .wc-topbadge i, .wc-fanion, .wc-marquee-track, .wc-ball { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -797,9 +893,12 @@
 </div>
 <div class="site-center">
 
+<!-- LISERÉ TRICOLORE MONDIAL -->
+<div class="wc-tricolore" aria-hidden="true"></div>
+
 <!-- TOP BAR -->
 <div class="top-bar lux">
-  <p><i class="ti ti-discount-2"></i> PROMO — Soldes jusqu'à -20% &nbsp;|&nbsp; Livraison J+1 partout à Dakar</p>
+  <p><span class="wc-topbadge"><i class="ti ti-ball-football"></i> MONDIAL 2026</span><i class="ti ti-discount-2"></i> PROMO — Soldes jusqu'à -20% &nbsp;|&nbsp; Livraison J+1 partout à Dakar</p>
   <div class="timer" id="topTimer">07j 20h 58m</div>
 </div>
 
@@ -895,6 +994,34 @@
 
   <button class="seller-btn">Devenir vendeur</button>
 </nav>
+
+<!-- GUIRLANDE DE FANIONS — MONDIAL 2026 -->
+<div class="wc-fanions" aria-hidden="true">
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
+</div>
+
+<!-- BANDEAU DÉFILANT — COUPE DU MONDE 2026 -->
+<div class="wc-marquee">
+  <div class="wc-marquee-track">
+    <span><i class="ti ti-ball-football"></i> <strong>COUPE DU MONDE 2026</strong> — 11 juin au 19 juillet</span>
+    <span><i class="ti ti-flag"></i> Allez les <strong>Lions de la Téranga</strong> !</span>
+    <span><i class="ti ti-device-tv"></i> TV &amp; écrans pour vivre les matchs — <strong>rayon High-Tech</strong></span>
+    <span><i class="ti ti-shopping-cart"></i> Snacks &amp; boissons supporters — <strong>rayon Alimentation</strong></span>
+    <span><i class="ti ti-truck-delivery"></i> Livraison <strong>J+1</strong> partout à Dakar</span>
+    <span><i class="ti ti-ball-football"></i> <strong>COUPE DU MONDE 2026</strong> — 11 juin au 19 juillet</span>
+    <span><i class="ti ti-flag"></i> Allez les <strong>Lions de la Téranga</strong> !</span>
+    <span><i class="ti ti-device-tv"></i> TV &amp; écrans pour vivre les matchs — <strong>rayon High-Tech</strong></span>
+    <span><i class="ti ti-shopping-cart"></i> Snacks &amp; boissons supporters — <strong>rayon Alimentation</strong></span>
+    <span><i class="ti ti-truck-delivery"></i> Livraison <strong>J+1</strong> partout à Dakar</span>
+  </div>
+</div>
 
 <style>
 /* ===== NAV DROPDOWN ===== */
@@ -1028,6 +1155,9 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   <img class="hero-bg" src="hero-panier-ccl.png" alt="" aria-hidden="true" />
   <div class="hero-overlay"></div>
   <div class="hero-content">
+    <div class="hero-badge wc">
+      <i class="ti ti-ball-football"></i> Édition spéciale Coupe du Monde 2026
+    </div>
     <div class="hero-badge">
       <i class="ti ti-shield-check"></i> Votre satisfaction, notre priorité
     </div>
@@ -1042,9 +1172,12 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
       Livraison disponible dans tous les quartiers de <strong>Dakar</strong>
     </div>
   </div>
+  <!-- BALLON FLOTTANT MONDIAL -->
+  <i class="ti ti-ball-football wc-ball" aria-hidden="true"></i>
   <!-- FLOATING PILLS -->
   <div class="hero-pills" id="hero-pills">
-    <div class="hero-pill" style="--d:0s"><i class="ti ti-package"></i><span><strong>200+</strong> Produits</span></div>
+    <div class="hero-pill wc" style="--d:0s"><i class="ti ti-ball-football"></i><span><strong>Mondial 2026</strong> Allez les Lions !</span></div>
+    <div class="hero-pill" style="--d:.08s"><i class="ti ti-package"></i><span><strong>200+</strong> Produits</span></div>
     <div class="hero-pill" style="--d:.08s"><i class="ti ti-truck-delivery"></i><span><strong>J+1</strong> Livraison Dakar</span></div>
     <div class="hero-pill" style="--d:.16s"><i class="ti ti-shield-check"></i><span><strong>Qualité</strong> Garantie</span></div>
     <div class="hero-pill" style="--d:.24s"><i class="ti ti-lock"></i><span><strong>Paiement</strong> Sécurisé</span></div>
@@ -2629,7 +2762,7 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 
   <div class="footer-divider"></div>
   <div class="footer-bottom">
-    <div class="footer-bottom-text">&copy; 2026 Crystal Company Limited. Tous droits réservés.</div>
+    <div class="footer-bottom-text">&copy; 2026 Crystal Company Limited. Tous droits réservés. &nbsp;<i class="ti ti-ball-football" style="color:var(--wc-yellow);"></i> <span style="color:#aaa;">CCL supporte les Lions de la Téranga — Mondial 2026</span></div>
     <div class="footer-bottom-links">
       <a href="cgv.html">Conditions (CGV)</a><a href="confidentialite.html">Confidentialité</a><a href="livraison.html">Livraison & Retours</a>
     </div>
