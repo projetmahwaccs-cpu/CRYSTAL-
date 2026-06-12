@@ -47,16 +47,12 @@
         radial-gradient(ellipse 50% 35% at 10% 100%, rgba(212,175,55,.05), transparent 60%);
     }
 
-    /* ===== FILIGRANE LOGO SSR (motif répété en arrière-plan) ===== */
+    /* ===== FILIGRANE LOGO SSR (tuile or pré-générée, motif répété) ===== */
     body::after {
-      content:''; position:fixed; pointer-events:none; z-index:0;
-      inset: -15%;
-      background-image: url('ssr-sen-senteurs-royal-logo.png');
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+      background-image: url('ssr-filigrane.png');
       background-size: 190px 190px;
       background-repeat: repeat;
-      opacity: .045;
-      filter: grayscale(60%) sepia(35%) brightness(1.1);
-      transform: rotate(-8deg);
     }
     @media (max-width: 720px) { body::after { background-size: 130px 130px; } }
 
@@ -76,8 +72,7 @@
     /* ===== HEADER ===== */
     header {
       position: sticky; top:0; z-index: 100;
-      background: rgba(10,8,4,.92);
-      backdrop-filter: blur(10px);
+      background: rgba(10, 8, 4, .97);
       border-bottom: 1px solid rgba(212,175,55,.25);
       display:flex; align-items:center; justify-content:space-between;
       padding: 12px 5%;
@@ -307,7 +302,7 @@
       .foot-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 720px) {
-      nav { position:fixed; inset: 0 0 0 35%; background: rgba(10,8,4,.97); backdrop-filter: blur(12px);
+      nav { position:fixed; inset: 0 0 0 35%; background: rgba(10,8,4,.99);
             flex-direction:column; justify-content:center; gap: 30px;
             transform: translateX(110%); transition: .35s; z-index: 150; border-left:1px solid rgba(212,175,55,.3); }
       nav.ouvert { transform: translateX(0); }
