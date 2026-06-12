@@ -923,6 +923,35 @@
       100% { transform: translateY(620px) rotate(340deg); opacity: .5; }
     }
     @media (prefers-reduced-motion: reduce) { .wc-petal { animation: none; opacity: .35; top: auto; bottom: 10%; } }
+
+    /* --- PLUIE DE PÉTALES PLEIN ÉCRAN (entrée sur le site) + BURST AU CLIC --- */
+    .wc-rain {
+      position: fixed; inset: 0; overflow: hidden;
+      pointer-events: none; z-index: 9999;
+    }
+    .wc-rain .p {
+      position: absolute; top: -40px; left: var(--x);
+      width: var(--s); height: calc(var(--s) * 1.3);
+      background: var(--c); border-radius: 80% 0 80% 0;
+      opacity: 0;
+      animation: wcRainFall var(--t) linear var(--d) forwards;
+    }
+    @keyframes wcRainFall {
+      0%   { transform: translateY(-40px) translateX(0) rotate(0deg); opacity: 0; }
+      6%   { opacity: .9; }
+      50%  { transform: translateY(55vh) translateX(var(--sway)) rotate(280deg); }
+      100% { transform: translateY(108vh) translateX(calc(var(--sway) * -1)) rotate(560deg); opacity: .45; }
+    }
+    .wc-burst-p {
+      position: fixed; pointer-events: none; z-index: 9999;
+      width: 12px; height: 16px; border-radius: 80% 0 80% 0;
+      animation: wcBurstFly .9s ease-out forwards;
+    }
+    @keyframes wcBurstFly {
+      0%   { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translate(var(--bx), var(--by)) rotate(var(--br)) scale(.6); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .wc-rain, .wc-burst-p { display: none; } }
   </style>
 </head>
 <body>
@@ -3578,5 +3607,61 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   </a>
 </div>
 </div>
+<!-- ===== PÉTALES MONDIAL 2026 : pluie à l'entrée + burst au clic ===== -->
+<script>
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var COLORS = ['#00853F', '#FCD116', '#CE1126'];
+
+  /* --- Pluie plein écran dès l'entrée sur le site (≈ 12 secondes) --- */
+  function petalRain(){
+    var rain = document.createElement('div');
+    rain.className = 'wc-rain';
+    rain.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < 46; i++){
+      var p = document.createElement('span');
+      p.className = 'p';
+      p.style.setProperty('--x', (Math.random() * 100) + 'vw');
+      p.style.setProperty('--s', (9 + Math.random() * 9) + 'px');
+      p.style.setProperty('--c', COLORS[i % 3]);
+      p.style.setProperty('--t', (5 + Math.random() * 5) + 's');
+      p.style.setProperty('--d', (Math.random() * 4) + 's');
+      p.style.setProperty('--sway', ((Math.random() * 80) - 40) + 'px');
+      rain.appendChild(p);
+    }
+    document.body.appendChild(rain);
+    setTimeout(function(){
+      rain.style.transition = 'opacity 1.5s';
+      rain.style.opacity = '0';
+      setTimeout(function(){ rain.remove(); }, 1600);
+    }, 12000);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', petalRain);
+  } else { petalRain(); }
+
+  /* --- Burst de pétales à chaque clic --- */
+  var lastBurst = 0;
+  document.addEventListener('click', function(e){
+    var now = Date.now();
+    if (now - lastBurst < 150) return;   // anti-spam
+    lastBurst = now;
+    for (var i = 0; i < 8; i++){
+      var p = document.createElement('span');
+      p.className = 'wc-burst-p';
+      p.style.left = (e.clientX - 6) + 'px';
+      p.style.top  = (e.clientY - 8) + 'px';
+      p.style.background = COLORS[i % 3];
+      var ang = (Math.PI * 2 / 8) * i + (Math.random() * .6);
+      var dist = 50 + Math.random() * 60;
+      p.style.setProperty('--bx', (Math.cos(ang) * dist) + 'px');
+      p.style.setProperty('--by', (Math.sin(ang) * dist + 50) + 'px');
+      p.style.setProperty('--br', (180 + Math.random() * 360) + 'deg');
+      document.body.appendChild(p);
+      (function(el){ setTimeout(function(){ el.remove(); }, 950); })(p);
+    }
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
