@@ -963,9 +963,6 @@
 </div>
 <div class="site-center">
 
-<!-- LISERÉ TRICOLORE MONDIAL -->
-<div class="wc-tricolore" aria-hidden="true"></div>
-
 <!-- TOP BAR -->
 <div class="top-bar lux">
   <p><span class="wc-topbadge"><i class="ti ti-ball-football"></i> MONDIAL 2026</span><i class="ti ti-discount-2"></i> PROMO — Soldes jusqu'à -20% &nbsp;|&nbsp; Livraison J+1 partout à Dakar</p>
@@ -1064,18 +1061,6 @@
 
   <button class="seller-btn">Devenir vendeur</button>
 </nav>
-
-<!-- GUIRLANDE DE FANIONS — MONDIAL 2026 -->
-<div class="wc-fanions" aria-hidden="true">
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-  <div class="wc-fanion"></div><div class="wc-fanion"></div><div class="wc-fanion"></div>
-</div>
 
 <!-- BANDEAU DÉFILANT — COUPE DU MONDE 2026 -->
 <div class="wc-marquee">
@@ -1976,6 +1961,9 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
     { id:534, cat:'maisondeco', badge:'Vidéo', name:'Mini Soudeuse Ferme-Sachet Thermique', price:3500, image:'ferme-sachet-thermo.mp4', video:'ferme-sachet-thermo.mp4' },
     { id:535, cat:'mode', badge:'Vidéo', name:'Sac Super Pratique Multi-Compartiments', price:14000, image:'sac-pratique-1.mp4', video:'sac-pratique-1.mp4' },
     { id:536, cat:'mode', badge:'Vidéo', name:'Sac Super Pratique Pliable Grande Capacité', price:12000, image:'sac-pratique-2.mp4', video:'sac-pratique-2.mp4' },
+
+    /* --- AJOUT : électroménager (vidéo) --- */
+    { id:537, cat:'maison-new', badge:'Vidéo', name:'Mini Machine à Laver Waterproof (Portable)', price:25000, image:'mini_machine_a_laver_waterproof.mp4', video:'mini_machine_a_laver_waterproof.mp4' },
   ];
 
   /* ================= RENDU ================= */
@@ -3165,12 +3153,6 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <!-- POP-UP 3 : Best Foods — Spécial Mondial 2026 (pétales Sénégal, clic = boutique) -->
 <div class="ccl-popup-overlay" id="ccl-popup-3">
   <div class="ccl-popup wc-bf" onclick="cclPopupAction(3)" role="link" aria-label="Voir la boutique Best Foods">
-    <div class="wc-petals" aria-hidden="true">
-      <span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span>
-      <span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span>
-      <span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span><span class="wc-petal"></span>
-      <span class="wc-petal"></span><span class="wc-petal"></span>
-    </div>
     <button class="ccl-popup-close" onclick="event.stopPropagation(); closeCclPopup(3)" aria-label="Fermer">&times;</button>
     <div class="ccl-popup-head"><i class="ti ti-ball-football"></i> Best Foods — Spécial Mondial 2026</div>
     <div class="ccl-popup-media"><video src="WORLDCUTBESTFOODSPUB.mp4" muted loop playsinline preload="metadata"></video></div>
@@ -3607,61 +3589,5 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   </a>
 </div>
 </div>
-<!-- ===== PÉTALES MONDIAL 2026 : pluie à l'entrée + burst au clic ===== -->
-<script>
-(function(){
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var COLORS = ['#00853F', '#FCD116', '#CE1126'];
-
-  /* --- Pluie plein écran dès l'entrée sur le site (≈ 12 secondes) --- */
-  function petalRain(){
-    var rain = document.createElement('div');
-    rain.className = 'wc-rain';
-    rain.setAttribute('aria-hidden', 'true');
-    for (var i = 0; i < 46; i++){
-      var p = document.createElement('span');
-      p.className = 'p';
-      p.style.setProperty('--x', (Math.random() * 100) + 'vw');
-      p.style.setProperty('--s', (9 + Math.random() * 9) + 'px');
-      p.style.setProperty('--c', COLORS[i % 3]);
-      p.style.setProperty('--t', (5 + Math.random() * 5) + 's');
-      p.style.setProperty('--d', (Math.random() * 4) + 's');
-      p.style.setProperty('--sway', ((Math.random() * 80) - 40) + 'px');
-      rain.appendChild(p);
-    }
-    document.body.appendChild(rain);
-    setTimeout(function(){
-      rain.style.transition = 'opacity 1.5s';
-      rain.style.opacity = '0';
-      setTimeout(function(){ rain.remove(); }, 1600);
-    }, 12000);
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', petalRain);
-  } else { petalRain(); }
-
-  /* --- Burst de pétales à chaque clic --- */
-  var lastBurst = 0;
-  document.addEventListener('click', function(e){
-    var now = Date.now();
-    if (now - lastBurst < 150) return;   // anti-spam
-    lastBurst = now;
-    for (var i = 0; i < 8; i++){
-      var p = document.createElement('span');
-      p.className = 'wc-burst-p';
-      p.style.left = (e.clientX - 6) + 'px';
-      p.style.top  = (e.clientY - 8) + 'px';
-      p.style.background = COLORS[i % 3];
-      var ang = (Math.PI * 2 / 8) * i + (Math.random() * .6);
-      var dist = 50 + Math.random() * 60;
-      p.style.setProperty('--bx', (Math.cos(ang) * dist) + 'px');
-      p.style.setProperty('--by', (Math.sin(ang) * dist + 50) + 'px');
-      p.style.setProperty('--br', (180 + Math.random() * 360) + 'deg');
-      document.body.appendChild(p);
-      (function(el){ setTimeout(function(){ el.remove(); }, 950); })(p);
-    }
-  }, { passive: true });
-})();
-</script>
 </body>
 </html>
