@@ -3596,9 +3596,10 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   .top-bar{background:var(--green);animation:none;background-size:auto}
   /* plus de texte qui clignote (glow) sur le flash */
   .flash-head h2{animation:none}
-  /* cartes & boutons : ombres douces, coins nets façon Jumia */
-  .product-card{border:1px solid var(--line,#ECECEC);box-shadow:none;transition:.18s}
-  .product-card:hover{box-shadow:0 8px 22px rgba(0,0,0,.10);transform:translateY(-2px)}
+  /* cartes fondues dans le fond — invisibles par défaut, révélées au survol (ombre derrière) */
+  .product-card{background:transparent;border:1px solid transparent;box-shadow:none;transition:background .18s, box-shadow .18s, transform .18s}
+  .product-card .img-wrap{background:transparent}
+  .product-card:hover{background:#fff;box-shadow:0 8px 26px rgba(0,0,0,.16);transform:translateY(-2px)}
   .price{color:var(--green);font-weight:800}
   .btn-add{background:var(--green)}
   .btn-add:hover{background:var(--green-dark)}
