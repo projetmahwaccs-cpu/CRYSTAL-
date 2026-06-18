@@ -147,7 +147,7 @@
     .timer { background: white; color: #066; padding: 3px 12px; border-radius:0; font-weight: 700; font-size: 12px; z-index:2; box-shadow: var(--glow-green); }
 
     /* HEADER */
-    .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 40px; background: white; box-shadow: 0 1px 8px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: white; box-shadow: 0 1px 8px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
     .logo { display:flex; align-items:center; }
     .logo img { height: 46px; width:auto; display:block; }
     .search-box { display: flex; width: 44%; }
@@ -162,7 +162,7 @@
     .cart-count { background: var(--orange); color: white; border-radius:0; min-width: 18px; height: 18px; padding:0 4px; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; box-shadow: var(--glow-orange); }
 
     /* NAV */
-    nav { background: white; border-top: 1px solid #eee; padding: 0 40px; display: flex; gap: 0; align-items: center; }
+    nav { background: white; border-top: 1px solid #eee; padding: 0 16px; display: flex; gap: 0; align-items: center; }
     nav a { padding: 14px 16px; font-size: 13px; font-weight: 500; color: var(--text); text-decoration: none; transition: color .2s; white-space: nowrap; display:flex; align-items:center; gap:6px; }
     nav a:hover, nav a.active { color: var(--green); border-bottom: 2px solid var(--green); }
     nav a.promo { color: var(--orange); }
@@ -198,7 +198,7 @@
     }
 
     /* BANDE CATEGORIES */
-    .cat-band { padding: 6px 40px 2px; }
+    .cat-band { padding: 6px 16px 2px; }
     .cat-band-title { font-family:'Poppins', sans-serif; font-size:20px; margin-bottom:8px; }
     .cat-band-title span { color: var(--green); }
     .cat-tiles { display:grid; grid-template-columns: repeat(auto-fill,minmax(120px,1fr)); gap:14px; }
@@ -208,7 +208,7 @@
     .cat-tile span { font-size:12.5px; font-weight:600; }
 
     /* MAIN LAYOUT */
-    .main-layout { display: flex; gap: 0; padding: 4px 12px 10px; align-items: flex-start; }
+    .main-layout { display: flex; gap: 0; padding: 4px 16px 10px; align-items: flex-start; }
     .sidebar { width: 195px; flex-shrink: 0; background: white; border-radius:0; box-shadow: var(--card-shadow); overflow: hidden; position: sticky; top: 80px; margin-right: 22px; }
     .sidebar-header { background: var(--green); color: white; padding: 10px 13px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 12.5px; }
     .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 8px 13px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background .15s; font-size: 12.5px; color: var(--text); text-decoration: none; }
@@ -294,7 +294,7 @@
     .btn-add:hover { background: var(--green-dark); box-shadow: var(--glow-green); }
 
     /* SECTIONS PLEINE LARGEUR */
-    .section { padding: 4px 40px 10px; }
+    .section { padding: 4px 16px 10px; }
     .section.alt { background: linear-gradient(180deg, #ffffff, #f0faf6); }
     .row-scroll { display:flex; gap:0; overflow-x:auto; padding:0px 2px 4px; scroll-snap-type:x mandatory; }
     .row-scroll::-webkit-scrollbar { height:7px; }
@@ -302,7 +302,7 @@
     .row-scroll .product-card { flex:0 0 200px; scroll-snap-align:start; }
 
     /* FLASH */
-    .flash { position: relative; overflow: hidden; margin: 4px 40px 4px; border-radius:0; padding: 22px 26px; color:white; background: linear-gradient(90deg,#e23744,#f07c00,#e23744); background-size: 250% 100%; animation: gradientMove 7s ease infinite; }
+    .flash { position: relative; overflow: hidden; margin: 4px 16px 4px; border-radius:0; padding: 22px 26px; color:white; background: linear-gradient(90deg,#e23744,#f07c00,#e23744); background-size: 250% 100%; animation: gradientMove 7s ease infinite; }
     .flash-head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; position:relative; z-index:2; }
     .flash-head h2 { font-family:'Poppins', sans-serif; font-size:26px; display:flex; align-items:center; gap:10px; animation: textGlow 3s infinite; }
     .flash-head h2 i { animation: blink 1.2s infinite; color:#ffe27a; }
@@ -311,7 +311,7 @@
     .cd-box small { display:block; font-size:9px; font-weight:600; opacity:.8; letter-spacing:.5px; }
 
     /* TRUST */
-    .trust { display:grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap:18px; padding:10px 40px; background:linear-gradient(120deg,var(--green-dark),var(--green)); margin-top:0; }
+    .trust { display:grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap:18px; padding:10px 16px; background:linear-gradient(120deg,var(--green-dark),var(--green)); margin-top:0; }
     .trust-item { color:white; display:flex; align-items:center; gap:14px; }
     .trust-item .t-ic { width:54px; height:54px; border-radius:0; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; font-size:26px; color:var(--gold); flex-shrink:0; animation: floatY 4s ease-in-out infinite; }
     .trust-item h4 { font-size:15px; font-weight:700; margin-bottom:2px; }
@@ -321,7 +321,7 @@
     .partner-btn { display:inline-flex; align-items:center; gap:7px; background:linear-gradient(90deg,var(--green-dark),var(--green)); color:white; border:none; padding:8px 16px; border-radius:0; font-size:12.5px; font-weight:700; cursor:pointer; text-decoration:none; transition:.2s; white-space:nowrap; }
     .partner-btn:hover { box-shadow:var(--glow-green); transform:translateY(-1px); }
     .partner-btn.gold { background:linear-gradient(90deg,#0A0804,#B8952A); }
-    .partners { padding:8px 40px 2px; }
+    .partners { padding:8px 16px 2px; }
     .partners h3 { font-family:'Poppins', sans-serif; font-size:22px; margin-bottom:8px; }
     .partners h3 span { color:var(--green); }
     .partner-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
@@ -335,7 +335,7 @@
     .partner-card .go:hover { background:rgba(255,255,255,.34); }
 
     /* SECTION A — CARROUSEL PUB (style Jumia) */
-    .ad-carousel-sec { padding:4px 40px 2px; }
+    .ad-carousel-sec { padding:4px 16px 2px; }
     .ad-carousel-sec h3 { font-family:'Poppins', sans-serif; font-size:22px; margin-bottom:8px; }
     .ad-carousel-sec h3 span { color:var(--green); }
     .ad-carousel { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; padding-bottom:10px; -webkit-overflow-scrolling:touch; }
@@ -349,7 +349,7 @@
     .ad-slide.portrait img { object-fit:cover; object-position:center top; }
 
     /* SECTION B — REELS VIDÉO (style Instagram) */
-    .reels-sec { padding:4px 40px 2px; }
+    .reels-sec { padding:4px 16px 2px; }
     .reels-sec h3 { font-family:'Poppins', sans-serif; font-size:22px; margin-bottom:8px; }
     .reels-sec h3 span { color:var(--green); }
     .reels-row { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:10px; -webkit-overflow-scrolling:touch; }
@@ -382,7 +382,7 @@
     .ccl-popup-cta:hover { box-shadow:0 0 22px rgba(184,149,42,.6); transform:translateY(-2px); }
 
     /* BANDE PUB (Capital) */
-    .ad-banner { display:block; position:relative; margin:14px 40px 6px; border-radius:0; overflow:hidden; box-shadow:var(--card-shadow); text-decoration:none; }
+    .ad-banner { display:block; position:relative; margin:14px 16px 6px; border-radius:0; overflow:hidden; box-shadow:var(--card-shadow); text-decoration:none; }
     .ad-banner img { width:100%; display:block; }
     .ad-banner .ad-cta { position:absolute; right:18px; bottom:18px; background:#fff; color:#0d47a1; padding:11px 20px; border-radius:0; font-weight:800; font-size:13px; display:inline-flex; gap:7px; align-items:center; box-shadow:0 0 22px rgba(255,255,255,.6); transition:.2s; }
     .ad-banner:hover .ad-cta { transform:translateY(-2px); }
@@ -457,7 +457,7 @@
     @media(max-width:800px){ .pp-top{ grid-template-columns:1fr; } .pp-bar,.pp-wrap{ padding-left:16px; padding-right:16px; } .cs-box .cs-num{ margin-left:0; } .pp-info h1{ font-size:24px; } .pp-price{ font-size:28px; } }
 
     /* ===== NEWSLETTER ===== */
-    .newsletter { position:relative; overflow:hidden; margin:4px 40px 4px; border-radius:0; padding:38px 30px; background:linear-gradient(120deg,var(--green-dark),var(--green) 60%,var(--green-light)); color:#fff; text-align:center; }
+    .newsletter { position:relative; overflow:hidden; margin:4px 16px 4px; border-radius:0; padding:38px 30px; background:linear-gradient(120deg,var(--green-dark),var(--green) 60%,var(--green-light)); color:#fff; text-align:center; }
     .newsletter::before { content:""; position:absolute; width:300px; height:300px; border-radius:0; background:rgba(212,175,55,.25); filter:blur(50px); top:-100px; right:-40px; }
     .newsletter > * { position:relative; z-index:2; }
     .newsletter .nl-ic { width:90px; height:90px; border-radius:0; overflow:hidden; border:3px solid var(--gold); box-shadow:0 6px 20px rgba(0,0,0,.25); margin:0 auto 18px; background:#fff; }
@@ -473,7 +473,7 @@
     @media(max-width:700px){ .newsletter { margin-left:16px; margin-right:16px; padding:18px 16px; } .newsletter h2 { font-size:22px; } .nl-form button { width:100%; justify-content:center; } }
 
     /* ===== SECTION OFFRES CATÉGORIES (style Jumia) ===== */
-    .offres-cat { background: #ffffff; padding: 6px 40px 8px; }
+    .offres-cat { background: #ffffff; padding: 6px 16px 8px; }
     .offres-cat h2 { text-align: center; color: var(--text); font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 8px; letter-spacing: .5px; }
     .offres-cat h2 span { color: var(--green); }
     .offres-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; }
@@ -503,7 +503,7 @@
     @media(max-width:600px){ .offres-grid { grid-template-columns: repeat(3,1fr); gap:12px; } .offres-cat h2 { font-size:19px; } .offre-thumb i { font-size:38px; } .offre-tile span { font-size:11px; } .offres-cat { padding:20px 16px 24px; } }
 
     /* ===== SECTION SUPERMARCHÉ (bandeau orange Jumia) ===== */
-    .super-sec { margin: 4px 40px 4px; border-radius:0; overflow: hidden; box-shadow: var(--card-shadow); background: var(--orange); }
+    .super-sec { margin: 4px 16px 4px; border-radius:0; overflow: hidden; box-shadow: var(--card-shadow); background: var(--orange); }
     .super-head { background: var(--orange); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .super-head h2 { color: #fff; font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
     .super-head h2 i { font-size: 24px; }
@@ -957,7 +957,7 @@
   </style>
 <style id="jhero-css">
   /* ===== Hero façon Jumia (disposition) — identité Crystal, coins pointus ===== */
-  .jhero{display:grid;grid-template-columns:178px 1fr 224px;gap:12px;align-items:stretch;padding:14px 40px 6px}
+  .jhero{display:grid;grid-template-columns:178px 1fr 224px;gap:12px;align-items:stretch;padding:14px 16px 6px}
   .jhero a{text-decoration:none}
   /* Sidebar catégories */
   .jhero-cats{background:#fff;box-shadow:var(--card-shadow);padding:2px 0;align-self:start}
@@ -1127,7 +1127,7 @@
 <style>
 /* ===== NAV DROPDOWN ===== */
 nav { position: relative; z-index: 200; }
-nav#main-nav { display: flex; align-items: center; background: white; border-top: 1px solid #eee; padding: 0 40px; gap: 0; overflow: visible; }
+nav#main-nav { display: flex; align-items: center; background: white; border-top: 1px solid #eee; padding: 0 16px; gap: 0; overflow: visible; }
 
 .nav-item { position: relative; }
 .nav-item > a,
@@ -1455,7 +1455,7 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <section class="section"><div class="row-scroll" id="grid-flash"></div></section>
 
 <!-- BANDE PUB VIDÉO CCL -->
-<div style="margin:14px 40px 6px; border-radius:0; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.09); position:relative; line-height:0;">
+<div style="margin:14px 16px 6px; border-radius:0; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.09); position:relative; line-height:0;">
   <video
     src="ccl-pub-banner.mp4"
     autoplay
@@ -3494,7 +3494,7 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 /* ═══ LAYOUT 3 COLONNES CCL ═══ */
 .site-3col {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
+  grid-template-columns: 130px 1fr 130px;
   min-height: 100vh;
   width: 100%;
   align-items: start;
