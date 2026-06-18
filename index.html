@@ -598,6 +598,8 @@
     .cart-total-amount { font-size: 22px; font-weight: 800; color: var(--green-dark); }
     .btn-whatsapp { width:100%; padding:14px; background: linear-gradient(90deg,#1ebe5d,#25D366); color:white; border:none; border-radius:0; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; display:flex; align-items:center; justify-content:center; gap:9px; margin-bottom:10px; transition:.2s; }
     .btn-whatsapp:hover { box-shadow: 0 0 24px rgba(37,211,102,.6); }
+    .btn-wave-pay { width:100%; padding:14px; background:linear-gradient(90deg,#15c2f0,#0aa6db); color:#fff; border:none; border-radius:0; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; display:flex; align-items:center; justify-content:center; gap:9px; margin-bottom:12px; text-decoration:none; transition:.2s; }
+    .btn-wave-pay:hover { box-shadow:0 0 22px rgba(21,194,240,.55); }
     .btn-checkout { width: 100%; padding: 13px; background: linear-gradient(90deg, var(--green-dark), var(--green)); color: white; border: none; border-radius:0; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity .2s; letter-spacing: .3px; }
     .btn-checkout:hover { opacity: .92; }
 
@@ -955,12 +957,12 @@
   </style>
 <style id="jhero-css">
   /* ===== Hero façon Jumia (disposition) — identité Crystal, coins pointus ===== */
-  .jhero{display:grid;grid-template-columns:212px 1fr 264px;gap:14px;align-items:stretch;padding:14px 40px 6px}
+  .jhero{display:grid;grid-template-columns:178px 1fr 224px;gap:12px;align-items:stretch;padding:14px 40px 6px}
   .jhero a{text-decoration:none}
   /* Sidebar catégories */
-  .jhero-cats{background:#fff;box-shadow:var(--card-shadow);padding:5px 0;align-self:start}
-  .jhcat{display:flex;align-items:center;gap:11px;padding:8.5px 14px;color:var(--text);font-size:12.7px;transition:background .15s,color .15s}
-  .jhcat i{color:var(--green);font-size:17px;width:20px;text-align:center;flex-shrink:0}
+  .jhero-cats{background:#fff;box-shadow:var(--card-shadow);padding:2px 0;align-self:start}
+  .jhcat{display:flex;align-items:center;gap:9px;padding:6px 12px;color:var(--text);font-size:12.1px;transition:background .15s,color .15s}
+  .jhcat i{color:var(--green);font-size:15px;width:18px;text-align:center;flex-shrink:0}
   .jhcat:hover{background:#f0faf6;color:var(--green)}
   /* Carrousel */
   .jhero-carousel{position:relative;overflow:hidden;min-height:356px;background:var(--green-dark)}
@@ -984,10 +986,10 @@
   /* Colonne droite */
   .jhero-right{display:flex;flex-direction:column;gap:14px}
   .jhero-help{background:#fff;box-shadow:var(--card-shadow);padding:3px 0}
-  .jhelp{display:flex;align-items:center;gap:12px;padding:11px 15px;border-bottom:1px solid #f0f0f0;color:var(--text);transition:background .15s}
+  .jhelp{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid #f0f0f0;color:var(--text);transition:background .15s}
   .jhelp:last-child{border-bottom:none}
   .jhelp:hover{background:#f0faf6}
-  .jhelp-ic{width:36px;height:36px;flex-shrink:0;border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px}
+  .jhelp-ic{width:31px;height:31px;flex-shrink:0;border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px}
   .jhelp-tx{display:flex;flex-direction:column;line-height:1.25}
   .jhelp-tx strong{font-size:13.5px;font-weight:700;color:#222}
   .jhelp-tx small{font-size:11.5px;color:var(--muted)}
@@ -2658,8 +2660,11 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
     let html = '';
     if(method === 'cash'){
       html = `<div class="pay-instr"><div class="amount">${total}<small>à régler en espèces à la livraison</small></div><p style="font-size:13px;color:#444;margin-top:6px;">Pas besoin de payer maintenant. Confirmez votre commande, nous vous livrons à Dakar et vous payez à la réception.</p></div><button class="btn-whatsapp" onclick="confirmOrder('Espèces à la livraison')"><i class="ti ti-brand-whatsapp"></i> Confirmer ma commande</button>`;
+    } else if(method === 'wave'){
+      const WAVE_LINK = 'https://pay.wave.com/m/M_sn_30oc-Y5fg1Sp/c/sn/';
+      html = `<div class="pay-instr"><div class="amount">${total}<small>montant exact à payer via Wave</small></div><a class="btn-wave-pay" href="${WAVE_LINK}" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> Payer ${total} avec Wave</a><ol class="pay-steps"><li>Cliquez sur <strong>Payer avec Wave</strong> : la page de paiement <strong>Crystal Company</strong> s'ouvre (scannez le QR ou ouvrez l'app Wave).</li><li>Payez le <strong>montant exact : ${total}</strong>.</li><li>Faites une <strong>capture d'écran</strong> de la confirmation Wave.</li><li>Revenez ici et validez sur WhatsApp en joignant la capture.</li></ol></div><button class="btn-whatsapp" onclick="confirmOrder('Wave')"><i class="ti ti-brand-whatsapp"></i> J'ai payé — envoyer la capture &amp; valider</button>`;
     } else {
-      const label = method === 'wave' ? 'Wave' : 'Orange Money';
+      const label = 'Orange Money';
       html = `<div class="pay-instr"><div class="amount">${total}<small>montant à envoyer via ${label}</small></div><div class="tonum"><i class="ti ti-device-mobile"></i> ${PAY_NUMBER_DISPLAY} <button class="copy" onclick="copyNumber(this)"><i class="ti ti-copy"></i> Copier</button></div><ol class="pay-steps"><li>Envoyez <strong>${total}</strong> au <strong>${PAY_NUMBER_DISPLAY}</strong> via ${label} (au nom de Crystal Company Limited).</li><li>Faites une <strong>capture d'écran</strong> de la confirmation.</li><li>Cliquez ci-dessous et <strong>joignez la capture</strong> sur WhatsApp pour valider.</li></ol></div><button class="btn-whatsapp" onclick="confirmOrder('${label}')"><i class="ti ti-brand-whatsapp"></i> Envoyer la capture &amp; valider</button>`;
     }
     panel.innerHTML = html;
