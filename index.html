@@ -248,7 +248,7 @@
     .filter-btn:hover, .filter-btn.active { background: var(--green); color: white; border-color: var(--green); }
 
     /* PRODUCT GRID / CARD — STYLE JUMIA */
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 12px; }
     .product-card { background: white; border-radius:0; overflow: hidden; border: 1px solid #f0f0f0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer; transition: box-shadow .2s, transform .2s; position: relative; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 2; }
 
@@ -953,6 +953,63 @@
     }
     @media (prefers-reduced-motion: reduce) { .wc-rain, .wc-burst-p { display: none; } }
   </style>
+<style id="jhero-css">
+  /* ===== Hero façon Jumia (disposition) — identité Crystal, coins pointus ===== */
+  .jhero{display:grid;grid-template-columns:212px 1fr 264px;gap:14px;align-items:stretch;padding:14px 40px 6px}
+  .jhero a{text-decoration:none}
+  /* Sidebar catégories */
+  .jhero-cats{background:#fff;box-shadow:var(--card-shadow);padding:5px 0;align-self:start}
+  .jhcat{display:flex;align-items:center;gap:11px;padding:8.5px 14px;color:var(--text);font-size:12.7px;transition:background .15s,color .15s}
+  .jhcat i{color:var(--green);font-size:17px;width:20px;text-align:center;flex-shrink:0}
+  .jhcat:hover{background:#f0faf6;color:var(--green)}
+  /* Carrousel */
+  .jhero-carousel{position:relative;overflow:hidden;min-height:356px;background:var(--green-dark)}
+  .jhc-track{display:flex;height:356px;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+  .jhc-slide{min-width:100%;height:356px;display:flex;align-items:center;padding:0 52px;color:#fff}
+  .jhc-slide.s1{background:linear-gradient(120deg,#0A5C2B,#0E7A3A 60%,#2FA85A)}
+  .jhc-slide.s2{background:linear-gradient(120deg,#7d1610,#E84C3D)}
+  .jhc-slide.s3{background:linear-gradient(120deg,#1f1147,#5a37a8)}
+  .jhc-slide.s4{background:linear-gradient(120deg,#6b4e10,#C9A227)}
+  .jhc-txt{max-width:62%}
+  .jhc-kicker{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.16);padding:6px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .jhc-txt h2{font-size:34px;font-weight:800;line-height:1.1;margin:0 0 10px}
+  .jhc-txt p{font-size:14px;opacity:.92;margin:0 0 18px;max-width:430px}
+  .jhc-cta{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#1a1a1a;font-weight:700;font-size:13px;padding:10px 18px}
+  .jhc-arrow{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;background:rgba(255,255,255,.85);color:#222;border:none;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;z-index:3;transition:background .15s}
+  .jhc-arrow:hover{background:#fff}
+  .jhc-arrow.prev{left:12px}.jhc-arrow.next{right:12px}
+  .jhc-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:3}
+  .jhc-dot{width:9px;height:9px;background:rgba(255,255,255,.55);cursor:pointer;transition:background .15s}
+  .jhc-dot.active{background:var(--orange)}
+  /* Colonne droite */
+  .jhero-right{display:flex;flex-direction:column;gap:14px}
+  .jhero-help{background:#fff;box-shadow:var(--card-shadow);padding:3px 0}
+  .jhelp{display:flex;align-items:center;gap:12px;padding:11px 15px;border-bottom:1px solid #f0f0f0;color:var(--text);transition:background .15s}
+  .jhelp:last-child{border-bottom:none}
+  .jhelp:hover{background:#f0faf6}
+  .jhelp-ic{width:36px;height:36px;flex-shrink:0;border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px}
+  .jhelp-tx{display:flex;flex-direction:column;line-height:1.25}
+  .jhelp-tx strong{font-size:13.5px;font-weight:700;color:#222}
+  .jhelp-tx small{font-size:11.5px;color:var(--muted)}
+  /* Bannière pub bas-droite */
+  .jhero-ad{flex:1;min-height:150px;background:linear-gradient(150deg,#9a1b14,#5e0f0a);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;text-align:center}
+  .jad-k{color:#fff;font-weight:800;font-size:16px;letter-spacing:.5px;line-height:1.1}
+  .jad-brand{color:#fff;font-weight:700;font-size:11px;opacity:.8;letter-spacing:2px}
+  .jad-circle{margin-top:6px;width:96px;height:96px;background:var(--orange);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff}
+  .jad-circle small{font-size:10px;font-weight:700}
+  .jad-circle b{font-size:26px;font-weight:800;line-height:1}
+  /* Responsive */
+  @media (max-width:980px){
+    .jhero{grid-template-columns:1fr;gap:12px;padding:12px 16px 4px}
+    .jhero-cats{display:none}
+    .jhero-right{flex-direction:row}
+    .jhero-help,.jhero-ad{flex:1;min-height:0}
+  }
+  @media (max-width:600px){
+    .jhc-slide{padding:0 26px}.jhc-txt{max-width:100%}.jhc-txt h2{font-size:23px}
+    .jhero-right{flex-direction:column}
+  }
+</style>
 </head>
 <body>
 <div class="site-3col">
@@ -965,7 +1022,7 @@
 
 <!-- TOP BAR -->
 <div class="top-bar lux">
-  <p><span class="wc-topbadge"><i class="ti ti-ball-football"></i> MONDIAL 2026</span><i class="ti ti-discount-2"></i> PROMO — Soldes jusqu'à -20% &nbsp;|&nbsp; Livraison J+1 partout à Dakar</p>
+  <p><i class="ti ti-discount-2"></i> PROMO — Soldes jusqu'à -20% &nbsp;|&nbsp; Livraison J+1 partout à Dakar</p>
   <div class="timer" id="topTimer">07j 20h 58m</div>
 </div>
 
@@ -1062,21 +1119,8 @@
   <button class="seller-btn">Devenir vendeur</button>
 </nav>
 
-<!-- BANDEAU DÉFILANT — COUPE DU MONDE 2026 -->
-<div class="wc-marquee">
-  <div class="wc-marquee-track">
-    <span><i class="ti ti-ball-football"></i> <strong>COUPE DU MONDE 2026</strong> — 11 juin au 19 juillet</span>
-    <span><i class="ti ti-flag"></i> Allez les <strong>Lions de la Téranga</strong> !</span>
-    <span><i class="ti ti-device-tv"></i> TV &amp; écrans pour vivre les matchs — <strong>rayon High-Tech</strong></span>
-    <span><i class="ti ti-shopping-cart"></i> Snacks &amp; boissons supporters — <strong>rayon Alimentation</strong></span>
-    <span><i class="ti ti-truck-delivery"></i> Livraison <strong>J+1</strong> partout à Dakar</span>
-    <span><i class="ti ti-ball-football"></i> <strong>COUPE DU MONDE 2026</strong> — 11 juin au 19 juillet</span>
-    <span><i class="ti ti-flag"></i> Allez les <strong>Lions de la Téranga</strong> !</span>
-    <span><i class="ti ti-device-tv"></i> TV &amp; écrans pour vivre les matchs — <strong>rayon High-Tech</strong></span>
-    <span><i class="ti ti-shopping-cart"></i> Snacks &amp; boissons supporters — <strong>rayon Alimentation</strong></span>
-    <span><i class="ti ti-truck-delivery"></i> Livraison <strong>J+1</strong> partout à Dakar</span>
-  </div>
-</div>
+
+
 
 <style>
 /* ===== NAV DROPDOWN ===== */
@@ -1206,36 +1250,76 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 </style>
 
 <!-- HERO -->
-<section class="hero">
-  <img class="hero-bg" src="hero-panier-ccl.png" alt="" aria-hidden="true" />
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-badge wc">
-      <i class="ti ti-ball-football"></i> Édition spéciale Coupe du Monde 2026
+<section class="jhero">
+  <!-- Sidebar catégories -->
+  <aside class="jhero-cats">
+    <a class="jhcat" href="#sec-beaute"><i class="ti ti-building-store"></i><span>Boutiques Officielles</span></a>
+    <a class="jhcat" href="#sec-flash"><i class="ti ti-bolt"></i><span>Promos Flash</span></a>
+    <a class="jhcat" href="#sec-tech"><i class="ti ti-device-laptop"></i><span>High-Tech &amp; Audio</span></a>
+    <a class="jhcat" href="#sec-maison"><i class="ti ti-blender"></i><span>Électroménager</span></a>
+    <a class="jhcat" href="#sec-beaute"><i class="ti ti-sparkles"></i><span>Parfums &amp; Beauté</span></a>
+    <a class="jhcat" href="#sec-alim"><i class="ti ti-shopping-cart"></i><span>Supermarché</span></a>
+    <a class="jhcat" href="#sec-mode"><i class="ti ti-shirt"></i><span>Mode</span></a>
+    <a class="jhcat" href="#sec-maison"><i class="ti ti-home"></i><span>Maison &amp; Déco</span></a>
+    <a class="jhcat" href="#sec-papier"><i class="ti ti-notebook"></i><span>Papeterie &amp; Bureau</span></a>
+    <a class="jhcat" href="#sec-sport"><i class="ti ti-barbell"></i><span>Articles de sport</span></a>
+    <a class="jhcat" href="#sec-bebe"><i class="ti ti-mood-kid"></i><span>Produits pour bébés</span></a>
+    <a class="jhcat" href="#sec-auto"><i class="ti ti-car"></i><span>Automobiles</span></a>
+  </aside>
+
+  <!-- Carrousel -->
+  <div class="jhero-carousel">
+    <div class="jhc-track" id="jhcTrack">
+      <a class="jhc-slide s1" href="#sec-flash">
+        <div class="jhc-txt">
+          <span class="jhc-kicker"><i class="ti ti-star"></i> Boutique en ligne N°1 à Dakar</span>
+          <h2>Tout ce qu'il vous faut,<br>livré chez vous</h2>
+          <p>Épicerie, électroménager, beauté &amp; plus — livraison rapide partout à Dakar.</p>
+          <span class="jhc-cta">Découvrir <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="jhc-slide s2" href="#sec-flash">
+        <div class="jhc-txt">
+          <span class="jhc-kicker"><i class="ti ti-bolt"></i> Ventes Flash</span>
+          <h2>Jusqu'à -50%</h2>
+          <p>Des centaines de produits à prix cassés, en quantité limitée.</p>
+          <span class="jhc-cta">J'en profite <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="jhc-slide s3" href="#sec-beaute">
+        <div class="jhc-txt">
+          <span class="jhc-kicker"><i class="ti ti-sparkles"></i> Parfums &amp; Beauté</span>
+          <h2>Sen Senteurs Royal</h2>
+          <p>Parfums, bakhoor et coffrets — l'élégance au quotidien.</p>
+          <span class="jhc-cta">Explorer <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="jhc-slide s4" href="#sec-alim">
+        <div class="jhc-txt">
+          <span class="jhc-kicker"><i class="ti ti-truck-delivery"></i> Livraison gratuite*</span>
+          <h2>En point relais</h2>
+          <p>Prépayez avec Wave ou Orange Money et économisez les frais de livraison.</p>
+          <span class="jhc-cta">Commander <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
     </div>
-    <div class="hero-badge">
-      <i class="ti ti-shield-check"></i> Votre satisfaction, notre priorité
-    </div>
-    <h1>Tout ce qu'il vous faut,<br>livré <span>chez vous.</span></h1>
-    <p>Épicerie, électroménager, beauté et bien plus.<br>Livraison rapide partout à Dakar.</p>
-    <div class="hero-btns">
-      <a href="boutique.html" class="btn-boutique"><i class="ti ti-shopping-bag"></i> Découvrir les produits</a>
-      <a href="#sec-flash" class="btn-promo"><i class="ti ti-tag"></i> Voir les promotions</a>
-    </div>
-    <div class="hero-loc">
-      <i class="ti ti-map-pin"></i>
-      Livraison disponible dans tous les quartiers de <strong>Dakar</strong>
-    </div>
+    <button class="jhc-arrow prev" id="jhcPrev" aria-label="Précédent"><i class="ti ti-chevron-left"></i></button>
+    <button class="jhc-arrow next" id="jhcNext" aria-label="Suivant"><i class="ti ti-chevron-right"></i></button>
+    <div class="jhc-dots" id="jhcDots"></div>
   </div>
-  <!-- BALLON FLOTTANT MONDIAL -->
-  <i class="ti ti-ball-football wc-ball" aria-hidden="true"></i>
-  <!-- FLOATING PILLS -->
-  <div class="hero-pills" id="hero-pills">
-    <div class="hero-pill wc" style="--d:0s"><i class="ti ti-ball-football"></i><span><strong>Mondial 2026</strong> Allez les Lions !</span></div>
-    <div class="hero-pill" style="--d:.08s"><i class="ti ti-package"></i><span><strong>200+</strong> Produits</span></div>
-    <div class="hero-pill" style="--d:.08s"><i class="ti ti-truck-delivery"></i><span><strong>J+1</strong> Livraison Dakar</span></div>
-    <div class="hero-pill" style="--d:.16s"><i class="ti ti-shield-check"></i><span><strong>Qualité</strong> Garantie</span></div>
-    <div class="hero-pill" style="--d:.24s"><i class="ti ti-lock"></i><span><strong>Paiement</strong> Sécurisé</span></div>
+
+  <!-- Colonne droite : aide + pub -->
+  <div class="jhero-right">
+    <div class="jhero-help">
+      <a class="jhelp" href="https://wa.me/221774976364"><span class="jhelp-ic"><i class="ti ti-headset"></i></span><span class="jhelp-tx"><strong>Centre d'assistance</strong><small>Guide du service client</small></span></a>
+      <a class="jhelp" href="tel:+221774976364"><span class="jhelp-ic"><i class="ti ti-phone"></i></span><span class="jhelp-tx"><strong>Commandez au</strong><small>77 497 63 64</small></span></a>
+      <a class="jhelp" href="https://wa.me/221774976364"><span class="jhelp-ic"><i class="ti ti-building-store"></i></span><span class="jhelp-tx"><strong>Vendez sur CCL</strong><small>Ouvrez votre boutique</small></span></a>
+    </div>
+    <a class="jhero-ad" href="#sec-flash">
+      <span class="jad-k">JOURNÉE SPÉCIALE</span>
+      <span class="jad-brand">CRYSTAL SHOP</span>
+      <span class="jad-circle"><small>JUSQU'À</small><b>-50%</b></span>
+    </a>
   </div>
 </section>
 
@@ -2822,7 +2906,7 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 
   <div class="footer-divider"></div>
   <div class="footer-bottom">
-    <div class="footer-bottom-text">&copy; 2026 Crystal Company Limited. Tous droits réservés. &nbsp;<i class="ti ti-ball-football" style="color:var(--wc-yellow);"></i> <span style="color:#aaa;">CCL supporte les Lions de la Téranga — Mondial 2026</span></div>
+    <div class="footer-bottom-text">&copy; 2026 Crystal Company Limited. Tous droits réservés.</div>
     <div class="footer-bottom-links">
       <a href="cgv.html">Conditions (CGV)</a><a href="confidentialite.html">Confidentialité</a><a href="livraison.html">Livraison & Retours</a>
     </div>
@@ -3150,14 +3234,14 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   </div>
 </div>
 
-<!-- POP-UP 3 : Best Foods — Spécial Mondial 2026 (pétales Sénégal, clic = boutique) -->
+<!-- POP-UP 3 : Best Foods — Offre Spéciale -->
 <div class="ccl-popup-overlay" id="ccl-popup-3">
   <div class="ccl-popup wc-bf" onclick="cclPopupAction(3)" role="link" aria-label="Voir la boutique Best Foods">
     <button class="ccl-popup-close" onclick="event.stopPropagation(); closeCclPopup(3)" aria-label="Fermer">&times;</button>
-    <div class="ccl-popup-head"><i class="ti ti-ball-football"></i> Best Foods — Spécial Mondial 2026</div>
+    <div class="ccl-popup-head"><i class="ti ti-discount-2"></i> Best Foods — Offre Spéciale</div>
     <div class="ccl-popup-media"><video src="WORLDCUTBESTFOODSPUB.mp4" muted loop playsinline preload="metadata"></video></div>
     <div class="ccl-popup-body">
-      <p><strong>Bénéficiez de réductions sur les articles achetés chez Best Foods</strong> pendant toute la Coupe du Monde ! Épices, café, légumineuses et plus encore.</p>
+      <p><strong>Bénéficiez de réductions sur les articles achetés chez Best Foods</strong> ! Épices, café, légumineuses et plus encore.</p>
       <button class="ccl-popup-cta">Voir la boutique Best Foods <i class="ti ti-arrow-right"></i></button>
     </div>
   </div>
@@ -3603,6 +3687,31 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   .price{color:var(--green);font-weight:800}
   .btn-add{background:var(--green)}
   .btn-add:hover{background:var(--green-dark)}
+  /* arrondis demandés : barre de recherche (façon Jumia) + boutons flottants */
+  .search-box input{border-radius:24px 0 0 24px}
+  .search-box button{border-radius:0 24px 24px 0}
+  .fab{border-radius:50%}
 </style>
+<script>
+(function(){
+  var track=document.getElementById('jhcTrack'); if(!track) return;
+  var n=track.children.length, box=document.getElementById('jhcDots'), i=0, timer;
+  for(var d=0; d<n; d++){
+    var dot=document.createElement('span');
+    dot.className='jhc-dot'+(d===0?' active':'');
+    (function(idx){ dot.addEventListener('click',function(){ go(idx); reset(); }); })(d);
+    box.appendChild(dot);
+  }
+  function render(){
+    track.style.transform='translateX(-'+(i*100)+'%)';
+    var dd=box.children; for(var k=0;k<dd.length;k++) dd[k].className='jhc-dot'+(k===i?' active':'');
+  }
+  function go(x){ i=(x+n)%n; render(); }
+  function reset(){ clearInterval(timer); timer=setInterval(function(){ go(i+1); },5000); }
+  document.getElementById('jhcNext').addEventListener('click',function(){ go(i+1); reset(); });
+  document.getElementById('jhcPrev').addEventListener('click',function(){ go(i-1); reset(); });
+  reset();
+})();
+</script>
 </body>
 </html>
