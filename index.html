@@ -1367,6 +1367,403 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   </div>
 </section>
 
+<!-- ===================================================
+     SECTION BANNIÈRES ANIMÉES AU SCROLL — CCL
+     Banner à gauche, texte cristallisé à droite
+     Alternance haut→bas / bas→haut selon la position
+     =================================================== -->
+<style>
+/* ---- Keyframes lumière cristal ---- */
+@keyframes crystalBeam {
+  0%   { transform: translateX(-120%) skewX(-22deg); opacity: 0; }
+  10%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateX(260%) skewX(-22deg); opacity: 0; }
+}
+@keyframes crystalFacet {
+  0%,100% { opacity: .18; }
+  50%      { opacity: .55; }
+}
+@keyframes crystalGlow {
+  0%,100% { text-shadow: 0 0 14px rgba(212,175,55,.3), 0 0 28px rgba(46,213,115,.15); }
+  50%      { text-shadow: 0 0 30px rgba(212,175,55,.75), 0 0 60px rgba(46,213,115,.4), 0 2px 6px rgba(0,0,0,.25); }
+}
+
+/* ---- Entrée au scroll ---- */
+@keyframes slideFromTop {
+  from { opacity: 0; transform: translateY(-60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideFromBottom {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideFromLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideFromRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- Conteneur principal ---- */
+.ccl-banners-section {
+  padding: 14px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ---- Rangée banner ---- */
+.ccl-banner-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 220px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(14,122,58,.08);
+}
+.ccl-banner-row:last-child { border-bottom: none; }
+
+/* ---- Côté image ---- */
+.ccl-banner-img {
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  opacity: 0;
+  transition: none;
+}
+.ccl-banner-img.anim-in {
+  animation: slideFromLeft .72s cubic-bezier(.22,1,.36,1) forwards;
+}
+/* Rangées paires : image vient du bas */
+.ccl-banner-row:nth-child(even) .ccl-banner-img.anim-in {
+  animation: slideFromBottom .72s cubic-bezier(.22,1,.36,1) forwards;
+}
+/* Rangées impaires : image vient du haut */
+.ccl-banner-row:nth-child(odd) .ccl-banner-img.anim-in {
+  animation: slideFromTop .72s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.ccl-banner-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.ccl-banner-row:hover .ccl-banner-img img {
+  transform: scale(1.04);
+}
+
+/* ---- Côté texte cristallisé ---- */
+.ccl-banner-txt {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 36px;
+  opacity: 0;
+  transition: none;
+}
+/* Rangées impaires : texte vient du bas */
+.ccl-banner-row:nth-child(odd) .ccl-banner-txt.anim-in {
+  animation: slideFromBottom .72s cubic-bezier(.22,1,.36,1) .14s forwards;
+}
+/* Rangées paires : texte vient du haut */
+.ccl-banner-row:nth-child(even) .ccl-banner-txt.anim-in {
+  animation: slideFromTop .72s cubic-bezier(.22,1,.36,1) .14s forwards;
+}
+
+/* Background dégradé cristal selon la rangée */
+.ccl-banner-row:nth-child(1) .ccl-banner-txt { background: linear-gradient(135deg,#042814,#0a4226 60%,#0E7A3A); }
+.ccl-banner-row:nth-child(2) .ccl-banner-txt { background: linear-gradient(135deg,#1f1147,#3a1a7c 60%,#5a37a8); }
+.ccl-banner-row:nth-child(3) .ccl-banner-txt { background: linear-gradient(135deg,#6b1a0a,#a0270f 60%,#c0341a); }
+.ccl-banner-row:nth-child(4) .ccl-banner-txt { background: linear-gradient(135deg,#082a40,#0c4a70 60%,#1677b0); }
+.ccl-banner-row:nth-child(5) .ccl-banner-txt { background: linear-gradient(135deg,#3b1f0a,#7a4010 60%,#C9A227); }
+
+/* ---- Faisceaux lumineux cristal (pseudo) ---- */
+.ccl-banner-txt::before {
+  content: "";
+  position: absolute;
+  top: -30%; left: -10%;
+  width: 55%; height: 160%;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(212,175,55,.18) 45%,
+    rgba(255,255,255,.28) 50%,
+    rgba(212,175,55,.18) 55%,
+    transparent 70%
+  );
+  animation: crystalBeam 4.5s cubic-bezier(.4,0,.6,1) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.ccl-banner-txt::after {
+  content: "";
+  position: absolute;
+  top: -20%; right: -5%;
+  width: 38%; height: 140%;
+  background: linear-gradient(
+    125deg,
+    transparent 35%,
+    rgba(46,213,115,.12) 48%,
+    rgba(255,255,255,.20) 52%,
+    rgba(46,213,115,.10) 57%,
+    transparent 72%
+  );
+  animation: crystalBeam 6s cubic-bezier(.4,0,.6,1) 2.1s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Facettes cristal déco ---- */
+.ccl-crystal-facet {
+  position: absolute;
+  border-style: solid;
+  pointer-events: none;
+  z-index: 0;
+}
+.ccl-crystal-facet.f1 {
+  top: 12%; right: 10%;
+  width: 0; height: 0;
+  border-width: 0 28px 48px 28px;
+  border-color: transparent transparent rgba(212,175,55,.14) transparent;
+  animation: crystalFacet 3.2s ease-in-out infinite;
+}
+.ccl-crystal-facet.f2 {
+  bottom: 18%; right: 18%;
+  width: 0; height: 0;
+  border-width: 34px 20px 0 20px;
+  border-color: rgba(255,255,255,.10) transparent transparent transparent;
+  animation: crystalFacet 4.1s ease-in-out 1s infinite;
+}
+.ccl-crystal-facet.f3 {
+  top: 48%; left: 6%;
+  width: 0; height: 0;
+  border-width: 0 16px 28px 16px;
+  border-color: transparent transparent rgba(46,213,115,.12) transparent;
+  animation: crystalFacet 5s ease-in-out 0.5s infinite;
+}
+
+/* ---- Contenu texte ---- */
+.ccl-banner-txt-inner { position: relative; z-index: 2; }
+
+.ccl-banner-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  opacity: .92;
+}
+.ccl-banner-kicker i { font-size: 14px; }
+
+.ccl-banner-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 12px;
+  animation: crystalGlow 3.8s ease-in-out infinite;
+}
+.ccl-banner-title span { color: var(--gold); }
+
+.ccl-banner-desc {
+  font-size: 13.5px;
+  color: rgba(255,255,255,.82);
+  line-height: 1.65;
+  margin-bottom: 22px;
+  max-width: 340px;
+}
+
+.ccl-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.12);
+  border: 1.5px solid rgba(212,175,55,.5);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background .22s, border-color .22s, transform .22s;
+  width: fit-content;
+  backdrop-filter: blur(4px);
+}
+.ccl-banner-cta:hover {
+  background: rgba(212,175,55,.25);
+  border-color: var(--gold);
+  transform: translateX(4px);
+}
+.ccl-banner-cta i { font-size: 15px; transition: transform .22s; }
+.ccl-banner-cta:hover i { transform: translateX(5px); }
+
+/* Badge promo optionnel */
+.ccl-banner-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: linear-gradient(135deg, var(--orange), #ff9a2e);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 10px;
+  letter-spacing: .5px;
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(240,124,0,.4);
+}
+
+/* ---- Responsive ---- */
+@media(max-width: 900px) {
+  .ccl-banner-row { grid-template-columns: 1fr; min-height: auto; }
+  .ccl-banner-img { min-height: 200px; }
+  .ccl-banner-txt { padding: 24px 20px; }
+  .ccl-banner-title { font-size: 20px; }
+}
+@media(max-width: 600px) {
+  .ccl-banners-section { padding: 10px; }
+  .ccl-banner-txt::before, .ccl-banner-txt::after { animation-duration: 7s; }
+}
+</style>
+
+<section class="ccl-banners-section" aria-label="Nos collections">
+
+  <!-- Rangée 1 : Mode Femme — image gauche, texte droite — du HAUT vers BAS -->
+  <div class="ccl-banner-row" data-banner="1">
+    <div class="ccl-banner-img">
+      <img src="pub_collection_femme.png" alt="Nouvelle Collection Femme CCL" loading="lazy" />
+    </div>
+    <div class="ccl-banner-txt">
+      <div class="ccl-crystal-facet f1"></div>
+      <div class="ccl-crystal-facet f2"></div>
+      <div class="ccl-crystal-facet f3"></div>
+      <div class="ccl-banner-txt-inner">
+        <div class="ccl-banner-kicker"><i class="ti ti-sparkles"></i> Nouvelle Saison</div>
+        <h2 class="ccl-banner-title">Collection <span>Femme</span><br>Été 2026</h2>
+        <p class="ccl-banner-desc">Robes, boubous, sacs de luxe et accessoires sélectionnés avec soin — des pièces intemporelles signées Crystal Company.</p>
+        <a class="ccl-banner-cta" href="#sec-mode">Découvrir la collection <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rangée 2 : Automobiles — image gauche, texte droite — du BAS vers HAUT -->
+  <div class="ccl-banner-row" data-banner="2">
+    <div class="ccl-banner-img">
+      <img src="pub_automobiles.png" alt="Automobiles CCL" loading="lazy" />
+    </div>
+    <div class="ccl-banner-txt">
+      <div class="ccl-crystal-facet f1"></div>
+      <div class="ccl-crystal-facet f2"></div>
+      <div class="ccl-crystal-facet f3"></div>
+      <div class="ccl-banner-badge">ARRIVAGE</div>
+      <div class="ccl-banner-txt-inner">
+        <div class="ccl-banner-kicker"><i class="ti ti-car"></i> Automobile</div>
+        <h2 class="ccl-banner-title">Véhicules <span>Premium</span><br>à Dakar</h2>
+        <p class="ccl-banner-desc">Berlines, SUV et utilitaires certifiés — paiement échelonné disponible, livraison sur tout le territoire sénégalais.</p>
+        <a class="ccl-banner-cta" href="#sec-auto">Voir les véhicules <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rangée 3 : Électroménager — image gauche, texte droite — du HAUT vers BAS -->
+  <div class="ccl-banner-row" data-banner="3">
+    <div class="ccl-banner-img">
+      <img src="pub_electromenager.png" alt="Électroménager CCL" loading="lazy" />
+    </div>
+    <div class="ccl-banner-txt">
+      <div class="ccl-crystal-facet f1"></div>
+      <div class="ccl-crystal-facet f2"></div>
+      <div class="ccl-crystal-facet f3"></div>
+      <div class="ccl-banner-badge">-20%</div>
+      <div class="ccl-banner-txt-inner">
+        <div class="ccl-banner-kicker"><i class="ti ti-plug"></i> Électroménager</div>
+        <h2 class="ccl-banner-title">Équipez votre<br><span>Maison</span></h2>
+        <p class="ccl-banner-desc">Réfrigérateurs, climatiseurs, machines à laver — les meilleures marques mondiales livrées J+1 à Dakar.</p>
+        <a class="ccl-banner-cta" href="#sec-maison">Explorer <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rangée 4 : Construction — image gauche, texte droite — du BAS vers HAUT -->
+  <div class="ccl-banner-row" data-banner="4">
+    <div class="ccl-banner-img">
+      <img src="pub_construction.png" alt="Matériaux de Construction CCL" loading="lazy" />
+    </div>
+    <div class="ccl-banner-txt">
+      <div class="ccl-crystal-facet f1"></div>
+      <div class="ccl-crystal-facet f2"></div>
+      <div class="ccl-crystal-facet f3"></div>
+      <div class="ccl-banner-txt-inner">
+        <div class="ccl-banner-kicker"><i class="ti ti-building"></i> Construction</div>
+        <h2 class="ccl-banner-title">Matériaux<br><span>Certifiés</span></h2>
+        <p class="ccl-banner-desc">Ciment, fer, carrelage et finitions de qualité — approvisionnement professionnel pour particuliers et entreprises du BTP.</p>
+        <a class="ccl-banner-cta" href="#sec-flash">Commander en gros <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rangée 5 : Skincare — image gauche, texte droite — du HAUT vers BAS -->
+  <div class="ccl-banner-row" data-banner="5">
+    <div class="ccl-banner-img">
+      <img src="pub_skincare.png" alt="Crystal Skincare" loading="lazy" />
+    </div>
+    <div class="ccl-banner-txt">
+      <div class="ccl-crystal-facet f1"></div>
+      <div class="ccl-crystal-facet f2"></div>
+      <div class="ccl-crystal-facet f3"></div>
+      <div class="ccl-banner-badge">EXCLUSIF</div>
+      <div class="ccl-banner-txt-inner">
+        <div class="ccl-banner-kicker"><i class="ti ti-crown"></i> Beauté &amp; Soins</div>
+        <h2 class="ccl-banner-title"><span>Crystal</span><br>Skin Care</h2>
+        <p class="ccl-banner-desc">Sérums, crèmes et rituels beauté haut de gamme — la ligne exclusive Sen Senteurs Royal, inspiration sénégalaise, qualité internationale.</p>
+        <a class="ccl-banner-cta" href="#sec-beaute">Découvrir SSR <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function(){
+  /* ===== Intersection Observer : animation scroll haut/bas alternée ===== */
+  var rows = document.querySelectorAll('.ccl-banner-row');
+  if (!rows.length || !('IntersectionObserver' in window)) {
+    /* Fallback sans IO : tout visible */
+    rows.forEach(function(r){
+      r.querySelector('.ccl-banner-img').style.opacity = '1';
+      r.querySelector('.ccl-banner-txt').style.opacity = '1';
+    });
+    return;
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var img = e.target.querySelector('.ccl-banner-img');
+        var txt = e.target.querySelector('.ccl-banner-txt');
+        /* petit délai pour laisser le navigateur peindre */
+        requestAnimationFrame(function(){
+          if(img && !img.classList.contains('anim-in')) img.classList.add('anim-in');
+          if(txt && !txt.classList.contains('anim-in')) txt.classList.add('anim-in');
+        });
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  rows.forEach(function(r){ io.observe(r); });
+})();
+</script>
+
 <style>
   /* PILLS FLOTTANTES */
   .hero-pills {
