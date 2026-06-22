@@ -777,7 +777,7 @@
     }
     /* BANNIÈRE PUB SECTION */
     .section-ad-banner { display:block; margin: 0 0 4px 0; border-radius:0; overflow: hidden; position: relative; background: linear-gradient(90deg, #0a7c56, #1abc9c); min-height: 80px; text-decoration: none; }
-    .section-ad-banner img { width:100%; height:90px; object-fit:cover; display:block; border-radius:0; }
+    .section-ad-banner img, .section-ad-banner video { width:100%; height:auto; display:block; border-radius:0; }
     .section-ad-banner.placeholder { display:flex; align-items:center; justify-content:space-between; padding: 18px 24px; min-height: 80px; }
     .section-ad-banner.placeholder .ad-placeholder-txt { color:rgba(255,255,255,0.7); font-size:13px; font-style:italic; }
     .section-ad-banner.placeholder .ad-placeholder-label { background:rgba(255,255,255,0.15); color:white; font-size:11px; font-weight:700; padding:4px 10px; border-radius:0; border:1px solid rgba(255,255,255,0.3); letter-spacing:0.5px; }
@@ -1434,10 +1434,9 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
       <span style="font-size:13px; color: var(--muted);" id="count-main"></span>
     </div>
     <!-- ✏️ BANNIÈRE PUB — Nouveaux Produits : remplace href et src -->
-    <a href="https://example.com/pub-nouveautes" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-      <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Nouveaux Produits (800×90px recommandé)</span>
-      <span class="ad-placeholder-label">PUBLICITÉ</span>
-    </a>
+    <div class="section-ad-banner">
+      <video src="pub_video_nouveautes.mp4" autoplay loop muted playsinline></video>
+    </div>
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterProducts(this)">Tous</button>
       <button class="filter-btn" onclick="filterProducts(this)">Chaises Pliantes</button>
@@ -1485,10 +1484,9 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <section class="section alt" id="sec-mode">
   <div class="section-header"><h2><i class="ti ti-shirt hicon"></i> Mode / <span>Style</span></h2></div>
   <!-- ✏️ BANNIÈRE PUB — Mode & Style : remplace href et src -->
-  <a href="https://example.com/pub-mode" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Mode / Style (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <div class="section-ad-banner">
+    <video src="pub_video_mode.mp4" autoplay loop muted playsinline></video>
+  </div>
   <div class="row-scroll" id="grid-mode"></div>
 </section>
 
@@ -1496,10 +1494,9 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <section class="section" id="sec-beaute">
   <div class="section-header"><h2><i class="ti ti-spray hicon"></i> Parfums / <span>Beauté</span></h2><a class="partner-btn gold" href="ssr.html"><i class="ti ti-crown"></i> Boutique Sen Senteurs Royal <i class="ti ti-arrow-right"></i></a></div>
   <!-- ✏️ BANNIÈRE PUB — Parfums & Beauté : remplace href et src -->
-  <a href="https://example.com/pub-beaute" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Parfums / Beauté (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <div class="section-ad-banner">
+    <video src="pub_video_beaute.mp4" autoplay loop muted playsinline></video>
+  </div>
   <div class="row-scroll" id="grid-beaute"></div>
 </section>
 
