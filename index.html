@@ -694,6 +694,20 @@
     .auth-msg.err { color:#e53e3e; } .auth-msg.ok { color:var(--green); }
     .btn-auth { width:100%; padding:13px; border:none; border-radius:0; background:linear-gradient(90deg,var(--green-dark),var(--green)); color:#fff; font-weight:700; font-size:15px; cursor:pointer; font-family:inherit; }
     .btn-auth:disabled { opacity:.6; }
+    /* --- Connexion Google + recap paiement --- */
+    .auth-or{display:flex;align-items:center;text-align:center;color:#9aa0a6;font-size:12px;margin:14px 0 12px}
+    .auth-or::before,.auth-or::after{content:"";flex:1;height:1px;background:#e5e7eb}
+    .auth-or span{padding:0 12px}
+    .btn-google{width:100%;padding:12px;border:1.5px solid #dadce0;border-radius:0;background:#fff;color:#3c4043;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;transition:.15s}
+    .btn-google:hover{background:#f8f9fa;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+    .btn-google svg{width:18px;height:18px;flex-shrink:0}
+    .pay-recap{border:1px solid #e5e7eb;background:#fafafa;margin-bottom:14px}
+    .pr-head{background:var(--green);color:#fff;padding:8px 12px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:7px}
+    .pr-list{list-style:none;margin:0;padding:8px 12px;max-height:150px;overflow:auto}
+    .pr-list li{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;border-bottom:1px dashed #eee;color:var(--text)}
+    .pr-list li:last-child{border-bottom:none}
+    .pr-total{display:flex;justify-content:space-between;padding:9px 12px;border-top:2px solid var(--green);font-size:14px}
+    .pr-total b{color:var(--green)}
     .acc-section { margin-bottom:26px; }
     .acc-section h3 { font-family:'Poppins', sans-serif; font-size:20px; margin-bottom:12px; display:flex; gap:8px; align-items:center; }
     .acc-section h3 i { color:var(--green); }
@@ -1274,19 +1288,20 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   <!-- Carrousel -->
   <div class="jhero-carousel">
     <div class="jhc-track" id="jhcTrack">
-      <a class="jhc-slide s1 jhc-imgslide" href="#sec-flash">
-        <img src="Boutique_Officielle.gif" alt="Boutique Officielle — Crystal Company Limited" />
+      <a class="jhc-slide s1 jhc-imgslide" href="#sec-mode">
+        <img src="pub_collection_femme.png" alt="Nouvelle Collection Femme — Crystal Company Limited" />
       </a>
-      <a class="jhc-slide s2 jhc-imgslide" href="#sec-flash">
-        <img src="clim.gif" alt="Climatiseurs — Crystal Company Limited" />
+      <a class="jhc-slide s2 jhc-imgslide" href="#sec-auto">
+        <img src="pub_automobiles.png" alt="Automobiles — Crystal Company Limited" />
       </a>
-      <a class="jhc-slide s3" href="#sec-beaute">
-        <div class="jhc-txt">
-          <span class="jhc-kicker"><i class="ti ti-sparkles"></i> Parfums &amp; Beauté</span>
-          <h2>Sen Senteurs Royal</h2>
-          <p>Parfums, bakhoor et coffrets — l'élégance au quotidien.</p>
-          <span class="jhc-cta">Explorer <i class="ti ti-arrow-right"></i></span>
-        </div>
+      <a class="jhc-slide s3 jhc-imgslide" href="#sec-flash">
+        <img src="pub_electromenager.png" alt="Offre Électroménager — Crystal Premium Collection" />
+      </a>
+      <a class="jhc-slide jhc-imgslide" href="#sec-flash">
+        <img src="pub_construction.png" alt="Matériaux de Construction — Crystal Company Limited" />
+      </a>
+      <a class="jhc-slide jhc-imgslide" href="#sec-beaute">
+        <img src="pub_skincare.png" alt="Crystal Skin Care — Nouvelle Collection Soins du Visage" />
       </a>
       <a class="jhc-slide s4" href="#sec-alim">
         <div class="jhc-txt">
@@ -1691,7 +1706,6 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
       <span class="cart-total-label">Total</span>
       <span class="cart-total-amount" id="cart-total">0 FCFA</span>
     </div>
-    <button class="btn-whatsapp" onclick="orderWhatsApp()"><i class="ti ti-brand-whatsapp"></i> Commander via WhatsApp</button>
     <button class="btn-checkout" onclick="proceedToCheckout()">Payer (Wave / Orange Money)</button>
   </div>
 </div>
@@ -1704,6 +1718,7 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
       <button class="pay-close" onclick="closePaymentModal()"><i class="ti ti-x"></i></button>
     </div>
     <div class="pay-body">
+      <div class="pay-recap" id="pay-recap"></div>
       <div class="pay-subtitle">Choisissez votre mode de paiement</div>
       <div class="pay-methods">
         <div class="pay-method" onclick="selectPayment('wave', this)">
@@ -1751,6 +1766,8 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
       <input id="au-pass" type="password" placeholder="Mot de passe (min. 6 caractères)" autocomplete="current-password" />
       <div class="auth-msg" id="auth-msg"></div>
       <button class="btn-auth" id="auth-submit" onclick="authSubmit()">Se connecter</button>
+      <div class="auth-or"><span>ou</span></div>
+      <button class="btn-google" id="auth-google" onclick="authGoogle()"><svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg> Continuer avec Google</button>
     </div>
   </div>
 </div>
@@ -2635,11 +2652,23 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   let selectedPayment = null;
   function proceedToCheckout(){
     if(cart.length === 0){ showToast('<i class="ti ti-alert-triangle"></i> Votre panier est vide'); return; }
+    if(!(window.ACCOUNT && window.ACCOUNT.user)){
+      try { sessionStorage.setItem('ccl_pending_checkout','1'); } catch(e){}
+      closeCart();
+      if(window.openAuth) window.openAuth();
+      showToast('<i class="ti ti-lock"></i> Connectez-vous pour finaliser le paiement');
+      return;
+    }
     const c = getCustomer();
     if(!c.name || !c.phone){ showToast('<i class="ti ti-alert-triangle"></i> Renseignez nom et téléphone'); openCart(); return; }
     selectedPayment = null;
     document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
     const panel = document.getElementById('pay-panel'); panel.classList.remove('visible'); panel.innerHTML='';
+    const rc = document.getElementById('pay-recap');
+    if(rc){
+      const li = cart.map(i=>`<li><span>${i.qty}× ${i.name}${i.size?' ('+i.size+')':''}</span><b>${money(i.price*i.qty)}</b></li>`).join('');
+      rc.innerHTML = `<div class="pr-head"><i class="ti ti-shopping-bag"></i> Votre commande</div><ul class="pr-list">${li}</ul><div class="pr-total"><span>Total à payer</span><b>${money(cartTotalNum())}</b></div>`;
+    }
     closeCart();
     document.getElementById('pay-overlay').classList.add('open');
   }
@@ -2956,12 +2985,21 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
       else sb.from('favorites').delete().eq('user_id',ACCOUNT.user.id).eq('product_id',id).then(function(){});
     } catch(e){} }
   };
-  window.afterOrder = function(methodLabel){
-    if(sb && ACCOUNT.user){ try {
+  window.afterOrder = async function(methodLabel){
+    if(!(sb && ACCOUNT.user)) return;
+    try {
       const items = cart.map(i=>({ id:i.id, name:i.name, qty:i.qty, price:i.price, size:i.size||'' }));
       const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-      sb.from('orders').insert({ user_id:ACCOUNT.user.id, items:items, total:total, methode:methodLabel, statut:'en attente' }).then(function(){ loadOrders(); });
-    } catch(e){} }
+      let c={}; try { c = getCustomer(); } catch(e){}
+      const base = { user_id:ACCOUNT.user.id, items:items, total:total, methode:methodLabel, statut:'en attente' };
+      const full = Object.assign({}, base, { client:{ nom:c.name||'', tel:c.phone||'', region:c.region||'', departement:c.departement||'', adresse:c.addr||'' } });
+      let r = await sb.from('orders').insert(full);
+      if(r && r.error){ await sb.from('orders').insert(base); }
+      const prof={ id:ACCOUNT.user.id };
+      if(c.name) prof.nom=c.name; if(c.phone) prof.telephone=c.phone; if(c.addr) prof.adresse=c.addr;
+      if(Object.keys(prof).length>1) sb.from('profiles').upsert(prof);
+      loadOrders();
+    } catch(e){}
   };
 
   /* ===== EN-TÊTE ===== */
@@ -2986,6 +3024,13 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   function setMsg(t, ok){ const m=document.getElementById('auth-msg'); if(!m)return; m.textContent=t||''; m.className='auth-msg '+(ok?'ok':'err'); }
   window.openAuth = function(){ document.getElementById('auth-modal').classList.add('open'); authTab('login'); };
   window.closeAuth = function(){ document.getElementById('auth-modal').classList.remove('open'); };
+  window.authGoogle = async function(){
+    if(!sb){ setMsg("Connexion Google indisponible : Supabase non configure (URL + cle)."); return; }
+    try {
+      const r = await sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo: window.location.origin + window.location.pathname } });
+      if(r.error) throw r.error;
+    } catch(e){ setMsg(e.message || 'Erreur de connexion Google.'); }
+  };
   window.authSubmit = async function(){
     if(!sb){ setMsg("Connexion indisponible : configure d'abord Supabase (URL + clé) dans le code."); return; }
     const email=document.getElementById('au-email').value.trim();
@@ -3016,8 +3061,25 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   async function onLogin(user){
     ACCOUNT.user=user;
     await loadProfile(); await loadFavorites(); await loadOrders();
+    try {
+      if(!ACCOUNT.profile || !ACCOUNT.profile.nom){
+        const meta = user.user_metadata || {};
+        const gname = meta.full_name || meta.name || '';
+        if(gname){
+          ACCOUNT.profile = Object.assign({ id:user.id }, ACCOUNT.profile||{}, { nom:gname });
+          if(sb) sb.from('profiles').upsert({ id:user.id, nom:gname });
+          const ck=document.getElementById('ck-name'); if(ck && !ck.value) ck.value=gname;
+        }
+      }
+    } catch(e){}
     updateHeader(); renderRecos();
     showToast('<i class="ti ti-circle-check"></i> Bienvenue '+(firstName()||'')+' !');
+    try {
+      if(sessionStorage.getItem('ccl_pending_checkout')){
+        sessionStorage.removeItem('ccl_pending_checkout');
+        setTimeout(function(){ if(window.proceedToCheckout) window.proceedToCheckout(); }, 600);
+      }
+    } catch(e){}
   }
   async function loadProfile(){
     try {
