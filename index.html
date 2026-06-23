@@ -776,11 +776,207 @@
       .search-page-box .pp-back i { font-size: 22px; }
     }
     /* BANNIÈRE PUB SECTION */
+    /* ===== SECTION BANNER — layout split : vidéo gauche + texte cristal droit ===== */
     .section-ad-banner { display:block; margin: 0 0 4px 0; border-radius:0; overflow: hidden; position: relative; background: linear-gradient(90deg, #0a7c56, #1abc9c); min-height: 80px; text-decoration: none; }
     .section-ad-banner img, .section-ad-banner video { width:100%; height:auto; display:block; border-radius:0; }
     .section-ad-banner.placeholder { display:flex; align-items:center; justify-content:space-between; padding: 18px 24px; min-height: 80px; }
     .section-ad-banner.placeholder .ad-placeholder-txt { color:rgba(255,255,255,0.7); font-size:13px; font-style:italic; }
     .section-ad-banner.placeholder .ad-placeholder-label { background:rgba(255,255,255,0.15); color:white; font-size:11px; font-weight:700; padding:4px 10px; border-radius:0; border:1px solid rgba(255,255,255,0.3); letter-spacing:0.5px; }
+
+    /* Wrapper split bannière */
+    .sec-banner-wrap {
+      display: flex;
+      align-items: stretch;
+      margin: 0 0 12px;
+      gap: 0;
+      overflow: hidden;
+      min-height: 220px;
+      background: linear-gradient(135deg, #081f12 0%, #0a2e1a 50%, #06150d 100%);
+      position: relative;
+    }
+    /* Côté bannière (vidéo/gif) */
+    .sec-banner-media {
+      flex: 0 0 42%;
+      max-width: 42%;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+    .sec-banner-media video,
+    .sec-banner-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Côté texte cristal */
+    .sec-banner-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px 32px 28px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Fond cristal animé derrière le texte */
+    .sec-banner-text::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 110% 50%, rgba(212,175,55,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at -10% 30%, rgba(14,122,58,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 60% 100%, rgba(47,168,90,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .sec-banner-text > * { position: relative; z-index: 1; }
+
+    /* Kicker (badge catégorie) */
+    .sec-banner-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      opacity: 0.92;
+    }
+    .sec-banner-kicker i { font-size: 14px; }
+
+    /* Titre avec effet lumière cristal */
+    .sec-banner-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.12;
+      margin-bottom: 12px;
+      position: relative;
+      display: inline-block;
+    }
+    /* Reflet cristal animé sur le titre */
+    .sec-banner-title::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(255,255,255,0.06) 40%,
+        rgba(212,175,55,0.55) 45%,
+        rgba(255,255,255,0.90) 50%,
+        rgba(160,220,180,0.60) 55%,
+        rgba(255,255,255,0.06) 60%,
+        transparent 70%
+      );
+      background-size: 250% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: crystalSweep 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes crystalSweep {
+      0%   { background-position: 200% center; }
+      40%  { background-position: -30% center; }
+      100% { background-position: -30% center; }
+    }
+
+    .sec-banner-desc {
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: rgba(255,255,255,0.78);
+      line-height: 1.65;
+      max-width: 340px;
+      margin-bottom: 20px;
+    }
+    .sec-banner-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, var(--green-dark), var(--green));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow .25s, transform .2s;
+      letter-spacing: .3px;
+      align-self: flex-start;
+      border: 1px solid rgba(212,175,55,0.35);
+    }
+    .sec-banner-cta:hover {
+      box-shadow: 0 0 22px rgba(14,122,58,0.55), 0 0 8px rgba(212,175,55,0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Ligne déco cristal verticale entre media et texte */
+    .sec-banner-divider {
+      width: 3px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(212,175,55,0.8) 25%,
+        rgba(255,255,255,0.9) 50%,
+        rgba(14,122,58,0.8) 75%,
+        transparent 100%
+      );
+      flex-shrink: 0;
+      align-self: stretch;
+      animation: crystalDivider 3s ease-in-out infinite;
+    }
+    @keyframes crystalDivider {
+      0%,100% { opacity: 0.6; }
+      50% { opacity: 1; box-shadow: 0 0 10px rgba(212,175,55,0.7); }
+    }
+
+    /* ===== ANIMATIONS AU SCROLL ===== */
+    @keyframes slideInFromTop {
+      from { opacity: 0; transform: translateY(-60px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInFromBottom {
+      from { opacity: 0; transform: translateY(60px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInFromLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInFromRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* État initial hors écran (caché avant scroll) */
+    .scroll-reveal-top    { opacity: 0; transform: translateY(-60px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .scroll-reveal-bottom { opacity: 0; transform: translateY(60px);  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .scroll-reveal-left   { opacity: 0; transform: translateX(-50px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .scroll-reveal-right  { opacity: 0; transform: translateX(50px);  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    /* Délai texte légèrement après media */
+    .scroll-reveal-text { transition-delay: 0.15s !important; }
+
+    /* Classe visible ajoutée par JS */
+    .scroll-reveal-top.in-view,
+    .scroll-reveal-bottom.in-view,
+    .scroll-reveal-left.in-view,
+    .scroll-reveal-right.in-view {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    @media(max-width:700px){
+      .sec-banner-wrap { flex-direction: column; min-height: auto; }
+      .sec-banner-media { flex: none; max-width: 100%; height: 200px; }
+      .sec-banner-text { padding: 18px 18px 20px; }
+      .sec-banner-title { font-size: 22px; }
+      .sec-banner-divider { width: 100%; height: 3px; }
+    }
 
     @media(max-width:480px){
       .product-grid { gap: 8px; }
@@ -1367,403 +1563,6 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   </div>
 </section>
 
-<!-- ===================================================
-     SECTION BANNIÈRES ANIMÉES AU SCROLL — CCL
-     Banner à gauche, texte cristallisé à droite
-     Alternance haut→bas / bas→haut selon la position
-     =================================================== -->
-<style>
-/* ---- Keyframes lumière cristal ---- */
-@keyframes crystalBeam {
-  0%   { transform: translateX(-120%) skewX(-22deg); opacity: 0; }
-  10%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translateX(260%) skewX(-22deg); opacity: 0; }
-}
-@keyframes crystalFacet {
-  0%,100% { opacity: .18; }
-  50%      { opacity: .55; }
-}
-@keyframes crystalGlow {
-  0%,100% { text-shadow: 0 0 14px rgba(212,175,55,.3), 0 0 28px rgba(46,213,115,.15); }
-  50%      { text-shadow: 0 0 30px rgba(212,175,55,.75), 0 0 60px rgba(46,213,115,.4), 0 2px 6px rgba(0,0,0,.25); }
-}
-
-/* ---- Entrée au scroll ---- */
-@keyframes slideFromTop {
-  from { opacity: 0; transform: translateY(-60px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideFromBottom {
-  from { opacity: 0; transform: translateY(60px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideFromLeft {
-  from { opacity: 0; transform: translateX(-50px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes slideFromRight {
-  from { opacity: 0; transform: translateX(50px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-/* ---- Conteneur principal ---- */
-.ccl-banners-section {
-  padding: 14px 16px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-/* ---- Rangée banner ---- */
-.ccl-banner-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  min-height: 220px;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(14,122,58,.08);
-}
-.ccl-banner-row:last-child { border-bottom: none; }
-
-/* ---- Côté image ---- */
-.ccl-banner-img {
-  position: relative;
-  overflow: hidden;
-  min-height: 200px;
-  opacity: 0;
-  transition: none;
-}
-.ccl-banner-img.anim-in {
-  animation: slideFromLeft .72s cubic-bezier(.22,1,.36,1) forwards;
-}
-/* Rangées paires : image vient du bas */
-.ccl-banner-row:nth-child(even) .ccl-banner-img.anim-in {
-  animation: slideFromBottom .72s cubic-bezier(.22,1,.36,1) forwards;
-}
-/* Rangées impaires : image vient du haut */
-.ccl-banner-row:nth-child(odd) .ccl-banner-img.anim-in {
-  animation: slideFromTop .72s cubic-bezier(.22,1,.36,1) forwards;
-}
-
-.ccl-banner-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .55s cubic-bezier(.4,0,.2,1);
-}
-.ccl-banner-row:hover .ccl-banner-img img {
-  transform: scale(1.04);
-}
-
-/* ---- Côté texte cristallisé ---- */
-.ccl-banner-txt {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 32px 36px;
-  opacity: 0;
-  transition: none;
-}
-/* Rangées impaires : texte vient du bas */
-.ccl-banner-row:nth-child(odd) .ccl-banner-txt.anim-in {
-  animation: slideFromBottom .72s cubic-bezier(.22,1,.36,1) .14s forwards;
-}
-/* Rangées paires : texte vient du haut */
-.ccl-banner-row:nth-child(even) .ccl-banner-txt.anim-in {
-  animation: slideFromTop .72s cubic-bezier(.22,1,.36,1) .14s forwards;
-}
-
-/* Background dégradé cristal selon la rangée */
-.ccl-banner-row:nth-child(1) .ccl-banner-txt { background: linear-gradient(135deg,#042814,#0a4226 60%,#0E7A3A); }
-.ccl-banner-row:nth-child(2) .ccl-banner-txt { background: linear-gradient(135deg,#1f1147,#3a1a7c 60%,#5a37a8); }
-.ccl-banner-row:nth-child(3) .ccl-banner-txt { background: linear-gradient(135deg,#6b1a0a,#a0270f 60%,#c0341a); }
-.ccl-banner-row:nth-child(4) .ccl-banner-txt { background: linear-gradient(135deg,#082a40,#0c4a70 60%,#1677b0); }
-.ccl-banner-row:nth-child(5) .ccl-banner-txt { background: linear-gradient(135deg,#3b1f0a,#7a4010 60%,#C9A227); }
-
-/* ---- Faisceaux lumineux cristal (pseudo) ---- */
-.ccl-banner-txt::before {
-  content: "";
-  position: absolute;
-  top: -30%; left: -10%;
-  width: 55%; height: 160%;
-  background: linear-gradient(
-    110deg,
-    transparent 30%,
-    rgba(212,175,55,.18) 45%,
-    rgba(255,255,255,.28) 50%,
-    rgba(212,175,55,.18) 55%,
-    transparent 70%
-  );
-  animation: crystalBeam 4.5s cubic-bezier(.4,0,.6,1) infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-.ccl-banner-txt::after {
-  content: "";
-  position: absolute;
-  top: -20%; right: -5%;
-  width: 38%; height: 140%;
-  background: linear-gradient(
-    125deg,
-    transparent 35%,
-    rgba(46,213,115,.12) 48%,
-    rgba(255,255,255,.20) 52%,
-    rgba(46,213,115,.10) 57%,
-    transparent 72%
-  );
-  animation: crystalBeam 6s cubic-bezier(.4,0,.6,1) 2.1s infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ---- Facettes cristal déco ---- */
-.ccl-crystal-facet {
-  position: absolute;
-  border-style: solid;
-  pointer-events: none;
-  z-index: 0;
-}
-.ccl-crystal-facet.f1 {
-  top: 12%; right: 10%;
-  width: 0; height: 0;
-  border-width: 0 28px 48px 28px;
-  border-color: transparent transparent rgba(212,175,55,.14) transparent;
-  animation: crystalFacet 3.2s ease-in-out infinite;
-}
-.ccl-crystal-facet.f2 {
-  bottom: 18%; right: 18%;
-  width: 0; height: 0;
-  border-width: 34px 20px 0 20px;
-  border-color: rgba(255,255,255,.10) transparent transparent transparent;
-  animation: crystalFacet 4.1s ease-in-out 1s infinite;
-}
-.ccl-crystal-facet.f3 {
-  top: 48%; left: 6%;
-  width: 0; height: 0;
-  border-width: 0 16px 28px 16px;
-  border-color: transparent transparent rgba(46,213,115,.12) transparent;
-  animation: crystalFacet 5s ease-in-out 0.5s infinite;
-}
-
-/* ---- Contenu texte ---- */
-.ccl-banner-txt-inner { position: relative; z-index: 2; }
-
-.ccl-banner-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 12px;
-  opacity: .92;
-}
-.ccl-banner-kicker i { font-size: 14px; }
-
-.ccl-banner-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 26px;
-  font-weight: 800;
-  line-height: 1.15;
-  color: #fff;
-  margin-bottom: 12px;
-  animation: crystalGlow 3.8s ease-in-out infinite;
-}
-.ccl-banner-title span { color: var(--gold); }
-
-.ccl-banner-desc {
-  font-size: 13.5px;
-  color: rgba(255,255,255,.82);
-  line-height: 1.65;
-  margin-bottom: 22px;
-  max-width: 340px;
-}
-
-.ccl-banner-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,.12);
-  border: 1.5px solid rgba(212,175,55,.5);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 20px;
-  text-decoration: none;
-  transition: background .22s, border-color .22s, transform .22s;
-  width: fit-content;
-  backdrop-filter: blur(4px);
-}
-.ccl-banner-cta:hover {
-  background: rgba(212,175,55,.25);
-  border-color: var(--gold);
-  transform: translateX(4px);
-}
-.ccl-banner-cta i { font-size: 15px; transition: transform .22s; }
-.ccl-banner-cta:hover i { transform: translateX(5px); }
-
-/* Badge promo optionnel */
-.ccl-banner-badge {
-  position: absolute;
-  top: 16px; right: 16px;
-  background: linear-gradient(135deg, var(--orange), #ff9a2e);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  padding: 5px 10px;
-  letter-spacing: .5px;
-  z-index: 3;
-  box-shadow: 0 4px 12px rgba(240,124,0,.4);
-}
-
-/* ---- Responsive ---- */
-@media(max-width: 900px) {
-  .ccl-banner-row { grid-template-columns: 1fr; min-height: auto; }
-  .ccl-banner-img { min-height: 200px; }
-  .ccl-banner-txt { padding: 24px 20px; }
-  .ccl-banner-title { font-size: 20px; }
-}
-@media(max-width: 600px) {
-  .ccl-banners-section { padding: 10px; }
-  .ccl-banner-txt::before, .ccl-banner-txt::after { animation-duration: 7s; }
-}
-</style>
-
-<section class="ccl-banners-section" aria-label="Nos collections">
-
-  <!-- Rangée 1 : Mode Femme — image gauche, texte droite — du HAUT vers BAS -->
-  <div class="ccl-banner-row" data-banner="1">
-    <div class="ccl-banner-img">
-      <img src="pub_collection_femme.png" alt="Nouvelle Collection Femme CCL" loading="lazy" />
-    </div>
-    <div class="ccl-banner-txt">
-      <div class="ccl-crystal-facet f1"></div>
-      <div class="ccl-crystal-facet f2"></div>
-      <div class="ccl-crystal-facet f3"></div>
-      <div class="ccl-banner-txt-inner">
-        <div class="ccl-banner-kicker"><i class="ti ti-sparkles"></i> Nouvelle Saison</div>
-        <h2 class="ccl-banner-title">Collection <span>Femme</span><br>Été 2026</h2>
-        <p class="ccl-banner-desc">Robes, boubous, sacs de luxe et accessoires sélectionnés avec soin — des pièces intemporelles signées Crystal Company.</p>
-        <a class="ccl-banner-cta" href="#sec-mode">Découvrir la collection <i class="ti ti-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Rangée 2 : Automobiles — image gauche, texte droite — du BAS vers HAUT -->
-  <div class="ccl-banner-row" data-banner="2">
-    <div class="ccl-banner-img">
-      <img src="pub_automobiles.png" alt="Automobiles CCL" loading="lazy" />
-    </div>
-    <div class="ccl-banner-txt">
-      <div class="ccl-crystal-facet f1"></div>
-      <div class="ccl-crystal-facet f2"></div>
-      <div class="ccl-crystal-facet f3"></div>
-      <div class="ccl-banner-badge">ARRIVAGE</div>
-      <div class="ccl-banner-txt-inner">
-        <div class="ccl-banner-kicker"><i class="ti ti-car"></i> Automobile</div>
-        <h2 class="ccl-banner-title">Véhicules <span>Premium</span><br>à Dakar</h2>
-        <p class="ccl-banner-desc">Berlines, SUV et utilitaires certifiés — paiement échelonné disponible, livraison sur tout le territoire sénégalais.</p>
-        <a class="ccl-banner-cta" href="#sec-auto">Voir les véhicules <i class="ti ti-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Rangée 3 : Électroménager — image gauche, texte droite — du HAUT vers BAS -->
-  <div class="ccl-banner-row" data-banner="3">
-    <div class="ccl-banner-img">
-      <img src="pub_electromenager.png" alt="Électroménager CCL" loading="lazy" />
-    </div>
-    <div class="ccl-banner-txt">
-      <div class="ccl-crystal-facet f1"></div>
-      <div class="ccl-crystal-facet f2"></div>
-      <div class="ccl-crystal-facet f3"></div>
-      <div class="ccl-banner-badge">-20%</div>
-      <div class="ccl-banner-txt-inner">
-        <div class="ccl-banner-kicker"><i class="ti ti-plug"></i> Électroménager</div>
-        <h2 class="ccl-banner-title">Équipez votre<br><span>Maison</span></h2>
-        <p class="ccl-banner-desc">Réfrigérateurs, climatiseurs, machines à laver — les meilleures marques mondiales livrées J+1 à Dakar.</p>
-        <a class="ccl-banner-cta" href="#sec-maison">Explorer <i class="ti ti-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Rangée 4 : Construction — image gauche, texte droite — du BAS vers HAUT -->
-  <div class="ccl-banner-row" data-banner="4">
-    <div class="ccl-banner-img">
-      <img src="pub_construction.png" alt="Matériaux de Construction CCL" loading="lazy" />
-    </div>
-    <div class="ccl-banner-txt">
-      <div class="ccl-crystal-facet f1"></div>
-      <div class="ccl-crystal-facet f2"></div>
-      <div class="ccl-crystal-facet f3"></div>
-      <div class="ccl-banner-txt-inner">
-        <div class="ccl-banner-kicker"><i class="ti ti-building"></i> Construction</div>
-        <h2 class="ccl-banner-title">Matériaux<br><span>Certifiés</span></h2>
-        <p class="ccl-banner-desc">Ciment, fer, carrelage et finitions de qualité — approvisionnement professionnel pour particuliers et entreprises du BTP.</p>
-        <a class="ccl-banner-cta" href="#sec-flash">Commander en gros <i class="ti ti-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Rangée 5 : Skincare — image gauche, texte droite — du HAUT vers BAS -->
-  <div class="ccl-banner-row" data-banner="5">
-    <div class="ccl-banner-img">
-      <img src="pub_skincare.png" alt="Crystal Skincare" loading="lazy" />
-    </div>
-    <div class="ccl-banner-txt">
-      <div class="ccl-crystal-facet f1"></div>
-      <div class="ccl-crystal-facet f2"></div>
-      <div class="ccl-crystal-facet f3"></div>
-      <div class="ccl-banner-badge">EXCLUSIF</div>
-      <div class="ccl-banner-txt-inner">
-        <div class="ccl-banner-kicker"><i class="ti ti-crown"></i> Beauté &amp; Soins</div>
-        <h2 class="ccl-banner-title"><span>Crystal</span><br>Skin Care</h2>
-        <p class="ccl-banner-desc">Sérums, crèmes et rituels beauté haut de gamme — la ligne exclusive Sen Senteurs Royal, inspiration sénégalaise, qualité internationale.</p>
-        <a class="ccl-banner-cta" href="#sec-beaute">Découvrir SSR <i class="ti ti-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-<script>
-(function(){
-  /* ===== Intersection Observer : animation scroll haut/bas alternée ===== */
-  var rows = document.querySelectorAll('.ccl-banner-row');
-  if (!rows.length || !('IntersectionObserver' in window)) {
-    /* Fallback sans IO : tout visible */
-    rows.forEach(function(r){
-      r.querySelector('.ccl-banner-img').style.opacity = '1';
-      r.querySelector('.ccl-banner-txt').style.opacity = '1';
-    });
-    return;
-  }
-
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        var img = e.target.querySelector('.ccl-banner-img');
-        var txt = e.target.querySelector('.ccl-banner-txt');
-        /* petit délai pour laisser le navigateur peindre */
-        requestAnimationFrame(function(){
-          if(img && !img.classList.contains('anim-in')) img.classList.add('anim-in');
-          if(txt && !txt.classList.contains('anim-in')) txt.classList.add('anim-in');
-        });
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  rows.forEach(function(r){ io.observe(r); });
-})();
-</script>
-
 <style>
   /* PILLS FLOTTANTES */
   .hero-pills {
@@ -1865,10 +1664,19 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
       <h2><i class="ti ti-armchair hicon"></i> Nos <span>Nouveaux Produits</span></h2>
       <span style="font-size:13px; color: var(--muted);" id="count-main"></span>
     </div>
-    <!-- ✏️ BANNIÈRE PUB — Nouveaux Produits : remplace href et src -->
-    <div class="section-ad-banner">
-      <video src="pub_video_nouveautes.mp4" autoplay loop muted playsinline></video>
+    <!-- ✏️ BANNIÈRE PUB — Nouveaux Produits -->
+    <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-top">
+      <video src="pub_video_nouveautes.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
     </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-bottom scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-sparkles"></i> NOUVEAUTÉS CCL</span>
+      <h3 class="sec-banner-title" data-text="Nos Dernières Arrivées">Nos Dernières<br>Arrivées</h3>
+      <p class="sec-banner-desc">Découvrez en avant-première les produits fraîchement sélectionnés par notre équipe — qualité, style et prix juste.</p>
+      <a class="sec-banner-cta" href="#sec-maison"><i class="ti ti-arrow-right"></i> Explorer la collection</a>
+    </div>
+  </div>
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterProducts(this)">Tous</button>
       <button class="filter-btn" onclick="filterProducts(this)">Chaises Pliantes</button>
@@ -1915,9 +1723,18 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <!-- MODE -->
 <section class="section alt" id="sec-mode">
   <div class="section-header"><h2><i class="ti ti-shirt hicon"></i> Mode / <span>Style</span></h2></div>
-  <!-- ✏️ BANNIÈRE PUB — Mode & Style : remplace href et src -->
-  <div class="section-ad-banner">
-    <video src="pub_video_mode.mp4" autoplay loop muted playsinline></video>
+  <!-- ✏️ BANNIÈRE PUB — Mode & Style -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-bottom">
+      <video src="pub_video_mode.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+    </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-top scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-shirt"></i> MODE & STYLE</span>
+      <h3 class="sec-banner-title" data-text="La Mode à Dakar">La Mode<br>à Dakar</h3>
+      <p class="sec-banner-desc">Tenues tendance, robes, chemises, sneakers — toute la mode pour elle, lui et les enfants livrée en 24h.</p>
+      <a class="sec-banner-cta" href="#sec-mode"><i class="ti ti-arrow-right"></i> Voir la sélection mode</a>
+    </div>
   </div>
   <div class="row-scroll" id="grid-mode"></div>
 </section>
@@ -1925,9 +1742,18 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <!-- BEAUTE / PARFUMS -->
 <section class="section" id="sec-beaute">
   <div class="section-header"><h2><i class="ti ti-spray hicon"></i> Parfums / <span>Beauté</span></h2><a class="partner-btn gold" href="ssr.html"><i class="ti ti-crown"></i> Boutique Sen Senteurs Royal <i class="ti ti-arrow-right"></i></a></div>
-  <!-- ✏️ BANNIÈRE PUB — Parfums & Beauté : remplace href et src -->
-  <div class="section-ad-banner">
-    <video src="pub_video_beaute.mp4" autoplay loop muted playsinline></video>
+  <!-- ✏️ BANNIÈRE PUB — Parfums & Beauté -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-top">
+      <video src="pub_video_beaute.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+    </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-bottom scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-spray"></i> PARFUMS & BEAUTÉ</span>
+      <h3 class="sec-banner-title" data-text="Senteurs d'Exception">Senteurs<br>d'Exception</h3>
+      <p class="sec-banner-desc">Bakhoors, thiourayes, brumes de luxe — Sen Senteurs Royal vous invite à un voyage olfactif unique.</p>
+      <a class="sec-banner-cta" href="ssr.html"><i class="ti ti-arrow-right"></i> Découvrir SSR</a>
+    </div>
   </div>
   <div class="row-scroll" id="grid-beaute"></div>
 </section>
@@ -1935,11 +1761,19 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <!-- ALIMENTATION -->
 <section class="section alt" id="sec-alim">
   <div class="section-header"><h2><i class="ti ti-shopping-cart hicon"></i> Alimentation / <span>Épicerie</span></h2><a class="partner-btn" href="bestfoods-ecom.html"><i class="ti ti-building-store"></i> Boutique Best Foods <i class="ti ti-arrow-right"></i></a></div>
-  <!-- ✏️ BANNIÈRE PUB — Alimentation : remplace href et src -->
-  <a href="https://example.com/pub-alimentation" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Alimentation &amp; Épicerie (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-bottom" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-shopping-cart" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-top scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-shopping-cart"></i> ÉPICERIE & ALIMENTATION</span>
+      <h3 class="sec-banner-title" data-text="Best Foods Sénégal">Best Foods<br>Sénégal</h3>
+      <p class="sec-banner-desc">Épices premium, légumineuses, huiles et produits d'importation — disponibles en gros et demi-gros à Dakar.</p>
+      <a class="sec-banner-cta" href="bestfoods-ecom.html"><i class="ti ti-arrow-right"></i> Boutique Best Foods</a>
+    </div>
+  </div>
   <div class="row-scroll" id="grid-alim"></div>
 </section>
 
@@ -1949,11 +1783,19 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
     <h2><i class="ti ti-building-store"></i> Supermarché | Meilleures offres</h2>
     <a class="super-voir" href="#sec-super">Voir plus <i class="ti ti-chevron-right"></i></a>
   </div>
-  <!-- ✏️ BANNIÈRE PUB — Supermarché : remplace href et src -->
-  <a href="https://example.com/pub-supermarche" class="section-ad-banner placeholder" style="margin:0 0 12px;" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Supermarché (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-top" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-building-store" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-bottom scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-building-store"></i> SUPERMARCHÉ CCL</span>
+      <h3 class="sec-banner-title" data-text="Meilleures Offres du Moment">Meilleures<br>Offres du Moment</h3>
+      <p class="sec-banner-desc">Prix compétitifs sur des centaines de produits du quotidien — livraison J+1 partout dans Dakar.</p>
+      <a class="sec-banner-cta" href="#sec-super"><i class="ti ti-arrow-right"></i> Voir les offres</a>
+    </div>
+  </div>
   <div class="super-body">
     <div class="row-scroll" id="grid-super"></div>
   </div>
@@ -1962,22 +1804,38 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <!-- RAYON BÉBÉ -->
 <section class="section" id="sec-bebe">
   <div class="section-header"><h2><i class="ti ti-baby-carriage hicon"></i> Rayon <span>Bébé</span></h2></div>
-  <!-- ✏️ BANNIÈRE PUB — Rayon Bébé : remplace href et src -->
-  <a href="https://example.com/pub-bebe" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Rayon Bébé (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-bottom" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-baby-carriage" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-top scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-baby-carriage"></i> RAYON BÉBÉ</span>
+      <h3 class="sec-banner-title" data-text="Tout pour Votre Bébé">Tout pour<br>Votre Bébé</h3>
+      <p class="sec-banner-desc">Couches, lait, vêtements, jouets et accessoires — une sélection soignée pour les tout-petits.</p>
+      <a class="sec-banner-cta" href="#sec-bebe"><i class="ti ti-arrow-right"></i> Voir le rayon bébé</a>
+    </div>
+  </div>
   <div class="row-scroll" id="grid-bebe"></div>
 </section>
 
 <!-- PAPETERIE CAPITAL -->
 <section class="section" id="sec-papier">
   <div class="section-header"><h2><i class="ti ti-file-stack hicon"></i> Papeterie <span>Capital</span></h2><a class="partner-btn" href="capital.html"><i class="ti ti-building-store"></i> Boutique Capital <i class="ti ti-arrow-right"></i></a></div>
-  <!-- ✏️ BANNIÈRE PUB — Papeterie Capital : remplace href et src -->
-  <a href="https://example.com/pub-papier" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Papeterie Capital (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-top" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-file-stack" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-bottom scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-file-stack"></i> PAPETERIE CAPITAL</span>
+      <h3 class="sec-banner-title" data-text="Double A & Capital au Sénégal">Double A &<br>Capital au Sénégal</h3>
+      <p class="sec-banner-desc">Distributeur officiel de papier A4 Double A et Capital — qualité internationale, prix pro, livraison entreprise.</p>
+      <a class="sec-banner-cta" href="capital.html"><i class="ti ti-arrow-right"></i> Boutique Capital</a>
+    </div>
+  </div>
   <div class="distrib-badge">
     <img src="double-a-logo.jpg" alt="Double A" />
     <div class="db-txt">
@@ -1991,44 +1849,76 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
 <!-- MAISON & DECO -->
 <section class="section" id="sec-maison">
   <div class="section-header"><h2><i class="ti ti-home hicon"></i> Maison / <span>Déco</span></h2></div>
-  <!-- ✏️ BANNIÈRE PUB — Maison & Déco : remplace href et src -->
-  <a href="https://example.com/pub-maison" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Maison / Déco (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-bottom" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-home" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-top scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-home"></i> MAISON & DÉCO</span>
+      <h3 class="sec-banner-title" data-text="Embellissez Votre Intérieur">Embellissez<br>Votre Intérieur</h3>
+      <p class="sec-banner-desc">Meubles, textiles, luminaires et accessoires déco sélectionnés avec soin pour transformer votre espace.</p>
+      <a class="sec-banner-cta" href="#sec-maison"><i class="ti ti-arrow-right"></i> Explorer Maison & Déco</a>
+    </div>
+  </div>
   <div class="row-scroll" id="grid-maisondeco"></div>
 </section>
 
 <!-- HIGH-TECH (placeholders à remplacer) -->
 <section class="section alt" id="sec-tech">
   <div class="section-header"><h2><i class="ti ti-device-mobile hicon"></i> Téléphones / <span>High-Tech</span></h2></div>
-  <!-- ✏️ BANNIÈRE PUB — High-Tech : remplace href et src -->
-  <a href="https://example.com/pub-tech" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Téléphones &amp; High-Tech (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-top" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-device-mobile" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-bottom scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-device-mobile"></i> HIGH-TECH & AUDIO</span>
+      <h3 class="sec-banner-title" data-text="Téléphones, Tablets & Son">Téléphones,<br>Tablets & Son</h3>
+      <p class="sec-banner-desc">Smartphones, casques, enceintes, accessoires tech — les meilleures marques au meilleur prix à Dakar.</p>
+      <a class="sec-banner-cta" href="#sec-tech"><i class="ti ti-arrow-right"></i> Voir High-Tech</a>
+    </div>
+  </div>
   <div class="row-scroll" id="grid-tech"></div>
 </section>
 
 <!-- SPORT (placeholders à remplacer) -->
 <section class="section" id="sec-sport">
   <div class="section-header"><h2><i class="ti ti-barbell hicon"></i> Sport / <span>Loisirs</span></h2></div>
-  <!-- ✏️ BANNIÈRE PUB — Sport & Loisirs : remplace href et src -->
-  <a href="https://example.com/pub-sport" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Sport &amp; Loisirs (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-bottom" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-barbell" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-top scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-barbell"></i> SPORT & LOISIRS</span>
+      <h3 class="sec-banner-title" data-text="Équipements Sport Pro">Équipements<br>Sport Pro</h3>
+      <p class="sec-banner-desc">Balles, tenues, équipements de fitness et accessoires outdoor — pour les sportifs de tous niveaux.</p>
+      <a class="sec-banner-cta" href="#sec-sport"><i class="ti ti-arrow-right"></i> Voir Sport & Loisirs</a>
+    </div>
+  </div>
   <div class="row-scroll" id="grid-sport"></div>
 </section>
 
 <!-- AUTOMOBILES -->
 <section class="section alt" id="sec-auto">
   <div class="section-header"><h2><i class="ti ti-car hicon"></i> <span>Automobiles</span></h2></div>
-  <!-- ✏️ BANNIÈRE PUB — Automobiles : remplace href et src -->
-  <a href="https://example.com/pub-auto" class="section-ad-banner placeholder" target="_blank" rel="noopener">
-    <span class="ad-placeholder-txt"><i class="ti ti-photo"></i> &nbsp;Bannière pub — Automobiles (800×90px recommandé)</span>
-    <span class="ad-placeholder-label">PUBLICITÉ</span>
-  </a>
+  <!-- BANNIÈRE PUB -->
+  <div class="sec-banner-wrap">
+    <div class="sec-banner-media scroll-reveal-top" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a2e1a,#0e7a3a);">
+        <i class="ti ti-car" style="font-size:80px;color:rgba(255,255,255,0.15);"></i>
+      </div>
+    <div class="sec-banner-divider"></div>
+    <div class="sec-banner-text scroll-reveal-bottom scroll-reveal-text">
+      <span class="sec-banner-kicker"><i class="ti ti-car"></i> AUTOMOBILES</span>
+      <h3 class="sec-banner-title" data-text="Pièces Auto & Accessoires">Pièces Auto<br>& Accessoires</h3>
+      <p class="sec-banner-desc">Pièces de rechange, entretien et accessoires automobiles de qualité — livraison rapide à Dakar.</p>
+      <a class="sec-banner-cta" href="#sec-auto"><i class="ti ti-arrow-right"></i> Voir Automobiles</a>
+    </div>
+  </div>
   <div class="row-scroll" id="grid-auto"></div>
 </section>
 
@@ -4216,6 +4106,31 @@ nav#main-nav > a.promo:hover { border-bottom-color: var(--orange); }
   window.addEventListener("pointermove",function(e){if(!dragging)return;var d=e.clientX-startX;if(Math.abs(d)>4)moved=true;rail.scrollLeft=startScroll-d;});
   window.addEventListener("pointerup",function(){if(!dragging)return;dragging=false;rail.classList.remove("is-dragging");});
   rail.addEventListener("click",function(e){if(moved){e.preventDefault();moved=false;}},true);
+})();
+</script>
+
+<script>
+/* ===== SCROLL REVEAL — banners haut/bas/gauche/droite ===== */
+(function(){
+  var classes = ['scroll-reveal-top','scroll-reveal-bottom','scroll-reveal-left','scroll-reveal-right'];
+  var targets = [];
+  classes.forEach(function(cls){
+    document.querySelectorAll('.'+cls).forEach(function(el){ targets.push(el); });
+  });
+  if(!targets.length || !('IntersectionObserver' in window)){
+    // Fallback: show all
+    targets.forEach(function(el){ el.classList.add('in-view'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+  targets.forEach(function(el){ observer.observe(el); });
 })();
 </script>
 </body>
