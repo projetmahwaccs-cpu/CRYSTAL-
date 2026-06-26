@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Shop - Écailleuse Électrique Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2c5282;
+            --light-blue: #e8f0f8;
+            --accent-orange: #ff6b35;
+            --dark-gray: #1a202c;
+            --light-gray: #f7fafc;
+            --border-gray: #e2e8f0;
+            --text-gray: #4a5568;
+            --success-green: #48bb78;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--dark-gray);
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Barre promotionnelle défilante */
+        .promo-bar {
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .promo-content {
+            display: flex;
+            animation: scroll-marquee 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .promo-item {
+            margin-right: 60px;
+            font-weight: 500;
+        }
+
+        /* Header sticky */
+        header {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 1px solid var(--border-gray);
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            flex: 1;
+            margin-left: 80px;
+        }
+
+        nav a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-orange);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-gray);
+            font-size: 20px;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            color: var(--accent-orange);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-blue) 0%, #f0f9ff 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 36px;
+            background: var(--accent-orange);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+        }
+
+        .cta-button:hover {
+            background: #ff5a22;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.35);
+        }
+
+        .cta-button-outline {
+            background: white;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 12px 32px;
+        }
+
+        .cta-button-outline:hover {
+            background: var(--light-blue);
+        }
+
+        /* Section produits */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--light-gray);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent-orange);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-rating {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.95);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .product-rating span {
+            color: #ffc107;
+            margin-right: 4px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+        }
+
+        .product-footer {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            padding: 10px;
+            background: var(--accent-orange);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .btn-add-cart:hover {
+            background: #ff5a22;
+        }
+
+        .btn-details {
+            flex: 1;
+            padding: 10px;
+            background: white;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--primary-blue);
+            transition: all 0.2s;
+        }
+
+        .btn-details:hover {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        /* Modal produit */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            border-bottom: 1px solid var(--border-gray);
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-gray);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-gray);
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--dark-gray);
+        }
+
+        .modal-badge {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: var(--accent-orange);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 24px;
+        }
+
+        .modal-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .gallery-main {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-main img,
+        .gallery-main video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .thumb {
+            width: 70px;
+            height: 70px;
+            background: var(--light-gray);
+            border: 2px solid var(--border-gray);
+            border-radius: 6px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .thumb:hover,
+        .thumb.active {
+            border-color: var(--accent-orange);
+        }
+
+        .thumb img,
+        .thumb video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-options {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .price-tiers {
+            background: var(--light-blue);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tier {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(44, 82, 130, 0.1);
+            font-size: 13px;
+        }
+
+        .tier:last-child {
+            border-bottom: none;
+        }
+
+        .tier-qty {
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .tier-price {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .option-group {
+            border-top: 1px solid var(--border-gray);
+            padding-top: 20px;
+        }
+
+        .option-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .size-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            padding: 10px 16px;
+            border: 2px solid var(--border-gray);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .size-btn:hover {
+            border-color: var(--accent-orange);
+        }
+
+        .size-btn.active {
+            border-color: var(--accent-orange);
+            background: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .color-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .color-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid var(--border-gray);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .color-item:hover {
+            border-color: var(--accent-orange);
+            background: var(--light-blue);
+        }
+
+        .color-item.active {
+            border-color: var(--accent-orange);
+            background: var(--light-blue);
+        }
+
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            border: 1px solid var(--border-gray);
+            flex-shrink: 0;
+        }
+
+        .color-info {
+            flex: 1;
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 13px;
+        }
+
+        .color-price {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .quantity-control {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid var(--border-gray);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .qty-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            padding: 6px;
+            font-weight: 600;
+        }
+
+        .subtotal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--light-gray);
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin: 20px 0;
+        }
+
+        .subtotal-value {
+            color: var(--accent-orange);
+            font-size: 20px;
+        }
+
+        .shipping-info {
+            background: var(--light-blue);
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .shipping-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .shipping-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .shipping-label {
+            color: var(--text-gray);
+        }
+
+        .shipping-value {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .change-zone {
+            color: var(--accent-orange);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .btn-order {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-order:hover {
+            background: #ff5a22;
+        }
+
+        .btn-add-basket {
+            background: white;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-add-basket:hover {
+            background: var(--light-blue);
+        }
+
+        /* Panier drawer */
+        .cart-drawer {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+        }
+
+        @media (max-width: 500px) {
+            .cart-drawer {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-gray);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.2s;
+        }
+
+        .cart-item-remove:hover {
+            color: #e53e3e;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-gray);
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .cart-total-label {
+            font-weight: 600;
+        }
+
+        .cart-total-value {
+            color: var(--accent-orange);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Section témoignages */
+        .testimonials {
+            background: var(--light-blue);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .testimonial-rating {
+            color: #ffc107;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .testimonial-text {
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 13px;
+        }
+
+        /* Section FAQ */
+        .faq-section {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-gray);
+            padding: 20px 0;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-orange);
+        }
+
+        .faq-arrow {
+            transition: transform 0.3s ease;
+            font-size: 18px;
+            color: var(--accent-orange);
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 12px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Marquee de réassurance */
+        .reassurance {
+            background: white;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-gray);
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .reassurance-items {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .reassurance-item {
+            text-align: center;
+        }
+
+        .reassurance-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .reassurance-title {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .reassurance-text {
+            color: var(--text-gray);
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            padding: 60px 20px 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-method a {
+            color: var(--accent-orange) !important;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success-green);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 6px;
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            nav {
+                display: none;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .header-content {
+                padding: 12px 16px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre promotionnelle -->
+    <div class="promo-bar">
+        <div class="promo-content">
+            <span class="promo-item">★ Livraison rapide dans tout le Sénégal</span>
+            <span class="promo-item">★ Paiement sécurisé Wave & WhatsApp</span>
+            <span class="promo-item">★ Garantie produit 12 mois</span>
+            <span class="promo-item">★ Service client réactif 24/7</span>
+            <span class="promo-item">★ Livraison rapide dans tout le Sénégal</span>
+            <span class="promo-item">★ Paiement sécurisé Wave & WhatsApp</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">Crystal Shop</a>
+            <nav>
+                <a href="#products">Produits</a>
+                <a href="#faq">Questions</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="header-icons">
+                <button class="icon-btn" onclick="openCart()">
+                    🛒
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Écailleuse Électrique<br>Premium & Durable</h1>
+            <p>Technologie innovante pour écailler vos poissons en quelques secondes. Parfait pour les particuliers, pêcheurs et commerçants.</p>
+            <button class="cta-button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Découvrir nos produits</button>
+        </div>
+    </section>
+
+    <!-- Produits -->
+    <section class="section" id="products">
+        <h2 class="section-title">Nos Écailleuses Électriques</h2>
+        <p class="section-subtitle">Sélectionnez le modèle qui correspond à vos besoins</p>
+        
+        <div class="products-grid" id="products-grid">
+            <!-- Les produits seront générés par JavaScript -->
+        </div>
+    </section>
+
+    <!-- Section Réassurance -->
+    <section class="reassurance">
+        <div class="reassurance-items">
+            <div class="reassurance-item">
+                <div class="reassurance-icon">✓</div>
+                <div class="reassurance-title">Qualité Garantie</div>
+                <div class="reassurance-text">Produits testés et approuvés</div>
+            </div>
+            <div class="reassurance-item">
+                <div class="reassurance-icon">📦</div>
+                <div class="reassurance-title">Livraison Rapide</div>
+                <div class="reassurance-text">Partout au Sénégal</div>
+            </div>
+            <div class="reassurance-item">
+                <div class="reassurance-icon">💳</div>
+                <div class="reassurance-title">Paiement Flexible</div>
+                <div class="reassurance-text">Wave, WhatsApp & Virement</div>
+            </div>
+            <div class="reassurance-item">
+                <div class="reassurance-icon">🤝</div>
+                <div class="reassurance-title">Support Client</div>
+                <div class="reassurance-text">Disponible 24h/24</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="section testimonials">
+        <h2 class="section-title">Avis de nos clients</h2>
+        <p class="section-subtitle">Découvrez ce que nos clients pensent de nos produits</p>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <div class="testimonial-text">"L'écailleuse est incroyable ! Elle m'a sauvé du temps. La qualité est excellente et la livraison était rapide."</div>
+                <div class="testimonial-author">Aminata Cissé - Dakar</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <div class="testimonial-text">"Je l'utilise dans ma poissonnerie depuis 3 semaines. Mes clients adorent les poissons mieux préparés. Vraiment satisfait."</div>
+                <div class="testimonial-author">Mohamed Ba - Thiès</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <div class="testimonial-text">"Pour le prix, c'est une bonne affaire. Fonctionne parfaitement, livraison dans les délais. Je recommande !"</div>
+                <div class="testimonial-author">Fatou Diop - Mbao</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <h2 class="section-title">Questions fréquentes</h2>
+        <p class="section-subtitle">Tout ce que vous devez savoir</p>
+        
+        <div class="faq-section">
+            <div class="faq-item active">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Quel est le délai de livraison ?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Nous livrons en 24-48h à Dakar Centre et en 2-3 jours en banlieue. Pour les autres villes, nous vous confirmons le délai par WhatsApp après validation de la commande.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Puis-je utiliser l'écailleuse sur tous types de poissons ?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Oui, nos écailleuses fonctionnent sur la plupart des poissons : sardinelles, dorade, barracuda, etc. Elle est particulièrement efficace sur les petits et moyens poissons.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Quelle est la durée de vie de l'écailleuse ?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Avec un entretien régulier, l'écailleuse dure au moins 2-3 ans. Nous vendons aussi des lames et brosses de rechange pour augmenter sa durée de vie.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Vend-vous les accessoires séparément ?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Oui, nous vendons des kits d'accessoires comprenant des lames de rechange, brosses de nettoyage et housses de protection.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Acceptez-vous les retours ?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Oui, nous acceptons les retours dans 15 jours si le produit est défectueux. Contactez-nous par WhatsApp pour initier le processus de retour.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal produit -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Sélectionnez les options et la quantité</div>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <div class="modal-badge">Prix inférieur à celui des produits similaires</div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <div class="gallery-main" id="gallery-main">
+                        <!-- Image/vidéo principale -->
+                    </div>
+                    <div class="gallery-thumbs" id="gallery-thumbs">
+                        <!-- Miniatures -->
+                    </div>
+                </div>
+                
+                <div class="product-options">
+                    <div class="price-tiers">
+                        <div class="tier">
+                            <span class="tier-qty">50–99 pièces</span>
+                            <span class="tier-price" id="tier-1">1 500 FCFA</span>
+                        </div>
+                        <div class="tier">
+                            <span class="tier-qty">100–999 pièces</span>
+                            <span class="tier-price" id="tier-2">1 350 FCFA</span>
+                        </div>
+                        <div class="tier">
+                            <span class="tier-qty">1000+ pièces</span>
+                            <span class="tier-price" id="tier-3">1 200 FCFA</span>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-label">Taille</label>
+                        <div class="size-buttons">
+                            <button class="size-btn active" onclick="selectSize(this, '16x5.5x4.2cm')">16x5.5x4.2cm</button>
+                            <button class="size-btn" onclick="selectSize(this, '18x6x5cm')">18x6x5cm</button>
+                            <button class="size-btn" onclick="selectSize(this, '20x7x6cm')">20x7x6cm</button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-label">Couleur</label>
+                        <div class="color-options" id="color-options">
+                            <!-- Couleurs générées par JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="subtotal">
+                        <span>Sous-total</span>
+                        <span class="subtotal-value" id="subtotal-price">1 500 FCFA</span>
+                    </div>
+
+                    <div class="shipping-info">
+                        <div class="shipping-row">
+                            <span class="shipping-label">Mode de livraison</span>
+                            <span class="shipping-value">Standard</span>
+                        </div>
+                        <div class="shipping-row">
+                            <span class="shipping-label">Frais de port</span>
+                            <span class="shipping-value" id="shipping-fee">1 000 FCFA</span>
+                        </div>
+                        <div class="shipping-row">
+                            <span class="shipping-label">Délai estimé</span>
+                            <span class="shipping-value" id="shipping-time">24-48h</span>
+                        </div>
+                        <div class="change-zone" onclick="openZoneSelector()">Changer la zone de livraison</div>
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button class="btn-order" onclick="orderViaWhatsApp()">Commander</button>
+                        <button class="btn-add-basket" onclick="addToCart()">Ajouter au panier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panier drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <div class="cart-title">Votre panier</div>
+            <button class="icon-btn" onclick="closeCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">Votre panier est vide</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-value" id="cart-total">0 FCFA</span>
+            </div>
+            <button class="cta-button" style="width: 100%; margin-bottom: 8px;" onclick="checkoutCart()">Procéder au paiement</button>
+            <button class="cta-button-outline" style="width: 100%; margin: 0;" onclick="closeCart()">Continuer les achats</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>À propos</h4>
+                <p style="color: rgba(255,255,255,0.7); font-size: 13px; line-height: 1.6;">Crystal Shop : votre partenaire pour les meilleures écailleuses électriques au Sénégal. Qualité, fiabilité et service client au cœur de notre engagement.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#products">Nos produits</a></li>
+                    <li><a href="#faq">Questions fréquentes</a></li>
+                    <li><a href="#contact">Nous contacter</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Nous contacter</h4>
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <span>Téléphone :</span>
+                        <a href="tel:+221774976364">+221 77 497 63 64</a>
+                    </div>
+                    <div class="contact-method">
+                        <span>WhatsApp :</span>
+                        <a href="https://wa.me/221774976364" target="_blank">+221 77 497 63 64</a>
+                    </div>
+                    <div class="contact-method">
+                        <span>Email :</span>
+                        <a href="mailto:crystalecom2026@gmail.com">crystalecom2026@gmail.com</a>
+                    </div>
+                    <div class="contact-method">
+                        <span>Wave :</span>
+                        <a onclick="copyToClipboard('774976364')">77 497 63 64</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Crystal Shop. Tous droits réservés. | Vente d'écailleuses électriques au Sénégal</p>
+        </div>
+    </footer>
+
+    <script>
+        // Données des produits
+        const products = [
+            {
+                id: 1,
+                name: "Écailleuse Électrique Portative",
+                description: "Parfaite pour les particuliers et pêcheurs amateurs",
+                price: 1500,
+                rating: 4.8,
+                reviews: 24,
+                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061037.png",
+                colors: [
+                    { name: "Bleu", color: "#6b9fb0", price: 1500 },
+                    { name: "Blanc", color: "#e8e8e8", price: 1500 }
+                ]
+            },
+            {
+                id: 2,
+                name: "Écailleuse Professionnelle Puissante",
+                description: "Pour poissonneries et restaurants",
+                price: 1500,
+                rating: 4.9,
+                reviews: 31,
+                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061106.png",
+                colors: [
+                    { name: "Gris", color: "#a0a0a0", price: 1500 },
+                    { name: "Bleu marine", color: "#2c5282", price: 1500 }
+                ]
+            },
+            {
+                id: 3,
+                name: "Écailleuse Rechargeable Sans Fil",
+                description: "Autonomie batterie longue durée",
+                price: 1500,
+                rating: 4.7,
+                reviews: 18,
+                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061115.png",
+                colors: [
+                    { name: "Blanc cristal", color: "#f5f5f5", price: 1500 },
+                    { name: "Bleu ciel", color: "#b3d9e6", price: 1500 }
+                ]
+            },
+            {
+                id: 4,
+                name: "Kit Accessoires Complet",
+                description: "Lames, brosses et housses de protection",
+                price: 1500,
+                rating: 4.6,
+                reviews: 12,
+                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061124.png",
+                colors: [
+                    { name: "Gris clair", color: "#b0b0b0", price: 1500 }
+                ]
+            }
+        ];
+
+        // État global
+        let currentProduct = null;
+        let currentZone = "Dakar Centre";
+        let cartItems = [];
+        let selectedSize = "16x5.5x4.2cm";
+        let selectedColor = null;
+        let selectedQuantities = {};
+
+        // Zones et frais
+        const zones = {
+            "Dakar Centre": { fee: 1000, time: "24-48h" },
+            "Dakar Banlieue": { fee: 2000, time: "2-3 jours" },
+            "Autres villes": { fee: 3000, time: "sur devis" }
+        };
+
+        // Initialiser la galerie
+        function initializeGallery() {
+            const galleryMain = document.getElementById("gallery-main");
+            const galleryThumbs = document.getElementById("gallery-thumbs");
+            
+            galleryMain.innerHTML = `<img src="${currentProduct.image}" alt="${currentProduct.name}" style="cursor: zoom-in;" onclick="this.style.transform = this.style.transform === 'scale(2)' ? 'scale(1)' : 'scale(2)'; this.style.transformOrigin = 'center';">`;
+            
+            galleryThumbs.innerHTML = `<div class="thumb active" onclick="switchGallery(this, '${currentProduct.image}')"><img src="${currentProduct.image}" alt=""></div>`;
+        }
+
+        // Afficher modal produit
+        function openProduct(productId) {
+            currentProduct = products.find(p => p.id === productId);
+            selectedColor = currentProduct.colors[0];
+            selectedQuantities = {};
+            currentProduct.colors.forEach(c => {
+                selectedQuantities[c.name] = 1;
+            });
+            
+            initializeGallery();
+            updateColorOptions();
+            updateSubtotal();
+            
+            document.getElementById("product-modal").classList.add("active");
+        }
+
+        function closeModal() {
+            document.getElementById("product-modal").classList.remove("active");
+        }
+
+        // Sélectionner la taille
+        function selectSize(btn, size) {
+            document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            selectedSize = size;
+        }
+
+        // Mettre à jour les couleurs
+        function updateColorOptions() {
+            const colorContainer = document.getElementById("color-options");
+            colorContainer.innerHTML = currentProduct.colors.map((color, idx) => `
+                <div class="color-item ${idx === 0 ? 'active' : ''}" onclick="selectColor(this, '${color.name}', ${color.price})">
+                    <div class="color-swatch" style="background-color: ${color.color};"></div>
+                    <div class="color-info">
+                        <div class="color-name">${color.name}</div>
+                        <div class="color-price">${color.price.toLocaleString('fr-SN')} FCFA</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="event.stopPropagation(); decreaseQty('${color.name}')">−</button>
+                        <input type="number" class="qty-input" value="${selectedQuantities[color.name] || 1}" onchange="setQty('${color.name}', this.value)" onclick="event.stopPropagation();">
+                        <button class="qty-btn" onclick="event.stopPropagation(); increaseQty('${color.name}')">+</button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function selectColor(elem, colorName, price) {
+            document.querySelectorAll(".color-item").forEach(e => e.classList.remove("active"));
+            elem.classList.add("active");
+            selectedColor = { name: colorName, price: price };
+            updateSubtotal();
+        }
+
+        // Gestion des quantités
+        function increaseQty(color) {
+            selectedQuantities[color] = (selectedQuantities[color] || 1) + 1;
+            updateColorOptions();
+            updateSubtotal();
+        }
+
+        function decreaseQty(color) {
+            if (selectedQuantities[color] > 1) {
+                selectedQuantities[color]--;
+            }
+            updateColorOptions();
+            updateSubtotal();
+        }
+
+        function setQty(color, value) {
+            selectedQuantities[color] = Math.max(1, parseInt(value) || 1);
+            updateSubtotal();
+        }
+
+        // Calculer le sous-total
+        function updateSubtotal() {
+            let total = 0;
+            Object.entries(selectedQuantities).forEach(([color, qty]) => {
+                const colorObj = currentProduct.colors.find(c => c.name === color);
+                if (colorObj) {
+                    total += colorObj.price * qty;
+                }
+            });
+            
+            document.getElementById("subtotal-price").textContent = total.toLocaleString('fr-SN') + " FCFA";
+            return total;
+        }
+
+        // Changer la zone
+        function openZoneSelector() {
+            const zoneChoice = prompt("Choisissez votre zone:\n1. Dakar Centre (1 000 FCFA)\n2. Dakar Banlieue (2 000 FCFA)\n3. Autres villes (sur devis)");
+            
+            if (zoneChoice === "1") {
+                currentZone = "Dakar Centre";
+            } else if (zoneChoice === "2") {
+                currentZone = "Dakar Banlieue";
+            } else if (zoneChoice === "3") {
+                currentZone = "Autres villes";
+            }
+            
+            updateShippingInfo();
+        }
+
+        function updateShippingInfo() {
+            const zone = zones[currentZone];
+            document.getElementById("shipping-fee").textContent = zone.fee.toLocaleString('fr-SN') + " FCFA";
+            document.getElementById("shipping-time").textContent = zone.time;
+        }
+
+        // Commander via WhatsApp
+        function orderViaWhatsApp() {
+            const subtotal = updateSubtotal();
+            const shippingFee = zones[currentZone].fee;
+            const total = subtotal + shippingFee;
+            
+            const items = Object.entries(selectedQuantities)
+                .map(([color, qty]) => `${color} x${qty}`)
+                .join(", ");
+            
+            const message = `Je souhaite commander: ${currentProduct.name} (${items}). Taille: ${selectedSize}. Zone: ${currentZone}. Total: ${total.toLocaleString('fr-SN')} FCFA`;
+            
+            window.open(`https://wa.me/221774976364?text=${encodeURIComponent(message)}`);
+        }
+
+        // Ajouter au panier
+        function addToCart() {
+            const item = {
+                productId: currentProduct.id,
+                name: currentProduct.name,
+                image: currentProduct.image,
+                size: selectedSize,
+                quantities: { ...selectedQuantities },
+                zone: currentZone
+            };
+            
+            cartItems.push(item);
+            updateCartUI();
+            closeModal();
+            showToast(`${currentProduct.name} ajouté au panier`);
+        }
+
+        // Mettre à jour l'interface du panier
+        function updateCartUI() {
+            const cartItemsDiv = document.getElementById("cart-items");
+            const cartCount = document.getElementById("cart-count");
+            
+            if (cartItems.length === 0) {
+                cartItemsDiv.innerHTML = '<div class="cart-empty">Votre panier est vide</div>';
+                cartCount.textContent = "0";
+                return;
+            }
+            
+            cartItemsDiv.innerHTML = cartItems.map((item, idx) => `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${Object.values(item.quantities).reduce((a, b) => a + b) * 1500}.toLocaleString('fr-SN') FCFA</div>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>
+                </div>
+            `).join("");
+            
+            cartCount.textContent = cartItems.length;
+            updateCartTotal();
+        }
+
+        function removeFromCart(idx) {
+            cartItems.splice(idx, 1);
+            updateCartUI();
+        }
+
+        function updateCartTotal() {
+            let total = 0;
+            cartItems.forEach(item => {
+                const qty = Object.values(item.quantities).reduce((a, b) => a + b);
+                const shippingFee = zones[item.zone].fee;
+                total += (qty * 1500) + shippingFee;
+            });
+            document.getElementById("cart-total").textContent = total.toLocaleString('fr-SN') + " FCFA";
+        }
+
+        // Panier
+        function openCart() {
+            document.getElementById("cart-drawer").classList.add("open");
+        }
+
+        function closeCart() {
+            document.getElementById("cart-drawer").classList.remove("open");
+        }
+
+        function checkoutCart() {
+            if (cartItems.length === 0) return;
+            
+            const items = cartItems.map(item => {
+                const colors = Object.entries(item.quantities)
+                    .map(([color, qty]) => `${color} x${qty}`)
+                    .join(", ");
+                return `${item.name} (${colors})`;
+            }).join("\n");
+            
+            const message = `Bonjour, je souhaite commander:\n${items}\n\nZone de livraison: ${cartItems[0].zone}`;
+            
+            window.open(`https://wa.me/221774976364?text=${encodeURIComponent(message)}`);
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.createElement("div");
+            toast.className = "toast";
+            toast.innerHTML = `<span>✓</span> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = "slideInRight 0.3s ease reverse";
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // FAQ
+        function toggleFaq(element) {
+            element.closest(".faq-item").classList.toggle("active");
+        }
+
+        // Copier vers presse-papiers
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            showToast("Numéro Wave copié!");
+        }
+
+        // Initialiser les produits
+        function initializeProducts() {
+            const grid = document.getElementById("products-grid");
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                        <div class="product-badge">Premium</div>
+                        <div class="product-rating">
+                            <span>★</span> ${product.rating} (${product.reviews})
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-price">${product.price.toLocaleString('fr-SN')} FCFA</div>
+                        <div class="product-footer">
+                            <button class="btn-add-cart" onclick="addQuickCart(${product.id})">Ajouter</button>
+                            <button class="btn-details" onclick="openProduct(${product.id})">Détails</button>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function addQuickCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const item = {
+                productId: product.id,
+                name: product.name,
+                image: product.image,
+                size: "16x5.5x4.2cm",
+                quantities: { [product.colors[0].name]: 1 },
+                zone: "Dakar Centre"
+            };
+            
+            cartItems.push(item);
+            updateCartUI();
+            showToast(`${product.name} ajouté au panier`);
+        }
+
+        // Initialiser la page
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeProducts();
+            updateShippingInfo();
+        });
+
+        // Fermer la modal en cliquant en dehors
+        document.getElementById("product-modal").addEventListener("click", (e) => {
+            if (e.target.id === "product-modal") closeModal();
+        });
+    </script>
+</body>
+</html>
