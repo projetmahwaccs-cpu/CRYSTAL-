@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crystal Shop - Écailleuse Électrique Premium</title>
+    <title>Crystal Shop - Écailleuse Manuelle Premium</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,14 +14,14 @@
         }
 
         :root {
-            --primary-blue: #2c5282;
-            --light-blue: #e8f0f8;
-            --accent-orange: #ff6b35;
-            --dark-gray: #1a202c;
-            --light-gray: #f7fafc;
-            --border-gray: #e2e8f0;
-            --text-gray: #4a5568;
-            --success-green: #48bb78;
+            --primary-blue: #2d7d3a;
+            --light-blue: #f0f8f3;
+            --accent-orange: #c9a961;
+            --dark-gray: #0f1419;
+            --light-gray: #fafbfc;
+            --border-gray: transparent;
+            --text-gray: #475569;
+            --success-green: #2d7d3a;
         }
 
         body {
@@ -27,6 +29,20 @@
             color: var(--dark-gray);
             background: #ffffff;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: none;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* Barre promotionnelle défilante */
@@ -61,7 +77,7 @@
             top: 0;
             background: white;
             border-bottom: 1px solid var(--border-gray);
-            z-index: 100;
+            z-index: 101;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
@@ -72,6 +88,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
+        }
+
+        .back-home-btn {
+            background: var(--accent-orange);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .back-home-btn:hover {
+            background: #ff5a22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(224, 120, 86, 0.25);
         }
 
         .logo {
@@ -139,9 +176,11 @@
 
         /* Hero section */
         .hero {
-            background: linear-gradient(135deg, var(--light-blue) 0%, #f0f9ff 100%);
-            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #f8f9fc 100%);
+            padding: 60px 20px;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content {
@@ -150,7 +189,7 @@
         }
 
         .hero h1 {
-            font-size: 52px;
+            font-size: 42px;
             font-weight: 700;
             color: var(--primary-blue);
             margin-bottom: 16px;
@@ -165,603 +204,383 @@
             line-height: 1.6;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 14px 36px;
-            background: var(--accent-orange);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
-        }
-
-        .cta-button:hover {
-            background: #ff5a22;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.35);
-        }
-
-        .cta-button-outline {
-            background: white;
-            color: var(--primary-blue);
-            border: 2px solid var(--primary-blue);
-            padding: 12px 32px;
-        }
-
-        .cta-button-outline:hover {
-            background: var(--light-blue);
-        }
-
-        /* Section produits */
-        .section {
+        /* Single Product Section */
+        .product-section {
             max-width: 1400px;
             margin: 0 auto;
             padding: 80px 20px;
-        }
-
-        .section-title {
-            font-size: 40px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .section-subtitle {
-            font-size: 16px;
-            color: var(--text-gray);
-            margin-bottom: 48px;
-            text-align: center;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-        }
-
-        .product-card {
-            background: white;
-            border: 1px solid var(--border-gray);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            border-color: var(--accent-orange);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            transform: translateY(-4px);
-        }
-
-        .product-image {
             position: relative;
-            width: 100%;
-            aspect-ratio: 1;
-            background: var(--light-gray);
+            z-index: 1;
+        }
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Image Gallery */
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-image-wrapper {
+            background: #f5f7fa;
+            border-radius: 0;
             overflow: hidden;
+            aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
-        .product-image img {
+        .main-image-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 40px;
             transition: transform 0.3s ease;
         }
 
-        .product-card:hover .product-image img {
+        .main-image-wrapper img:hover {
             transform: scale(1.05);
         }
 
-        .product-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--accent-orange);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .product-rating {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: rgba(255,255,255,0.95);
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-gray);
-        }
-
-        .product-rating span {
-            color: #ffc107;
-            margin-right: 4px;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--dark-gray);
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .product-description {
-            font-size: 13px;
-            color: var(--text-gray);
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .product-price {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 12px;
-        }
-
-        .product-footer {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-add-cart {
-            flex: 1;
-            padding: 10px;
-            background: var(--accent-orange);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-
-        .btn-add-cart:hover {
-            background: #ff5a22;
-        }
-
-        .btn-details {
-            flex: 1;
-            padding: 10px;
-            background: white;
-            border: 1px solid var(--border-gray);
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--primary-blue);
-            transition: all 0.2s;
-        }
-
-        .btn-details:hover {
-            border-color: var(--accent-orange);
-            color: var(--accent-orange);
-        }
-
-        /* Modal produit */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 1000;
-            padding: 20px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 900px;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px;
-            border-bottom: 1px solid var(--border-gray);
-            position: relative;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--dark-gray);
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-gray);
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: var(--dark-gray);
-        }
-
-        .modal-badge {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            background: var(--accent-orange);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .modal-body {
+        .gallery-thumbnails {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            padding: 24px;
-        }
-
-        .modal-gallery {
-            display: flex;
-            flex-direction: column;
+            grid-template-columns: repeat(4, 1fr);
             gap: 12px;
         }
 
-        .gallery-main {
-            width: 100%;
-            aspect-ratio: 1;
-            background: var(--light-gray);
-            border-radius: 8px;
+        .thumbnail {
+            background: #f5f7fa;
+            border-radius: 0;
+            cursor: pointer;
+            border: 3px solid transparent;
             overflow: hidden;
+            aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .gallery-main img,
-        .gallery-main video {
+        .thumbnail img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 10px;
         }
 
-        .gallery-thumbs {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .thumb {
-            width: 70px;
-            height: 70px;
-            background: var(--light-gray);
-            border: 2px solid var(--border-gray);
-            border-radius: 6px;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.2s;
-        }
-
-        .thumb:hover,
-        .thumb.active {
+        .thumbnail:hover {
             border-color: var(--accent-orange);
+            background: #f0f2f5;
         }
 
-        .thumb img,
-        .thumb video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .thumbnail.active {
+            border-color: var(--accent-orange);
+            background: #fff3f0;
         }
 
-        .product-options {
+        /* Product Info */
+        .product-info {
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
 
-        .price-tiers {
-            background: var(--light-blue);
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 16px;
+        .product-header {
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 24px;
         }
 
-        .tier {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(44, 82, 130, 0.1);
-            font-size: 13px;
-        }
-
-        .tier:last-child {
-            border-bottom: none;
-        }
-
-        .tier-qty {
-            color: var(--text-gray);
-            font-weight: 500;
-        }
-
-        .tier-price {
-            color: var(--primary-blue);
+        .product-title {
+            font-size: 32px;
             font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
         }
 
-        .option-group {
-            border-top: 1px solid var(--border-gray);
-            padding-top: 20px;
-        }
-
-        .option-label {
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-gray);
             font-size: 14px;
+        }
+
+        .product-rating span {
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .product-price {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin-top: 16px;
+        }
+
+        .product-description {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.8;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Color Selection */
+        .color-section {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .section-label {
             font-weight: 600;
-            color: var(--dark-gray);
+            color: var(--primary-blue);
             margin-bottom: 12px;
             display: block;
         }
 
-        .size-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .size-btn {
-            padding: 10px 16px;
-            border: 2px solid var(--border-gray);
-            background: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .size-btn:hover {
-            border-color: var(--accent-orange);
-        }
-
-        .size-btn.active {
-            border-color: var(--accent-orange);
-            background: var(--light-blue);
-            color: var(--primary-blue);
-        }
-
         .color-options {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 12px;
         }
 
-        .color-item {
-            display: flex;
-            gap: 12px;
-            align-items: center;
+        .color-option {
             padding: 12px;
-            border: 2px solid var(--border-gray);
-            border-radius: 6px;
+            border: 2px solid #e5e7eb;
+            border-radius: 0;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .color-item:hover {
-            border-color: var(--accent-orange);
-            background: var(--light-blue);
-        }
-
-        .color-item.active {
-            border-color: var(--accent-orange);
-            background: var(--light-blue);
-        }
-
-        .color-swatch {
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
-            border: 1px solid var(--border-gray);
-            flex-shrink: 0;
-        }
-
-        .color-info {
-            flex: 1;
-        }
-
-        .color-name {
-            font-weight: 600;
-            color: var(--dark-gray);
-            font-size: 13px;
-        }
-
-        .color-price {
-            font-size: 12px;
-            color: var(--text-gray);
-        }
-
-        .quantity-control {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .qty-btn {
-            width: 28px;
-            height: 28px;
-            border: 1px solid var(--border-gray);
-            background: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .qty-btn:hover {
-            border-color: var(--accent-orange);
-            color: var(--accent-orange);
-        }
-
-        .qty-input {
-            width: 50px;
             text-align: center;
-            border: 1px solid var(--border-gray);
-            border-radius: 4px;
-            padding: 6px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .color-option:hover {
+            border-color: var(--accent-orange);
+            background: #f5f7fa;
+        }
+
+        .color-option.active {
+            border-color: var(--accent-orange);
+            background: #fff3f0;
+            color: var(--accent-orange);
             font-weight: 600;
         }
 
-        .subtotal {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Shipping Zone */
+        .shipping-section {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .zone-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .zone-option {
             padding: 16px;
-            background: var(--light-gray);
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--dark-gray);
-            margin: 20px 0;
+            border: 2px solid #e5e7eb;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
         }
 
-        .subtotal-value {
-            color: var(--accent-orange);
-            font-size: 20px;
+        .zone-option:hover {
+            border-color: var(--accent-orange);
+            background: #f5f7fa;
         }
 
-        .shipping-info {
-            background: var(--light-blue);
-            padding: 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            margin-bottom: 20px;
+        .zone-option.active {
+            border-color: var(--accent-orange);
+            background: #fff3f0;
         }
 
-        .shipping-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
+        .zone-label {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 14px;
+            margin-bottom: 4px;
         }
 
-        .shipping-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .shipping-label {
+        .zone-time {
+            font-size: 12px;
             color: var(--text-gray);
         }
 
-        .shipping-value {
-            color: var(--primary-blue);
+        .zone-fee {
             font-weight: 600;
+            color: var(--accent-orange);
+            font-size: 14px;
+            margin-top: 4px;
         }
 
-        .change-zone {
-            color: var(--accent-orange);
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 12px;
+        /* Address Section */
+        .address-section {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .address-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 0;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
             margin-top: 8px;
         }
 
-        .modal-buttons {
+        .address-input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(224, 120, 86, 0.1);
+        }
+
+        /* Quantity */
+        .quantity-section {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .qty-btn:hover {
+            background: var(--light-blue);
+            border-color: var(--accent-orange);
+        }
+
+        .qty-display {
+            min-width: 50px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .product-actions {
             display: flex;
             gap: 12px;
+            padding: 24px 0;
         }
 
-        .modal-buttons button {
+        .btn-primary {
             flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
-        }
-
-        .btn-order {
+            padding: 16px;
             background: var(--accent-orange);
             color: white;
+            border: none;
+            border-radius: 0;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(224, 120, 86, 0.25);
         }
 
-        .btn-order:hover {
+        .btn-primary:hover {
             background: #ff5a22;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(224, 120, 86, 0.35);
         }
 
-        .btn-add-basket {
+        .btn-secondary {
+            flex: 1;
+            padding: 16px;
             background: white;
             color: var(--primary-blue);
             border: 2px solid var(--primary-blue);
+            border-radius: 0;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .btn-add-basket:hover {
+        .btn-secondary:hover {
             background: var(--light-blue);
         }
 
-        /* Panier drawer */
-        .cart-drawer {
-            position: fixed;
-            right: -400px;
-            top: 0;
-            width: 400px;
-            height: 100vh;
-            background: white;
-            z-index: 2000;
-            box-shadow: -4px 0 16px rgba(0,0,0,0.1);
-            transition: right 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            max-width: 100%;
+        /* Features Section */
+        .features-section {
+            background: #f5f7fa;
+            padding: 60px 20px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 1;
         }
 
-        @media (max-width: 500px) {
-            .cart-drawer {
-                width: 100%;
-                right: -100%;
-            }
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Cart Drawer */
+        .cart-drawer {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+            overflow-y: auto;
         }
 
         .cart-drawer.open {
@@ -769,39 +588,47 @@
         }
 
         .cart-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-gray);
+            padding: 24px;
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 20px;
+            font-weight: 700;
         }
 
-        .cart-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--dark-gray);
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
         }
 
         .cart-items {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 24px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--text-gray);
+            padding: 40px 20px;
         }
 
         .cart-item {
             display: flex;
-            gap: 12px;
-            padding: 16px;
-            border: 1px solid var(--border-gray);
-            border-radius: 6px;
-            margin-bottom: 12px;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .cart-item-image {
             width: 80px;
             height: 80px;
-            background: var(--light-gray);
-            border-radius: 4px;
+            background: #f5f7fa;
+            border-radius: 0;
             overflow: hidden;
             flex-shrink: 0;
         }
@@ -809,7 +636,8 @@
         .cart-item-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 8px;
         }
 
         .cart-item-details {
@@ -818,265 +646,253 @@
 
         .cart-item-name {
             font-weight: 600;
-            color: var(--dark-gray);
-            font-size: 13px;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
 
         .cart-item-price {
-            color: var(--primary-blue);
-            font-weight: 700;
-            font-size: 14px;
+            color: var(--accent-orange);
+            font-weight: 600;
         }
 
         .cart-item-remove {
             background: none;
             border: none;
-            color: var(--text-gray);
+            color: #ef4444;
             cursor: pointer;
             font-size: 18px;
-            transition: color 0.2s;
-        }
-
-        .cart-item-remove:hover {
-            color: #e53e3e;
-        }
-
-        .cart-empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-gray);
+            padding: 0;
         }
 
         .cart-footer {
-            padding: 20px;
-            border-top: 1px solid var(--border-gray);
+            padding: 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .cart-total {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            font-size: 16px;
-        }
-
-        .cart-total-label {
-            font-weight: 600;
-        }
-
-        .cart-total-value {
-            color: var(--accent-orange);
+            font-size: 18px;
             font-weight: 700;
-            font-size: 18px;
-        }
-
-        /* Section témoignages */
-        .testimonials {
-            background: var(--light-blue);
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 24px;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent-orange);
-        }
-
-        .testimonial-rating {
-            color: #ffc107;
             margin-bottom: 12px;
-            font-size: 14px;
         }
 
-        .testimonial-text {
-            color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 16px;
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        .testimonial-author {
+        .btn-checkout {
+            padding: 16px;
+            background: var(--success-green);
+            color: white;
+            border: none;
+            border-radius: 0;
             font-weight: 600;
-            color: var(--dark-gray);
-            font-size: 13px;
-        }
-
-        /* Section FAQ */
-        .faq-section {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid var(--border-gray);
-            padding: 20px 0;
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             cursor: pointer;
-            font-weight: 600;
-            color: var(--dark-gray);
-            user-select: none;
-        }
-
-        .faq-question:hover {
-            color: var(--accent-orange);
-        }
-
-        .faq-arrow {
-            transition: transform 0.3s ease;
-            font-size: 18px;
-            color: var(--accent-orange);
-        }
-
-        .faq-item.active .faq-arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            display: none;
-            margin-top: 12px;
-            color: var(--text-gray);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-
-        /* Marquee de réassurance */
-        .reassurance {
-            background: white;
-            padding: 40px 0;
-            border-top: 1px solid var(--border-gray);
-            border-bottom: 1px solid var(--border-gray);
-        }
-
-        .reassurance-items {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 0 20px;
-        }
-
-        .reassurance-item {
-            text-align: center;
-        }
-
-        .reassurance-icon {
-            font-size: 32px;
+            transition: all 0.3s ease;
             margin-bottom: 8px;
         }
 
-        .reassurance-title {
+        .btn-checkout:hover {
+            background: #3d8b5e;
+            transform: translateY(-2px);
+        }
+
+        .btn-wave {
+            padding: 16px;
+            background: #3560d9;
+            color: white;
+            border: none;
+            border-radius: 0;
             font-weight: 600;
-            color: var(--dark-gray);
-            font-size: 13px;
-            margin-bottom: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
         }
 
-        .reassurance-text {
-            color: var(--text-gray);
-            font-size: 12px;
+        .btn-wave:hover {
+            background: #2546b0;
         }
 
-        /* Footer */
-        footer {
-            background: var(--dark-gray);
+        .btn-orange {
+            padding: 16px;
+            background: #ff9800;
             color: white;
-            padding: 60px 20px 40px;
+            border: none;
+            border-radius: 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+        .btn-orange:hover {
+            background: #f57c00;
         }
 
-        .footer-section h4 {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: 0.5px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.2s;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: rgba(255,255,255,0.6);
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            font-size: 13px;
-        }
-
-        .contact-method {
-            display: flex;
+        /* Product Modal */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
         }
 
-        .contact-method a {
-            color: var(--accent-orange) !important;
-            font-weight: 600;
+        .product-modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 0;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
             cursor: pointer;
         }
 
-        /* Toast notification */
+        /* Toast */
         .toast {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background: var(--success-green);
             color: white;
-            padding: 16px 20px;
-            border-radius: 6px;
-            z-index: 3000;
-            animation: slideInRight 0.3s ease;
+            padding: 16px 24px;
+            border-radius: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             display: flex;
-            gap: 12px;
             align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.3s ease;
+            z-index: 2000;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Dynamic Animations */
+        @keyframes slideUp {
+            from {
+                transform: translateY(60px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-60px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .gallery-container {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .product-info {
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .hero {
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        .feature-item {
+            animation: slideUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.1s; }
+        .feature-item:nth-child(2) { animation-delay: 0.2s; }
+        .feature-item:nth-child(3) { animation-delay: 0.3s; }
+        .feature-item:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Video Demo Section */
+        .video-section {
+            max-width: 1400px;
+            margin: 80px auto 0;
+            padding: 80px 20px;
+            background: #f5f7fa;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .video-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .video-subtitle {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         @keyframes slideInRight {
@@ -1092,571 +908,358 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-
-            nav {
-                display: none;
-            }
-
-            .modal-body {
+            .product-layout {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 40px;
             }
 
-            .section {
-                padding: 40px 20px;
+            .hero h1 {
+                font-size: 28px;
             }
 
-            .header-content {
-                padding: 12px 16px;
+            .product-title {
+                font-size: 24px;
             }
 
-            .hero {
-                padding: 40px 20px;
+            .gallery-thumbnails {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .color-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .zone-options {
+                grid-template-columns: 1fr;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-drawer {
+                width: 100%;
+                right: -100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Barre promotionnelle -->
+    <!-- Barre Promotionnelle -->
     <div class="promo-bar">
         <div class="promo-content">
-            <span class="promo-item">★ Livraison rapide dans tout le Sénégal</span>
-            <span class="promo-item">★ Paiement sécurisé Wave & WhatsApp</span>
-            <span class="promo-item">★ Garantie produit 12 mois</span>
-            <span class="promo-item">★ Service client réactif 24/7</span>
-            <span class="promo-item">★ Livraison rapide dans tout le Sénégal</span>
-            <span class="promo-item">★ Paiement sécurisé Wave & WhatsApp</span>
+            <div class="promo-item">* Livraison gratuite pour les commandes supérieures à 15,000 FCFA</div>
+            <div class="promo-item">◆ Écaille vos poissons comme un pro avec notre écailleuse premium</div>
+            <div class="promo-item">✓ Satisfait ou remboursé - Garantie 30 jours</div>
         </div>
     </div>
 
     <!-- Header -->
     <header>
         <div class="header-content">
+            <a href="index.html" class="back-home-btn"><i class="fas fa-home"></i> Accueil</a>
             <a href="#" class="logo">Crystal Shop</a>
             <nav>
-                <a href="#products">Produits</a>
-                <a href="#faq">Questions</a>
+                <a href="#features">Caractéristiques</a>
+                <a href="#faq">FAQ</a>
                 <a href="#contact">Contact</a>
             </nav>
             <div class="header-icons">
-                <button class="icon-btn" onclick="openCart()">
-                    🛒
-                    <span class="cart-count" id="cart-count">0</span>
-                </button>
+                <button class="icon-btn" onclick="openCart()"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cart-count">0</span></button>
             </div>
         </div>
     </header>
 
-    <!-- Hero section -->
-    <section class="hero">
+    <!-- Hero Section -->
+    <div class="hero">
         <div class="hero-content">
-            <h1>Écailleuse Électrique<br>Premium & Durable</h1>
-            <p>Technologie innovante pour écailler vos poissons en quelques secondes. Parfait pour les particuliers, pêcheurs et commerçants.</p>
-            <button class="cta-button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Découvrir nos produits</button>
+            <h1>Écailleuse Manuelle Premium</h1>
+            <p>L'outil idéal pour préparer vos poissons avec facilité et précision. Durable, ergonomique et efficace.</p>
         </div>
-    </section>
+    </div>
 
-    <!-- Produits -->
-    <section class="section" id="products">
-        <h2 class="section-title">Nos Écailleuses Électriques</h2>
-        <p class="section-subtitle">Sélectionnez le modèle qui correspond à vos besoins</p>
-        
-        <div class="products-grid" id="products-grid">
-            <!-- Les produits seront générés par JavaScript -->
-        </div>
-    </section>
-
-    <!-- Section Réassurance -->
-    <section class="reassurance">
-        <div class="reassurance-items">
-            <div class="reassurance-item">
-                <div class="reassurance-icon">✓</div>
-                <div class="reassurance-title">Qualité Garantie</div>
-                <div class="reassurance-text">Produits testés et approuvés</div>
-            </div>
-            <div class="reassurance-item">
-                <div class="reassurance-icon">📦</div>
-                <div class="reassurance-title">Livraison Rapide</div>
-                <div class="reassurance-text">Partout au Sénégal</div>
-            </div>
-            <div class="reassurance-item">
-                <div class="reassurance-icon">💳</div>
-                <div class="reassurance-title">Paiement Flexible</div>
-                <div class="reassurance-text">Wave, WhatsApp & Virement</div>
-            </div>
-            <div class="reassurance-item">
-                <div class="reassurance-icon">🤝</div>
-                <div class="reassurance-title">Support Client</div>
-                <div class="reassurance-text">Disponible 24h/24</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Témoignages -->
-    <section class="section testimonials">
-        <h2 class="section-title">Avis de nos clients</h2>
-        <p class="section-subtitle">Découvrez ce que nos clients pensent de nos produits</p>
-        
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-rating">★★★★★</div>
-                <div class="testimonial-text">"L'écailleuse est incroyable ! Elle m'a sauvé du temps. La qualité est excellente et la livraison était rapide."</div>
-                <div class="testimonial-author">Aminata Cissé - Dakar</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-rating">★★★★★</div>
-                <div class="testimonial-text">"Je l'utilise dans ma poissonnerie depuis 3 semaines. Mes clients adorent les poissons mieux préparés. Vraiment satisfait."</div>
-                <div class="testimonial-author">Mohamed Ba - Thiès</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-rating">★★★★★</div>
-                <div class="testimonial-text">"Pour le prix, c'est une bonne affaire. Fonctionne parfaitement, livraison dans les délais. Je recommande !"</div>
-                <div class="testimonial-author">Fatou Diop - Mbao</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section">
-        <h2 class="section-title">Questions fréquentes</h2>
-        <p class="section-subtitle">Tout ce que vous devez savoir</p>
-        
-        <div class="faq-section">
-            <div class="faq-item active">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Quel est le délai de livraison ?</span>
-                    <span class="faq-arrow">▼</span>
+    <!-- Single Product Section -->
+    <div class="product-section">
+        <div class="product-layout">
+            <!-- Image Gallery -->
+            <div class="gallery-container">
+                <div class="main-image-wrapper">
+                    <img id="main-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Product">
                 </div>
-                <div class="faq-answer">
-                    Nous livrons en 24-48h à Dakar Centre et en 2-3 jours en banlieue. Pour les autres villes, nous vous confirmons le délai par WhatsApp après validation de la commande.
-                </div>
+                <div class="gallery-thumbnails" id="thumbnails"></div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Puis-je utiliser l'écailleuse sur tous types de poissons ?</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-answer">
-                    Oui, nos écailleuses fonctionnent sur la plupart des poissons : sardinelles, dorade, barracuda, etc. Elle est particulièrement efficace sur les petits et moyens poissons.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Quelle est la durée de vie de l'écailleuse ?</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-answer">
-                    Avec un entretien régulier, l'écailleuse dure au moins 2-3 ans. Nous vendons aussi des lames et brosses de rechange pour augmenter sa durée de vie.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Vend-vous les accessoires séparément ?</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-answer">
-                    Oui, nous vendons des kits d'accessoires comprenant des lames de rechange, brosses de nettoyage et housses de protection.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Acceptez-vous les retours ?</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-answer">
-                    Oui, nous acceptons les retours dans 15 jours si le produit est défectueux. Contactez-nous par WhatsApp pour initier le processus de retour.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal produit -->
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Sélectionnez les options et la quantité</div>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-                <div class="modal-badge">Prix inférieur à celui des produits similaires</div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-gallery">
-                    <div class="gallery-main" id="gallery-main">
-                        <!-- Image/vidéo principale -->
+            <!-- Product Info -->
+            <div class="product-info">
+                <div class="product-header">
+                    <h2 class="product-title">Écailleuse Manuelle Premium</h2>
+                    <div class="product-rating">
+                        <span>*</span> 4.8 (127 avis)
                     </div>
-                    <div class="gallery-thumbs" id="gallery-thumbs">
-                        <!-- Miniatures -->
+                    <div class="product-price">1,500 FCFA</div>
+                </div>
+
+                <div class="product-description">
+                    Notre écailleuse manuelle premium est conçue pour les professionnels et les amateurs de cuisine. Avec sa conception ergonomique et ses lames acérées, elle rend le nettoyage des poissons rapide et facile. Idéale pour tous types de poissons.
+                </div>
+
+                <!-- Color Selection -->
+                <div class="color-section">
+                    <label class="section-label">Choisissez une couleur:</label>
+                    <div class="color-options" id="color-options"></div>
+                </div>
+
+                <!-- Shipping Zone -->
+                <div class="shipping-section">
+                    <label class="section-label">Zone de livraison:</label>
+                    <div class="zone-options" id="zone-options"></div>
+                </div>
+
+                <!-- Delivery Address -->
+                <div class="address-section">
+                    <label class="section-label">Adresse de livraison:</label>
+                    <input type="text" id="delivery-address" class="address-input" placeholder="Ex: Mermoz, Dakar - Apt 5, Rue XYZ" required>
+                    <small style="color: var(--text-gray); display: block; margin-top: 8px;"><i class="fas fa-map-marker-alt"></i> Précisez votre localisation exacte pour faciliter la livraison</small>
+                </div>
+
+                <!-- Quantity -->
+                <div class="quantity-section">
+                    <label class="section-label">Quantité:</label>
+                    <div class="quantity-input">
+                        <button class="qty-btn" onclick="decreaseQty()">−</button>
+                        <div class="qty-display" id="qty-display">1</div>
+                        <button class="qty-btn" onclick="increaseQty()">+</button>
                     </div>
                 </div>
-                
-                <div class="product-options">
-                    <div class="price-tiers">
-                        <div class="tier">
-                            <span class="tier-qty">50–99 pièces</span>
-                            <span class="tier-price" id="tier-1">1 500 FCFA</span>
-                        </div>
-                        <div class="tier">
-                            <span class="tier-qty">100–999 pièces</span>
-                            <span class="tier-price" id="tier-2">1 350 FCFA</span>
-                        </div>
-                        <div class="tier">
-                            <span class="tier-qty">1000+ pièces</span>
-                            <span class="tier-price" id="tier-3">1 200 FCFA</span>
-                        </div>
-                    </div>
 
-                    <div class="option-group">
-                        <label class="option-label">Taille</label>
-                        <div class="size-buttons">
-                            <button class="size-btn active" onclick="selectSize(this, '16x5.5x4.2cm')">16x5.5x4.2cm</button>
-                            <button class="size-btn" onclick="selectSize(this, '18x6x5cm')">18x6x5cm</button>
-                            <button class="size-btn" onclick="selectSize(this, '20x7x6cm')">20x7x6cm</button>
-                        </div>
-                    </div>
-
-                    <div class="option-group">
-                        <label class="option-label">Couleur</label>
-                        <div class="color-options" id="color-options">
-                            <!-- Couleurs générées par JavaScript -->
-                        </div>
-                    </div>
-
-                    <div class="subtotal">
-                        <span>Sous-total</span>
-                        <span class="subtotal-value" id="subtotal-price">1 500 FCFA</span>
-                    </div>
-
-                    <div class="shipping-info">
-                        <div class="shipping-row">
-                            <span class="shipping-label">Mode de livraison</span>
-                            <span class="shipping-value">Standard</span>
-                        </div>
-                        <div class="shipping-row">
-                            <span class="shipping-label">Frais de port</span>
-                            <span class="shipping-value" id="shipping-fee">1 000 FCFA</span>
-                        </div>
-                        <div class="shipping-row">
-                            <span class="shipping-label">Délai estimé</span>
-                            <span class="shipping-value" id="shipping-time">24-48h</span>
-                        </div>
-                        <div class="change-zone" onclick="openZoneSelector()">Changer la zone de livraison</div>
-                    </div>
-
-                    <div class="modal-buttons">
-                        <button class="btn-order" onclick="orderViaWhatsApp()">Commander</button>
-                        <button class="btn-add-basket" onclick="addToCart()">Ajouter au panier</button>
-                    </div>
+                <!-- Action Buttons -->
+                <div class="product-actions">
+                    <button class="btn-primary" onclick="addToCart()"><i class="fas fa-shopping-cart"></i> Ajouter au Panier</button>
+                    <button class="btn-secondary" onclick="orderViaWhatsApp()"><i class="fas fa-comments"></i> Commander via WhatsApp</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Panier drawer -->
-    <div id="cart-drawer" class="cart-drawer">
+    <!-- Video Demo Section -->
+    <div class="video-section">
+        <div class="video-container">
+            <h2 class="video-title">Vidéo de Démonstration</h2>
+            <p class="video-subtitle">Voir notre écailleuse premium en action</p>
+            <div class="video-wrapper">
+                <video controls style="width: 100%; height: 100%; object-fit: contain;">
+                    <source src="p.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="features-container">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                <div class="feature-title">Premium Quality</div>
+                <div class="feature-text">Matériaux durables et lames acérées pour une performance optimale</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-cog"></i></div>
+                <div class="feature-title">Ergonomique</div>
+                <div class="feature-text">Design confortable pour une utilisation prolongée sans fatigue</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                <div class="feature-title">Livraison Rapide</div>
+                <div class="feature-text">Livraison gratuite dans tout le Sénégal sous 2-3 jours</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="feature-title">Garantie 30 Jours</div>
+                <div class="feature-text">Satisfait ou remboursé - Aucune question posée</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
-            <div class="cart-title">Votre panier</div>
-            <button class="icon-btn" onclick="closeCart()">✕</button>
+            Panier
+            <button class="cart-close" onclick="closeCart()">✕</button>
         </div>
         <div class="cart-items" id="cart-items">
             <div class="cart-empty">Votre panier est vide</div>
         </div>
         <div class="cart-footer">
             <div class="cart-total">
-                <span class="cart-total-label">Total</span>
-                <span class="cart-total-value" id="cart-total">0 FCFA</span>
+                Total: <span id="cart-total">0 FCFA</span>
             </div>
-            <button class="cta-button" style="width: 100%; margin-bottom: 8px;" onclick="checkoutCart()">Procéder au paiement</button>
-            <button class="cta-button-outline" style="width: 100%; margin: 0;" onclick="closeCart()">Continuer les achats</button>
+            <button class="btn-checkout" onclick="checkoutCart()"><i class="fas fa-comments"></i> Commander via WhatsApp</button>
+            <button class="btn-wave" onclick="paymentViaWave()"><i class="fas fa-credit-card"></i> Payer avec Wave</button>
+            <button class="btn-orange" onclick="paymentViaOrangeMoney()"><i class="fas fa-phone"></i> Payer avec Orange Money</button>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>À propos</h4>
-                <p style="color: rgba(255,255,255,0.7); font-size: 13px; line-height: 1.6;">Crystal Shop : votre partenaire pour les meilleures écailleuses électriques au Sénégal. Qualité, fiabilité et service client au cœur de notre engagement.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Navigation</h4>
-                <ul>
-                    <li><a href="#products">Nos produits</a></li>
-                    <li><a href="#faq">Questions fréquentes</a></li>
-                    <li><a href="#contact">Nous contacter</a></li>
-                    <li><a href="#">Politique de confidentialité</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Nous contacter</h4>
-                <div class="contact-info">
-                    <div class="contact-method">
-                        <span>Téléphone :</span>
-                        <a href="tel:+221774976364">+221 77 497 63 64</a>
-                    </div>
-                    <div class="contact-method">
-                        <span>WhatsApp :</span>
-                        <a href="https://wa.me/221774976364" target="_blank">+221 77 497 63 64</a>
-                    </div>
-                    <div class="contact-method">
-                        <span>Email :</span>
-                        <a href="mailto:crystalecom2026@gmail.com">crystalecom2026@gmail.com</a>
-                    </div>
-                    <div class="contact-method">
-                        <span>Wave :</span>
-                        <a onclick="copyToClipboard('774976364')">77 497 63 64</a>
-                    </div>
-                </div>
-            </div>
+    <!-- Product Modal -->
+    <div class="product-modal" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div id="modal-body"></div>
         </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2026 Crystal Shop. Tous droits réservés. | Vente d'écailleuses électriques au Sénégal</p>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        // Données des produits
-        const products = [
-            {
-                id: 1,
-                name: "Écailleuse Électrique Portative",
-                description: "Parfaite pour les particuliers et pêcheurs amateurs",
-                price: 1500,
-                rating: 4.8,
-                reviews: 24,
-                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061037.png",
-                colors: [
-                    { name: "Bleu", color: "#6b9fb0", price: 1500 },
-                    { name: "Blanc", color: "#e8e8e8", price: 1500 }
-                ]
-            },
-            {
-                id: 2,
-                name: "Écailleuse Professionnelle Puissante",
-                description: "Pour poissonneries et restaurants",
-                price: 1500,
-                rating: 4.9,
-                reviews: 31,
-                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061106.png",
-                colors: [
-                    { name: "Gris", color: "#a0a0a0", price: 1500 },
-                    { name: "Bleu marine", color: "#2c5282", price: 1500 }
-                ]
-            },
-            {
-                id: 3,
-                name: "Écailleuse Rechargeable Sans Fil",
-                description: "Autonomie batterie longue durée",
-                price: 1500,
-                rating: 4.7,
-                reviews: 18,
-                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061115.png",
-                colors: [
-                    { name: "Blanc cristal", color: "#f5f5f5", price: 1500 },
-                    { name: "Bleu ciel", color: "#b3d9e6", price: 1500 }
-                ]
-            },
-            {
-                id: 4,
-                name: "Kit Accessoires Complet",
-                description: "Lames, brosses et housses de protection",
-                price: 1500,
-                rating: 4.6,
-                reviews: 12,
-                image: "/mnt/user-data/uploads/Screenshot_2026-06-26_061124.png",
-                colors: [
-                    { name: "Gris clair", color: "#b0b0b0", price: 1500 }
-                ]
-            }
-        ];
-
-        // État global
-        let currentProduct = null;
-        let currentZone = "Dakar Centre";
-        let cartItems = [];
-        let selectedSize = "16x5.5x4.2cm";
-        let selectedColor = null;
-        let selectedQuantities = {};
-
-        // Zones et frais
-        const zones = {
-            "Dakar Centre": { fee: 1000, time: "24-48h" },
-            "Dakar Banlieue": { fee: 2000, time: "2-3 jours" },
-            "Autres villes": { fee: 3000, time: "sur devis" }
+        // Product Data
+        const product = {
+            id: 1,
+            name: "Écailleuse Manuelle Premium",
+            price: 1500,
+            rating: 4.8,
+            reviews: 127,
+            description: "Notre écailleuse manuelle premium est conçue pour les professionnels et les amateurs de cuisine.",
+            images: [
+                { color: "Vert (Ouvert)", url: "produitsouvertbleu.png" },
+                { color: "Gris Clair (Ouvert)", url: "screenshot-gris-clair.png" },
+                { color: "Gris/Teal (Ouvert)", url: "productbleufermer.png" },
+                { color: "Vert Foncé (Fermé)", url: "productvertfemer.png" }
+            ]
         };
 
-        // Initialiser la galerie
-        function initializeGallery() {
-            const galleryMain = document.getElementById("gallery-main");
-            const galleryThumbs = document.getElementById("gallery-thumbs");
-            
-            galleryMain.innerHTML = `<img src="${currentProduct.image}" alt="${currentProduct.name}" style="cursor: zoom-in;" onclick="this.style.transform = this.style.transform === 'scale(2)' ? 'scale(1)' : 'scale(2)'; this.style.transformOrigin = 'center';">`;
-            
-            galleryThumbs.innerHTML = `<div class="thumb active" onclick="switchGallery(this, '${currentProduct.image}')"><img src="${currentProduct.image}" alt=""></div>`;
-        }
+        // Image paths - Fichiers locaux
+        const imageUrls = [
+            "produitsouvertbleu.png",
+            "screenshot-gris-clair.png",
+            "productbleufermer.png",
+            "productvertfemer.png"
+        ];
 
-        // Afficher modal produit
-        function openProduct(productId) {
-            currentProduct = products.find(p => p.id === productId);
-            selectedColor = currentProduct.colors[0];
-            selectedQuantities = {};
-            currentProduct.colors.forEach(c => {
-                selectedQuantities[c.name] = 1;
-            });
-            
+        const colorNames = ["Vert (Ouvert)", "Gris Clair (Ouvert)", "Gris/Teal (Ouvert)", "Vert Foncé (Fermé)"];
+
+        // Shipping Zones
+        const zones = {
+            "Dakar Centre": { fee: 1000, time: "1-2 jours" },
+            "Dakar Banlieue": { fee: 2000, time: "2-3 jours" },
+            "Autres régions": { fee: 2000, time: "3-5 jours (Groupage)" }
+        };
+
+        // Cart and State
+        let cartItems = [];
+        let currentQuantity = 1;
+        let selectedColor = "Vert (Ouvert)";
+        let currentZone = "Dakar Centre";
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", () => {
             initializeGallery();
-            updateColorOptions();
-            updateSubtotal();
-            
-            document.getElementById("product-modal").classList.add("active");
+            initializeColorOptions();
+            initializeZoneOptions();
+            updateCartUI();
+        });
+
+        // Gallery Functions
+        function initializeGallery() {
+            const thumbnails = document.getElementById("thumbnails");
+            thumbnails.innerHTML = colorNames.map((color, idx) => `
+                <div class="thumbnail ${idx === 0 ? 'active' : ''}" onclick="selectImage(${idx})">
+                    <img src="${imageUrls[idx]}" alt="${color}">
+                </div>
+            `).join("");
+            selectImage(0);
         }
 
-        function closeModal() {
-            document.getElementById("product-modal").classList.remove("active");
+        function selectImage(idx) {
+            document.querySelectorAll(".thumbnail").forEach((t, i) => {
+                t.classList.toggle("active", i === idx);
+            });
+            document.getElementById("main-image").src = imageUrls[idx];
+            selectedColor = colorNames[idx];
         }
 
-        // Sélectionner la taille
-        function selectSize(btn, size) {
-            document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            selectedSize = size;
+        // Color Options
+        function initializeColorOptions() {
+            const colorOptions = document.getElementById("color-options");
+            colorOptions.innerHTML = colorNames.map((color, idx) => `
+                <div class="color-option ${idx === 0 ? 'active' : ''}" onclick="selectColor(${idx})">${color}</div>
+            `).join("");
         }
 
-        // Mettre à jour les couleurs
-        function updateColorOptions() {
-            const colorContainer = document.getElementById("color-options");
-            colorContainer.innerHTML = currentProduct.colors.map((color, idx) => `
-                <div class="color-item ${idx === 0 ? 'active' : ''}" onclick="selectColor(this, '${color.name}', ${color.price})">
-                    <div class="color-swatch" style="background-color: ${color.color};"></div>
-                    <div class="color-info">
-                        <div class="color-name">${color.name}</div>
-                        <div class="color-price">${color.price.toLocaleString('fr-SN')} FCFA</div>
-                    </div>
-                    <div class="quantity-control">
-                        <button class="qty-btn" onclick="event.stopPropagation(); decreaseQty('${color.name}')">−</button>
-                        <input type="number" class="qty-input" value="${selectedQuantities[color.name] || 1}" onchange="setQty('${color.name}', this.value)" onclick="event.stopPropagation();">
-                        <button class="qty-btn" onclick="event.stopPropagation(); increaseQty('${color.name}')">+</button>
-                    </div>
+        function selectColor(idx) {
+            document.querySelectorAll(".color-option").forEach((opt, i) => {
+                opt.classList.toggle("active", i === idx);
+            });
+            selectImage(idx);
+        }
+
+        // Shipping Zones
+        function initializeZoneOptions() {
+            const zoneOptions = document.getElementById("zone-options");
+            zoneOptions.innerHTML = Object.entries(zones).map(([zone, info], idx) => `
+                <div class="zone-option ${idx === 0 ? 'active' : ''}" onclick="selectZone('${zone}')">
+                    <div class="zone-label">${zone}</div>
+                    <div class="zone-time">${info.time}</div>
+                    <div class="zone-fee">${info.fee.toLocaleString('fr-SN')} FCFA</div>
                 </div>
             `).join("");
         }
 
-        function selectColor(elem, colorName, price) {
-            document.querySelectorAll(".color-item").forEach(e => e.classList.remove("active"));
-            elem.classList.add("active");
-            selectedColor = { name: colorName, price: price };
-            updateSubtotal();
-        }
-
-        // Gestion des quantités
-        function increaseQty(color) {
-            selectedQuantities[color] = (selectedQuantities[color] || 1) + 1;
-            updateColorOptions();
-            updateSubtotal();
-        }
-
-        function decreaseQty(color) {
-            if (selectedQuantities[color] > 1) {
-                selectedQuantities[color]--;
-            }
-            updateColorOptions();
-            updateSubtotal();
-        }
-
-        function setQty(color, value) {
-            selectedQuantities[color] = Math.max(1, parseInt(value) || 1);
-            updateSubtotal();
-        }
-
-        // Calculer le sous-total
-        function updateSubtotal() {
-            let total = 0;
-            Object.entries(selectedQuantities).forEach(([color, qty]) => {
-                const colorObj = currentProduct.colors.find(c => c.name === color);
-                if (colorObj) {
-                    total += colorObj.price * qty;
-                }
+        function selectZone(zone) {
+            currentZone = zone;
+            document.querySelectorAll(".zone-option").forEach(opt => {
+                opt.classList.toggle("active", opt.innerText.includes(zone));
             });
-            
-            document.getElementById("subtotal-price").textContent = total.toLocaleString('fr-SN') + " FCFA";
-            return total;
         }
 
-        // Changer la zone
-        function openZoneSelector() {
-            const zoneChoice = prompt("Choisissez votre zone:\n1. Dakar Centre (1 000 FCFA)\n2. Dakar Banlieue (2 000 FCFA)\n3. Autres villes (sur devis)");
-            
-            if (zoneChoice === "1") {
-                currentZone = "Dakar Centre";
-            } else if (zoneChoice === "2") {
-                currentZone = "Dakar Banlieue";
-            } else if (zoneChoice === "3") {
-                currentZone = "Autres villes";
+        // Quantity
+        function increaseQty() {
+            currentQuantity++;
+            document.getElementById("qty-display").textContent = currentQuantity;
+        }
+
+        function decreaseQty() {
+            if (currentQuantity > 1) {
+                currentQuantity--;
+                document.getElementById("qty-display").textContent = currentQuantity;
             }
-            
-            updateShippingInfo();
         }
 
-        function updateShippingInfo() {
-            const zone = zones[currentZone];
-            document.getElementById("shipping-fee").textContent = zone.fee.toLocaleString('fr-SN') + " FCFA";
-            document.getElementById("shipping-time").textContent = zone.time;
-        }
-
-        // Commander via WhatsApp
-        function orderViaWhatsApp() {
-            const subtotal = updateSubtotal();
-            const shippingFee = zones[currentZone].fee;
-            const total = subtotal + shippingFee;
-            
-            const items = Object.entries(selectedQuantities)
-                .map(([color, qty]) => `${color} x${qty}`)
-                .join(", ");
-            
-            const message = `Je souhaite commander: ${currentProduct.name} (${items}). Taille: ${selectedSize}. Zone: ${currentZone}. Total: ${total.toLocaleString('fr-SN')} FCFA`;
-            
-            window.open(`https://wa.me/221774976364?text=${encodeURIComponent(message)}`);
-        }
-
-        // Ajouter au panier
+        // Cart Functions
         function addToCart() {
+            const address = document.getElementById("delivery-address").value.trim();
+            if (!address) {
+                showToast("Veuillez entrer votre adresse de livraison");
+                return;
+            }
+
             const item = {
-                productId: currentProduct.id,
-                name: currentProduct.name,
-                image: currentProduct.image,
-                size: selectedSize,
-                quantities: { ...selectedQuantities },
-                zone: currentZone
+                name: product.name,
+                price: product.price,
+                color: selectedColor,
+                quantity: currentQuantity,
+                zone: currentZone,
+                address: address,
+                image: imageUrls[colorNames.indexOf(selectedColor)]
             };
-            
             cartItems.push(item);
             updateCartUI();
-            closeModal();
-            showToast(`${currentProduct.name} ajouté au panier`);
+            showToast(`${product.name} ajouté au panier!`);
+            currentQuantity = 1;
+            document.getElementById("qty-display").textContent = 1;
         }
 
-        // Mettre à jour l'interface du panier
         function updateCartUI() {
             const cartItemsDiv = document.getElementById("cart-items");
             const cartCount = document.getElementById("cart-count");
-            
+
             if (cartItems.length === 0) {
                 cartItemsDiv.innerHTML = '<div class="cart-empty">Votre panier est vide</div>';
                 cartCount.textContent = "0";
                 return;
             }
-            
+
             cartItemsDiv.innerHTML = cartItems.map((item, idx) => `
                 <div class="cart-item">
                     <div class="cart-item-image">
@@ -1664,12 +1267,14 @@
                     </div>
                     <div class="cart-item-details">
                         <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${Object.values(item.quantities).reduce((a, b) => a + b) * 1500}.toLocaleString('fr-SN') FCFA</div>
+                        <div style="font-size: 12px; color: var(--text-gray);">${item.color} × ${item.quantity}</div>
+                        <div style="font-size: 11px; color: #666; margin-top: 4px;"><i class="fas fa-map-marker-alt"></i> ${item.address}</div>
+                        <div class="cart-item-price">${(item.price * item.quantity).toLocaleString('fr-SN')} FCFA</div>
                     </div>
                     <button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>
                 </div>
             `).join("");
-            
+
             cartCount.textContent = cartItems.length;
             updateCartTotal();
         }
@@ -1682,14 +1287,12 @@
         function updateCartTotal() {
             let total = 0;
             cartItems.forEach(item => {
-                const qty = Object.values(item.quantities).reduce((a, b) => a + b);
-                const shippingFee = zones[item.zone].fee;
-                total += (qty * 1500) + shippingFee;
+                total += (item.price * item.quantity) + zones[item.zone].fee;
             });
             document.getElementById("cart-total").textContent = total.toLocaleString('fr-SN') + " FCFA";
         }
 
-        // Panier
+        // Cart Drawer
         function openCart() {
             document.getElementById("cart-drawer").classList.add("open");
         }
@@ -1698,96 +1301,110 @@
             document.getElementById("cart-drawer").classList.remove("open");
         }
 
-        function checkoutCart() {
-            if (cartItems.length === 0) return;
-            
-            const items = cartItems.map(item => {
-                const colors = Object.entries(item.quantities)
-                    .map(([color, qty]) => `${color} x${qty}`)
-                    .join(", ");
-                return `${item.name} (${colors})`;
-            }).join("\n");
-            
-            const message = `Bonjour, je souhaite commander:\n${items}\n\nZone de livraison: ${cartItems[0].zone}`;
-            
+        // WhatsApp Order
+        function orderViaWhatsApp() {
+            const address = document.getElementById("delivery-address").value.trim();
+            if (!address) {
+                showToast("Veuillez entrer votre adresse de livraison");
+                return;
+            }
+
+            const items = `${product.name} (${selectedColor}) × ${currentQuantity}`;
+            const total = (product.price * currentQuantity) + zones[currentZone].fee;
+            const message = `Je souhaite commander: ${items}.\n\nZone: ${currentZone}\nAdresse: ${address}\nTotal: ${total.toLocaleString('fr-SN')} FCFA`;
             window.open(`https://wa.me/221774976364?text=${encodeURIComponent(message)}`);
         }
 
+        function checkoutCart() {
+            if (cartItems.length === 0) return;
+
+            const items = cartItems.map(item => 
+                `${item.name} (${item.color}) × ${item.quantity}`
+            ).join("\n");
+
+            const firstAddress = cartItems[0].address;
+            const message = `Bonjour, je souhaite commander:\n${items}\n\nZone de livraison: ${cartItems[0].zone}\nAdresse: ${firstAddress}`;
+            window.open(`https://wa.me/221774976364?text=${encodeURIComponent(message)}`);
+        }
+
+        // Payment Functions
+        function paymentViaWave() {
+            const address = document.getElementById("delivery-address").value.trim();
+            if (!address) {
+                showToast("Veuillez entrer votre adresse de livraison");
+                return;
+            }
+
+            if (cartItems.length === 0) return;
+
+            // Demander le numéro de téléphone utilisé pour Wave
+            const phoneNumber = prompt("Entrez le numéro de téléphone utilisé pour le paiement Wave (ex: 77XXXXXXXX):");
+            if (!phoneNumber || phoneNumber.trim() === "") {
+                showToast("Numéro de téléphone requis");
+                return;
+            }
+
+            let total = 0;
+            const items = cartItems.map(item => {
+                const itemTotal = (item.price * item.quantity) + zones[item.zone].fee;
+                total += itemTotal;
+                return `${item.name} (${item.color}) × ${item.quantity}`;
+            }).join("\n");
+
+            // Real Wave Payment Link for Crystal Company
+            const wavePaymentUrl = `https://pay.wave.com/m/M_sn_30oc-Y5fg1Sp/c/sn/`;
+            window.open(wavePaymentUrl, '_blank');
+            
+            // Send order details with phone number via WhatsApp
+            const message = `=== PAIEMENT WAVE ===\n\nBonjour! Je souhaite confirmer mon paiement Wave:\n\nCommande:\n${items}\n\nTotal: ${total.toLocaleString('fr-SN')} FCFA\nZone: ${cartItems[0].zone}\nAdresse: ${address}\nNumero utilise: ${phoneNumber}\n\nMerci de valider mon paiement\nCapture d'ecran jointe ci-dessous`;
+            window.open(`https://wa.me/221774976364?text=${encodeURIComponent(message)}`);
+            
+            showToast("Envoyez votre capture d'ecran Wave via WhatsApp!");
+        }
+
+        function paymentViaOrangeMoney() {
+            const address = document.getElementById("delivery-address").value.trim();
+            if (!address) {
+                showToast("Veuillez entrer votre adresse de livraison");
+                return;
+            }
+
+            if (cartItems.length === 0) return;
+
+            // Demander le numéro de téléphone utilisé pour Orange Money
+            const phoneNumber = prompt("Entrez le numéro de téléphone utilisé pour le paiement Orange Money (ex: 77XXXXXXXX):");
+            if (!phoneNumber || phoneNumber.trim() === "") {
+                showToast("Numéro de téléphone requis");
+                return;
+            }
+
+            let total = 0;
+            const items = cartItems.map(item => {
+                const itemTotal = (item.price * item.quantity) + zones[item.zone].fee;
+                total += itemTotal;
+                return `${item.name} (${item.color}) × ${item.quantity}`;
+            }).join("\n");
+            
+            // Send order details with phone number via WhatsApp
+            const message = `=== PAIEMENT ORANGE MONEY ===\n\nBonjour! Je souhaite confirmer mon paiement Orange Money:\n\nCommande:\n${items}\n\nTotal: ${total.toLocaleString('fr-SN')} FCFA\nZone: ${cartItems[0].zone}\nAdresse: ${address}\nNumero utilise: ${phoneNumber}\n\nMerci de valider mon paiement\nCapture d'ecran jointe ci-dessous`;
+            window.open(`https://wa.me/221774976364?text=${encodeURIComponent(message)}`);
+            
+            showToast("Envoyez votre capture d'ecran Orange Money via WhatsApp!");
+        }
+
+        
         // Toast
         function showToast(message) {
             const toast = document.createElement("div");
             toast.className = "toast";
             toast.innerHTML = `<span>✓</span> ${message}`;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.style.animation = "slideInRight 0.3s ease reverse";
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
-
-        // FAQ
-        function toggleFaq(element) {
-            element.closest(".faq-item").classList.toggle("active");
-        }
-
-        // Copier vers presse-papiers
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text);
-            showToast("Numéro Wave copié!");
-        }
-
-        // Initialiser les produits
-        function initializeProducts() {
-            const grid = document.getElementById("products-grid");
-            grid.innerHTML = products.map(product => `
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.name}" loading="lazy">
-                        <div class="product-badge">Premium</div>
-                        <div class="product-rating">
-                            <span>★</span> ${product.rating} (${product.reviews})
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-description">${product.description}</div>
-                        <div class="product-price">${product.price.toLocaleString('fr-SN')} FCFA</div>
-                        <div class="product-footer">
-                            <button class="btn-add-cart" onclick="addQuickCart(${product.id})">Ajouter</button>
-                            <button class="btn-details" onclick="openProduct(${product.id})">Détails</button>
-                        </div>
-                    </div>
-                </div>
-            `).join("");
-        }
-
-        function addQuickCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const item = {
-                productId: product.id,
-                name: product.name,
-                image: product.image,
-                size: "16x5.5x4.2cm",
-                quantities: { [product.colors[0].name]: 1 },
-                zone: "Dakar Centre"
-            };
-            
-            cartItems.push(item);
-            updateCartUI();
-            showToast(`${product.name} ajouté au panier`);
-        }
-
-        // Initialiser la page
-        document.addEventListener("DOMContentLoaded", () => {
-            initializeProducts();
-            updateShippingInfo();
-        });
-
-        // Fermer la modal en cliquant en dehors
-        document.getElementById("product-modal").addEventListener("click", (e) => {
-            if (e.target.id === "product-modal") closeModal();
-        });
     </script>
 </body>
 </html>
